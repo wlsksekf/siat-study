@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자바스크립트 논리 연산자 & Truthy / Falsy</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9fafb;
+      padding: 28px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    pre {
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    pre code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      display: block;
+    }
+
+    code.inline {
+      background-color: #f6f8fa;
+      border: 1px solid #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      background-color: #ffffff;
+    }
+
+    thead th {
+      background-color: #111827;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    tbody td {
+      border: 1px solid #e5e7eb;
+      padding: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .note {
+      background-color: #eef3ff;
+      border-left: 4px solid #4a6cf7;
+      padding: 12px 14px;
+      margin: 14px 0;
+      border-radius: 8px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 18px 0;
+    }
+
+    ul {
+      margin: 8px 0 8px 18px;
+    }
+
+    li { margin: 6px 0; }
+
+    /* Truthy / Falsy 강조 */
+    .falsy {
+      background-color: #fdecea;
+      font-weight: bold;
+      color: #c0392b;
+    }
+
+    .truthy {
+      background-color: #eafaf1;
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    .result-false {
+      color: #c0392b;
+      font-weight: bold;
+    }
+
+    .result-true {
+      color: #27ae60;
+      font-weight: bold;
+    }
+  </style>
+
+  <script>
+    let a = true;
+    let b = false;
+
+    console.log(a && b);
+    console.log(a || b);
+    console.log(!a);
+
+    console.log(!0);
+    console.log(!1);
+    console.log(!10);
+
+    console.log(0 && 10);
+    console.log(10 && 20);
+
+    console.log(0 || 10);
+    console.log(100 || 10);
+
+    console.log(!"");
+    console.log("" || "hi");
+  </script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>논리 연산자 (Logical Operators)</h1>
+
+    <p>
+      논리 연산자는 <strong>true / false</strong> 값을 이용하여  
+      조건을 판단할 때 사용하는 연산자입니다.
+    </p>
+
+    <div class="note">
+      논리 연산식은 실행 결과로 하나의 값을 반환하므로  
+      <strong>표현식(Expression)</strong>입니다.
+    </div>
+
+    <h2>1. 논리 연산자 종류</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>연산자</th>
+          <th>이름</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="inline">&&</code></td>
+          <td>AND</td>
+          <td>두 값이 모두 true 일 때 true</td>
+        </tr>
+        <tr>
+          <td><code class="inline">||</code></td>
+          <td>OR</td>
+          <td>하나라도 true 이면 true</td>
+        </tr>
+        <tr>
+          <td><code class="inline">!</code></td>
+          <td>NOT</td>
+          <td>논리값을 반대로 변환</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>2. 기본 동작</h2>
+
+    <pre><code>true && true   // true
+true && false  // false
+
+false || false // false
+true || false  // true
+
+!true          // false
+!false         // true</code></pre>
+
+    <hr>
+
+    <h2>3. 단락 평가 (Short-circuit Evaluation)</h2>
+
+    <p>
+      자바스크립트의 논리 연산자는  
+      <strong>항상 true / false만 반환하지 않고 마지막으로 평가된 값을 반환</strong>합니다.
+    </p>
+
+    <div class="note">
+      <ul>
+        <li><code class="inline">A && B</code> → A가 Falsy 이면 A 반환, 아니면 B 반환</li>
+        <li><code class="inline">A || B</code> → A가 Truthy 이면 A 반환, 아니면 B 반환</li>
+      </ul>
+    </div>
+
+    <pre><code>0 && 10     // 0
+10 && 20    // 20
+
+0 || 10     // 10
+100 || 10   // 100</code></pre>
+
+    <hr>
+
+    <h2>4. Truthy / Falsy 정리 표</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>개념</th>
+          <th>예시 값</th>
+          <th>Boolean 변환 결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="falsy" rowspan="6">Falsy</td>
+          <td rowspan="6">조건식에서 false로 평가되는 값</td>
+          <td>false</td>
+          <td class="result-false" rowspan="6">false</td>
+        </tr>
+        <tr><td>0, -0</td></tr>
+        <tr><td>"" (빈 문자열)</td></tr>
+        <tr><td>null</td></tr>
+        <tr><td>undefined</td></tr>
+        <tr><td>NaN</td></tr>
+
+        <tr>
+          <td class="truthy" rowspan="5">Truthy</td>
+          <td rowspan="5">Falsy를 제외한 모든 값</td>
+          <td>1, -1, 0.1</td>
+          <td class="result-true" rowspan="5">true</td>
+        </tr>
+        <tr><td>"0", "false"</td></tr>
+        <tr><td>[] (빈 배열)</td></tr>
+        <tr><td>{} (빈 객체)</td></tr>
+        <tr><td>function(){}</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>5. 활용 예</h2>
+
+    <pre><code>let userName = input || "손님";</code></pre>
+
+    <p>
+      input 값이 없으면 기본값 <code class="inline">"손님"</code>이 저장됩니다.
+    </p>
+
+    <hr>
+
+    <h2>6. 정리</h2>
+    <ul>
+      <li>논리 연산자는 조건 판단에 사용된다.</li>
+      <li>AND, OR 연산자는 단락 평가를 수행한다.</li>
+      <li>논리 연산식은 마지막으로 평가된 값을 반환한다.</li>
+      <li>Truthy / Falsy 개념과 함께 사용된다.</li>
+    </ul>
+
+  </div>
+</body>
+</html>

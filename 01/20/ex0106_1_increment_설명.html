@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>증감 연산자(++ / --) </title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9fafb;
+      padding: 28px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    /* 노션 스타일 코드 블록 */
+    pre {
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    pre code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      display: block;
+    }
+
+    /* 인라인 코드 */
+    code.inline {
+      background-color: #f6f8fa;
+      border: 1px solid #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    /* 표 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    thead th {
+      background-color: #111827;
+      color: #ffffff;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    tbody td {
+      border-top: 1px solid #e5e7eb;
+      padding: 10px 12px;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .note {
+      background-color: #eef3ff;
+      border-left: 4px solid #4a6cf7;
+      padding: 12px 14px;
+      margin: 14px 0;
+      border-radius: 8px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 18px 0;
+    }
+
+    ul {
+      margin: 8px 0 8px 18px;
+    }
+
+    li { margin: 6px 0; }
+  </style>
+
+  <!-- 실행 코드 (콘솔에서 결과 확인) -->
+  <script>
+    let x = 5;
+
+    console.log(++x); // 6 (전위 증가)
+    console.log(x++); // 6 (후위 증가: 출력 후 증가)
+    console.log(x);   // 7
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>증감 연산자 (++ / --)</h1>
+
+    <p>
+      증감 연산자는 변수의 값을 <strong>1씩 증가(++), 또는 1씩 감소(--)</strong>시키는 연산자입니다.
+    </p>
+
+    <div class="note">
+      <strong>핵심</strong><br>
+      <ul>
+        <li><code class="inline">++x</code> : 먼저 증가(감소)한 뒤 값을 사용</li>
+        <li><code class="inline">x++</code> : 먼저 값을 사용한 뒤 증가(감소)</li>
+      </ul>
+    </div>
+
+    <h2>1. 실행 예제 코드</h2>
+    <pre><code>let x = 5;
+
+console.log(++x); // 6 (전위 증가)
+console.log(x++); // 6 (후위 증가: 출력 후 증가)
+console.log(x);   // 7</code></pre>
+
+    <p>
+      실행 결과는 브라우저 개발자 도구의 <strong>Console 창</strong>에서 확인할 수 있습니다.
+    </p>
+
+    <hr />
+
+    <h2>2. 전위 증가 연산자 (++x)</h2>
+    <p>
+      전위 증가 연산자는 <strong>값을 먼저 1 증가</strong>시킨 후,
+      증가된 값을 사용합니다.
+    </p>
+
+    <pre><code>let x = 5;
+console.log(++x); // x가 먼저 6이 되고, 6이 출력됨</code></pre>
+
+    <h2>3. 후위 증가 연산자 (x++)</h2>
+    <p>
+      후위 증가 연산자는 <strong>현재 값을 먼저 사용</strong>한 다음,
+      그 후에 값이 1 증가합니다.
+    </p>
+
+    <pre><code>let x = 6;
+console.log(x++); // 먼저 6이 출력되고, 출력 이후 x는 7이 됨</code></pre>
+
+    <hr />
+
+    <h2>4. 실행 흐름 정리</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>단계</th>
+          <th>코드</th>
+          <th>출력값</th>
+          <th>x 값 변화</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>초기값</td>
+          <td>-</td>
+          <td>x = 5</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><code class="inline">console.log(++x)</code></td>
+          <td>6</td>
+          <td>x: 5 → 6 (먼저 증가)</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><code class="inline">console.log(x++)</code></td>
+          <td>6</td>
+          <td>x: 6 → 7 (출력 후 증가)</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><code class="inline">console.log(x)</code></td>
+          <td>7</td>
+          <td>x = 7</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>중요</strong><br>
+      <code class="inline">++x</code>, <code class="inline">x++</code>는 모두
+      실행 결과로 하나의 값을 반환하므로 <strong>표현식(Expression)</strong>입니다.
+    </div>
+
+    <h2>5. 추가: 감소 연산자(--)</h2>
+    <p>
+      감소 연산자도 증가 연산자와 동일한 규칙을 가집니다.
+    </p>
+
+    <pre><code>let y = 5;
+
+console.log(--y); // 4 (전위 감소)
+console.log(y--); // 4 (후위 감소: 출력 후 감소)
+console.log(y);   // 3</code></pre>
+  </div>
+</body>
+</html>

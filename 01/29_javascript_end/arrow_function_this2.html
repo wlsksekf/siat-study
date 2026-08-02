@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <script>
+  const person = {
+    name: "홍길동",
+    sayHi: function() {
+      console.log(this.name);
+      setTimeout(function() {
+        console.log(this.name);
+        console.log(window.name === this.name);
+      }, 500);
+    }
+  };
+
+  const person2 = {
+    name: "이순신",
+    sayHi: function() {
+      console.log(this.name);
+      console.log(window.name === this.name);
+      setTimeout(() => {
+        console.log(this.name);
+      }, 500);
+    }
+  };
+
+  person.sayHi();
+  person2.sayHi();
+
+  </script>
+</body>
+</html>

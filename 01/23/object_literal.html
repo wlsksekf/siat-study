@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>object_리터럴 예제</title>
+</head>
+<body>
+    <script>
+        const saram = {
+            name: "김진환",
+            age: 25,
+            ki: 167,
+            blood_type: "B",
+            address: "경기도 성남시",
+            print: function(){
+                let output = "";
+                for (const p in this){
+                    if (p !== "print") {
+                    output += `${p} = ${this[p]}<br>`;
+                    }
+                }
+                document.body.innerHTML = output;
+            }
+        };
+
+        saram.print();
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>학생 명단 입력 시스템</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 300px;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        thead {
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>학생 정보 입력 > 표로 출력됩니다</h2>
+
+    <script>
+        let count;
+        let students = [];
+
+        while (true) {
+            let input = prompt("입력할 인원수를 입력하세요 (2~9)");
+
+            if (input === null) {
+                alert("입력이 취소되었습니다.");
+                break;
+            }
+
+            count = Number(input);
+
+            if (isNaN(count) || count < 2 || count > 9) {
+                alert("2~9 사이의 숫자만 입력해야 합니다");
+                continue;
+            }
+
+            break;
+        }
+
+        if (count >= 2 && count <= 9) {
+            for (let i = 0; i < count; i++) {
+                let name = prompt(`${i + 1}번째 학생 이름을 입력하세요`);
+                students.push(name ? name : "미입력");
+            }
+
+            let html = "<table>";
+            html += "<thead><tr><th>번호</th><th>이름</th></tr></thead>";
+            html += "<tbody>";
+
+            for (let i = 0; i < students.length; i++) {
+                html += `<tr><td>${i + 1}</td><td>${students[i]}</td></tr>`;
+            }
+
+            html += "</tbody></table>";
+
+            document.body.innerHTML += html;
+        }
+    </script>
+</body>
+</html>

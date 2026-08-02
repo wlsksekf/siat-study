@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>return문</title>
+</head>
+<body>
+    <script>
+        function getSum(start, end){
+            let sum = 0;
+            for(let i = start; i <= end; i++){
+                sum += i;
+            }
+            return sum;
+        }
+
+        const returnResult = getSum(1, 100);
+        alert(typeof (returnResult)+':'+returnResult);
+    </script>    
+</body>
+</html>

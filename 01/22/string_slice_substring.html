@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문자열 처리</title>
+</head>
+<body>
+    <script>
+        const text = "Hello JavaScript";
+
+        for(let i=0; i<text.length; i++){
+            console.log("index = "+[i]+" "+text[i]);
+        }
+
+        result = text.slice(0, 5);
+        console.log(text);
+        console.log(result);
+        console.log(result.length);
+
+        result = text.slice(6);
+        console.log(result);
+
+        for(let i=text.length; i>=0; i--){
+            console.log("index = "+[i]+" "+text[i]);
+        }
+
+        result = text.slice(10);
+        console.log(result);
+
+        result = text.slice(10, 14);
+        console.log(result);
+
+        result = text.slice(6, 16);
+        console.log(result);
+
+        result = text.slice(6, 10);
+        console.log(result);
+        
+        console.log(text.substring(6));
+        console.log(text.substring(6, 10));
+    </script>
+</body>
+</html>

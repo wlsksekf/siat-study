@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python @property 교안 (메서드를 속성처럼)</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --panel:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+
+      --primary:#2563eb;
+      --primary-2:#1d4ed8;
+      --good:#16a34a;
+      --warn:#f59e0b;
+
+      --shadow:0 12px 30px rgba(17,24,39,.08);
+
+      --code-bg:#0b1220;
+      --code-text:#e5e7eb;
+      --code-border:#1f2a44;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.85;
+      color:var(--text);
+      background:var(--bg);
+    }
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header{
+      padding:26px 28px;
+      background:linear-gradient(135deg, rgba(37,99,235,.10), rgba(29,78,216,.04));
+      border-bottom:1px solid var(--border);
+    }
+    h1{
+      margin:0 0 6px 0;
+      font-size:26px;
+      letter-spacing:-.2px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .content{ padding:26px 28px 30px; }
+
+    h2{
+      margin:22px 0 10px;
+      font-size:20px;
+      border-left:6px solid var(--primary);
+      padding-left:10px;
+      letter-spacing:-.2px;
+    }
+    h3{
+      margin:18px 0 8px;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+    p{ margin:8px 0; }
+    ul{ margin:8px 0 8px 18px; }
+    li{ margin:4px 0; }
+
+    .note, .tip, .warn{
+      margin:14px 0;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:#fff;
+    }
+    .note{ border-color: rgba(37,99,235,.25); background:rgba(37,99,235,.06); }
+    .note strong{ color:var(--primary-2); }
+
+    .tip{ border-color: rgba(22,163,74,.25); background:rgba(22,163,74,.06); }
+    .tip strong{ color:var(--good); }
+
+    .warn{ border-color: rgba(245,158,11,.28); background:rgba(245,158,11,.08); }
+    .warn strong{ color:#b45309; }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+      margin:12px 0;
+    }
+    th, td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{
+      background:#f9fafb;
+      text-align:left;
+      color:#374151;
+      font-weight:700;
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    pre{
+      margin:10px 0;
+      padding:14px;
+      background:var(--code-bg);
+      color:var(--code-text);
+      border:1px solid var(--code-border);
+      border-radius:12px;
+      overflow:auto;
+      line-height:1.65;
+      font-size:13px;
+    }
+    code{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .kbd{
+      display:inline-block;
+      padding:2px 7px;
+      border:1px solid var(--border);
+      border-bottom-width:2px;
+      border-radius:8px;
+      background:#fff;
+      font-family:ui-monospace, monospace;
+      font-size:12px;
+    }
+
+    /* Tabs */
+    .tabs{
+      margin-top:12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .tab-head{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      background:#f9fafb;
+    }
+    .tab-btn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:13px;
+      color:#374151;
+    }
+    .tab-btn[aria-selected="true"]{
+      border-color:rgba(37,99,235,.45);
+      background:rgba(37,99,235,.10);
+      color:var(--primary-2);
+    }
+    .tab-panel{ display:none; padding:14px 14px 8px; }
+    .tab-panel.active{ display:block; }
+
+    footer{
+      padding:18px 28px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+      background:#fbfcff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>파이썬 <code>@property</code> 교안</h1>
+      <p class="subtitle">
+        <code>@property</code>는 <strong>메서드를 마치 ‘변수(속성)’처럼</strong> 접근할 수 있게 해주는 기능입니다.
+      </p>
+    </header>
+
+    <div class="content">
+      <h2>1. 개념</h2>
+      <p>
+        <code>@property</code>는 <strong>메서드를 속성처럼 사용할 수 있게 하는 property 데코레이터</strong>입니다.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>@property</code></td>
+            <td>메서드를 속성처럼 사용할 수 있게 하는 <strong>property 데코레이터</strong>입니다.</td>
+          </tr>
+          <tr>
+            <td>다른 명칭</td>
+            <td>프로퍼티, 게터 프로퍼티, 속성 접근자</td>
+          </tr>
+          <tr>
+            <td>목적</td>
+            <td>함수 호출을 숨겨서 직관적 API를 제공합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <strong>핵심:</strong><br/>
+        <code>obj.price()</code>처럼 “함수 호출”을 하던 것을 <code>obj.price</code>처럼 “속성 접근”으로 바꿔
+        코드를 더 직관적으로 만들 수 있습니다.
+      </div>
+
+      <h2>2. 왜 쓰나요?</h2>
+      <div class="grid">
+        <div class="tip">
+          <strong>장점 1) 사용자가 더 편하게 사용합니다.</strong><br/>
+          값처럼 보이므로 읽기 쉬운 API를 만들 수 있습니다.
+        </div>
+        <div class="tip">
+          <strong>장점 2) 내부 구현을 나중에 바꿔도 외부 코드는 그대로 유지됩니다.</strong><br/>
+          지금은 단순 반환이지만, 나중에 검증/가공 로직이 추가되어도 호출 방식은 동일합니다.
+        </div>
+      </div>
+
+      <div class="warn">
+        <strong>주의:</strong><br/>
+        <code>@property</code>는 “값”처럼 보이지만 실제로는 “메서드 실행”입니다.
+        따라서 계산이 너무 무거운 작업(긴 반복/네트워크 요청 등)을 넣으면 예상과 다르게 느려질 수 있습니다.
+      </div>
+
+      <h2>3. 기본 예제</h2>
+      <div class="tabs" id="tabs">
+        <div class="tab-head" role="tablist" aria-label="@property 예시 탭">
+          <button class="tab-btn" role="tab" aria-selected="true" aria-controls="p1" id="t1" data-target="p1">예제 1) 기본</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="p2" id="t2" data-target="p2">예제 2) 리스트에서 텍스트 합치기</button>
+        </div>
+
+        <!-- 예제 1 -->
+        <section class="tab-panel active" role="tabpanel" id="p1" aria-labelledby="t1">
+          <h3>예제 1) price 메서드를 속성처럼 사용</h3>
+          <pre><code>class Product:
+    def __init__(self, price):
+        self._price = price
+
+    @property
+    def price(self):
+        return self._price
+
+p = Product(1000)
+print(p.price)   # ← 메서드 price()를 변수처럼 사용</code></pre>
+
+          <div class="note">
+            <strong>포인트:</strong><br/>
+            <code>p.price</code>는 “변수 접근”처럼 보이지만,
+            실제로는 <code>price(self)</code> 메서드가 실행됩니다.
+          </div>
+        </section>
+
+        <!-- 예제 2 -->
+        <section class="tab-panel" role="tabpanel" id="p2" aria-labelledby="t2">
+          <h3>예제 2) output에서 output_text만 모아 합치기</h3>
+          <pre><code>class Content:
+    def __init__(self, type, text):
+        self.type = type        # 예: "output_text"
+        self.text = text        # 실제 텍스트 내용
+
+class OutputItem:
+    def __init__(self, type, content):
+        self.type = type        # 예: "message"
+        self.content = content  # Content 객체 리스트
+
+class MyResponse:
+    def __init__(self, output_items: list[OutputItem]):
+        self.output = output_items
+
+    @property
+    def output_text(self) -> str:
+        """output 리스트 안에서 type이 'output_text'인 text를 모두 합쳐서 반환"""
+        texts: list[str] = []
+        for output in self.output:
+            if output.type == "message":
+                for content in output.content:
+                    if content.type == "output_text":
+                        texts.append(content.text)
+
+        return "".join(texts)
+
+# ---------------------------------------
+# 실제 사용
+# ---------------------------------------
+
+# (1) Content 객체 생성
+content1 = Content("output_text", "Hello, ")
+content2 = Content("output_text", "world!")
+content3 = Content("other_type", "무시될 내용")
+
+# (2) OutputItem 객체 생성
+message_item = OutputItem("message", [content1, content2, content3])
+other_item = OutputItem("log", [])  # message가 아니므로 무시됨
+
+# (3) MyResponse 객체 생성
+response = MyResponse([message_item, other_item])
+
+# (4) @property 접근 (메서드 호출이 아님)
+print(response.output_text)</code></pre>
+
+          <div class="tip">
+            <strong>핵심 포인트:</strong><br/>
+            <code>response.output_text</code>는 “속성 접근”처럼 보이지만,
+            내부에서는 출력 내용을 찾아 합치는 로직이 실행됩니다.
+          </div>
+        </section>
+      </div>
+
+      <h2>4. 정리</h2>
+      <ul>
+        <li><code>@property</code>는 <strong>메서드를 속성처럼</strong> 접근하게 합니다.</li>
+        <li>외부 코드는 <code>obj.attr</code> 형태로 더 직관적으로 사용합니다.</li>
+        <li>내부 구현(검증/가공/계산)을 바꿔도 외부 호출 방식은 유지됩니다.</li>
+      </ul>
+
+      <div class="note">
+        <strong>한 줄 결론:</strong><br/>
+        <code>@property</code>는 “함수 호출을 숨겨서 API를 깔끔하게 만드는” 데코레이터입니다.
+      </div>
+    </div>
+
+
+  </div>
+
+  <script>
+    (function () {
+      const tabs = document.getElementById("tabs");
+      if (!tabs) return;
+
+      const buttons = tabs.querySelectorAll(".tab-btn");
+      const panels = tabs.querySelectorAll(".tab-panel");
+
+      function activate(targetId) {
+        buttons.forEach(btn => {
+          const selected = btn.dataset.target === targetId;
+          btn.setAttribute("aria-selected", selected ? "true" : "false");
+        });
+        panels.forEach(panel => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => activate(btn.dataset.target));
+      });
+    })();
+  </script>
+</body>
+</html>

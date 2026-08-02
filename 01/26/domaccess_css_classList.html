@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .change{
+        color: red;
+        background: yellow;
+        width: 200px;
+        height: 50px;
+        font-size: 30px;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+</style>
+<script>
+    window.onclick = function(){
+        const dom = document.getElementById("username");
+
+        const newValue = prompt("이름을 입력하세요", "");
+
+        dom.value = newValue;
+
+        dom.classList.add('change');
+    }
+</script>
+</head>
+<body>
+    이름 : <input id="username" type="text" value="사용자의 이름?" class="bold">
+</body>
+</html>

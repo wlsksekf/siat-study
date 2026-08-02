@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>JavaScript location 객체 교안</title>
+<style>
+  body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height:1.7;
+    background:#f7f8fb;
+    color:#1f2937;
+    padding:30px;
+  }
+  .container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:24px;
+    box-shadow:0 6px 16px rgba(0,0,0,0.06);
+  }
+  h1{font-size:26px;}
+  h2{margin-top:18px; font-size:20px;}
+  .card{
+    background:#f9fafb;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:16px;
+    margin-top:12px;
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    margin-top:10px;
+  }
+  th,td{
+    border:1px solid #d1d5db;
+    padding:8px;
+    text-align:left;
+  }
+  th{background:#eef2ff;}
+  pre{
+    background:#0f172a;
+    color:#e5e7eb;
+    padding:14px;
+    border-radius:8px;
+    overflow:auto;
+  }
+  button{
+    margin:4px;
+    padding:6px 14px;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1> JavaScript location 객체</h1>
+
+<div class="card">
+<h2>1. location 객체란?</h2>
+<p>
+location 객체는 <b>브라우저의 주소 표시줄(URL)</b>과 관련된 정보를 담고 있는 객체입니다.  
+현재 열려 있는 페이지의 주소 정보를 읽거나, 새로운 페이지로 이동할 때 사용됩니다.
+</p>
+</div>
+
+<div class="card">
+<h2>2. 주요 속성</h2>
+
+<table>
+<tr>
+  <th>속성</th>
+  <th>설명</th>
+  <th>예시</th>
+</tr>
+<tr>
+  <td>href</td>
+  <td>문서의 전체 URL 주소입니다.</td>
+  <td>http://localhost:8080/index.html</td>
+</tr>
+<tr>
+  <td>protocol</td>
+  <td>사용 중인 프로토콜 종류입니다.</td>
+  <td>http:, https:</td>
+</tr>
+<tr>
+  <td>hostname</td>
+  <td>호스트 이름(도메인)입니다.</td>
+  <td>localhost</td>
+</tr>
+<tr>
+  <td>host</td>
+  <td>호스트 이름 + 포트 번호입니다.</td>
+  <td>localhost:8080</td>
+</tr>
+<tr>
+  <td>port</td>
+  <td>포트 번호입니다.</td>
+  <td>8080</td>
+</tr>
+<tr>
+  <td>pathname</td>
+  <td>서버 내 문서의 경로입니다.</td>
+  <td>/index.html</td>
+</tr>
+</table>
+
+</div>
+
+<div class="card">
+<h2>3. location 정보 출력 예제</h2>
+
+<pre>
+&lt;script&gt;
+let output = "";
+
+for(let key in location){
+  output += key + " : " + location[key] + "\n";
+}
+
+alert(output);
+&lt;/script&gt;
+</pre>
+
+<p>
+for...in 문을 이용하여 location 객체의 모든 속성과 값을 출력합니다.
+</p>
+</div>
+
+<div class="card">
+<h2>4. 페이지 이동 기능</h2>
+
+<button onclick="movePage()">다른 페이지로 이동</button>
+<button onclick="replacePage()">replace로 이동</button>
+<button onclick="reloadPage()">페이지 새로고침</button>
+
+<pre>
+function movePage(){
+  location.href = "https://www.google.com";
+}
+
+function replacePage(){
+  location.replace("https://www.google.com");
+}
+
+function reloadPage(){
+  location.reload();
+}
+</pre>
+
+<script>
+function movePage(){
+  location.href = "https://www.google.com";
+}
+function replacePage(){
+  location.replace("https://www.google.com");
+}
+function reloadPage(){
+  location.reload();
+}
+</script>
+
+<p>
+✔ location.href → 새로운 페이지로 이동합니다.<br>
+✔ location.replace() → 뒤로가기 기록 없이 이동합니다.<br>
+✔ location.reload() → 현재 페이지를 새로고침합니다.
+</p>
+
+</div>
+
+<div class="card">
+<h2>5. 정리</h2>
+<ul>
+  <li>location 객체는 현재 페이지의 URL 정보를 담고 있습니다.</li>
+  <li>주소 정보를 읽거나 변경하여 페이지 이동이 가능합니다.</li>
+  <li>웹 페이지 네비게이션 제어에 사용됩니다.</li>
+</ul>
+</div>
+
+</div>
+
+</body>
+</html>

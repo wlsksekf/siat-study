@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>자바스크립트 반복문 교안</title>
+<style>
+  body{font-family:Arial,sans-serif;background:#f7f8fb;padding:28px;line-height:1.7}
+  .wrap{max-width:1000px;margin:auto}
+  header{background:#2563eb;color:#fff;padding:20px;border-radius:10px}
+  section{background:#fff;margin-top:15px;padding:20px;border-radius:10px;border:1px solid #e5e7eb}
+  pre{background:#0b1020;color:#e5e7eb;padding:12px;border-radius:8px}
+  table{border-collapse:collapse;width:100%;margin-top:10px}
+  th,td{border:1px solid #ddd;padding:10px}
+  th{background:#f3f4f6}
+  .note{background:#ecfdf5;padding:10px;border-left:4px solid #10b981;margin-top:10px}
+  .warn{background:#fef2f2;padding:10px;border-left:4px solid #ef4444;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>자바스크립트 반복문 (Loops)</h1>
+  <p>for문과 while문의 실행 순서를 포함한 반복문 교안</p>
+</header>
+
+<section>
+<h2>1) for 반복문 기본 구조</h2>
+
+<pre><code>for (초기값; 조건식; 증감식) {
+   실행문;
+}</code></pre>
+
+<h3>for문 수행 순서</h3>
+
+<table>
+<tr><th>단계</th><th>설명</th></tr>
+<tr><td>① 초기값 실행</td><td>반복문 시작 시 단 한 번 실행됩니다.</td></tr>
+<tr><td>② 조건식 검사</td><td>조건이 true이면 반복문이 실행됩니다.</td></tr>
+<tr><td>③ 실행문 수행</td><td>반복할 코드가 실행됩니다.</td></tr>
+<tr><td>④ 증감식 실행</td><td>변수 값을 증가 또는 감소시킵니다.</td></tr>
+<tr><td>⑤ 다시 조건식 검사</td><td>조건이 false가 될 때까지 ②~④가 반복됩니다.</td></tr>
+</table>
+
+<div class="note">
+<strong>정리:</strong>  
+for문 순서 → 초기값 → 조건식 → 실행문 → 증감식 → 조건식 → … 반복
+</div>
+
+<h3>예제</h3>
+<pre><code>for (let i = 1; i <= 3; i++) {
+  console.log(i);
+}</code></pre>
+
+출력 결과 → 1 2 3
+
+---
+
+<h2>2) while 반복문 기본 구조</h2>
+
+<pre><code>while (조건식) {
+   실행문;
+}</code></pre>
+
+<h3>while문 수행 순서</h3>
+
+<table>
+<tr><th>단계</th><th>설명</th></tr>
+<tr><td>① 조건식 검사</td><td>조건이 true이면 반복문이 시작됩니다.</td></tr>
+<tr><td>② 실행문 수행</td><td>반복할 코드가 실행됩니다.</td></tr>
+<tr><td>③ 다시 조건식 검사</td><td>false가 될 때까지 반복됩니다.</td></tr>
+</table>
+
+<div class="note">
+<strong>정리:</strong>  
+while문 순서 → 조건식 → 실행문 → 조건식 → … 반복
+</div>
+
+<div class="warn">
+<strong>주의:</strong>  
+조건식이 항상 true이면 무한 반복이 발생합니다.
+</div>
+
+<h3>예제</h3>
+<pre><code>let i = 1;
+while (i <= 3) {
+  console.log(i);
+  i++;
+}</code></pre>
+
+출력 결과 → 1 2 3
+
+---
+
+<h2>3) for문 vs while문 수행 순서 비교</h2>
+
+<table>
+<tr><th>구분</th><th>for문</th><th>while문</th></tr>
+<tr>
+<td>초기값</td>
+<td>for문 내부에 포함됩니다</td>
+<td>반복문 밖에서 작성됩니다</td>
+</tr>
+<tr>
+<td>조건 검사</td>
+<td>반복 시작 전 검사됩니다</td>
+<td>반복 시작 전 검사됩니다</td>
+</tr>
+<tr>
+<td>증감식</td>
+<td>for문 내부에 포함됩니다</td>
+<td>실행문 내부에서 직접 작성합니다</td>
+</tr>
+<tr>
+<td>구조적 특징</td>
+<td>반복 횟수가 명확할 때 사용됩니다</td>
+<td>조건 중심 반복에 사용됩니다</td>
+</tr>
+</table>
+
+</section>
+
+</div>
+</body>
+</html>

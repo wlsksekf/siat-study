@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>try-catch</title>
+</head>
+<body>
+    <script>
+        function parseAge(input) {
+            const n = Number(input);
+
+            if (Number.isNaN(n) || n < 0) {
+            throw new Error("나이는 0 이상의 숫자여야 합니다.");
+            }
+
+            return n;
+        }
+
+        try {
+            const age = parseAge("abc");
+            console.log("나이:", age);
+        } catch (err) {
+            console.log("에러:", err.message);
+        } finally{
+            console.log("finally");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <title>교안 - Python print() 함수</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", Arial, sans-serif;
+      line-height:1.8;
+      color:#111827;
+      background:#f6f7fb;
+    }
+    .container{
+      max-width:1080px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:26px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.06);
+    }
+    header{
+      padding:18px 18px 16px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,0.14);
+    }
+    header h1{margin:0 0 6px; font-size:26px}
+    header p{margin:0; opacity:.95}
+
+    section{margin-top:22px}
+    h2{margin:0 0 10px; font-size:20px}
+    h3{margin:14px 0 8px; font-size:16px}
+    h4{margin:12px 0 6px; font-size:14px; color:#0f172a}
+    p{margin:8px 0}
+    ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:12px;
+    }
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 1fr 1fr;}
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    .aside{
+      display:flex;
+      gap:10px;
+      background:#eef2ff;
+      border:1px solid #c7d2fe;
+      padding:12px 14px;
+      border-radius:12px;
+      margin:12px 0;
+      color:#1e3a8a;
+    }
+    .badge{
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      background:#4338ca;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+    }
+    .pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      color:#374151;
+      font-size:12px;
+      margin-right:6px;
+      margin-top:6px;
+    }
+
+    pre{
+      margin:10px 0;
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:14px;
+      border-radius:12px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    th,td{
+      border-bottom:1px solid #e5e7eb;
+      padding:12px 10px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      background:#f3f4f6;
+      font-weight:700;
+      width:28%;
+    }
+    tr:last-child td{border-bottom:none}
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      background:#fefce8;
+      border:1px solid #fde68a;
+      border-radius:12px;
+      color:#92400e;
+    }
+
+    .quiz{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:16px;
+    }
+    details{
+      margin-top:10px;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    summary{cursor:pointer; font-weight:700}
+    hr.sep{border:none;border-top:1px dashed #e5e7eb;margin:16px 0}
+    .muted{color:#6b7280}
+
+    .mini{
+      display:inline-block;
+      margin-top:8px;
+      font-size:12px;
+      color:#6b7280;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Python print() 함수</h1>
+      <p>기본 구조 · sep/end · file · flush · 문자열 포매팅 · 실습/퀴즈</p>
+      <div>
+        <span class="pill">print()</span>
+        <span class="pill">sep</span>
+        <span class="pill">end</span>
+        <span class="pill">file</span>
+        <span class="pill">flush</span>
+        <span class="pill">f-string</span>
+      </div>
+    </header>
+
+    <!-- 1. 개요 -->
+    <section>
+      <h2>1. print()란?</h2>
+      <div class="aside">
+        <div class="badge">👉</div>
+        <div>
+          <b>print()</b>는 값을 <b>표준 출력(화면/터미널)</b>으로 출력하는 함수입니다.<br>
+          <b>sep / end / file / flush</b> 옵션으로 출력 형태와 출력 위치를 제어할 수 있습니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 기본 형식 -->
+    <section>
+      <h2>2. print() 기본 형식</h2>
+      <div class="card">
+        <h3>형식</h3>
+        <pre><code># print() 형식
+# print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)</code></pre>
+
+        <h4>매개변수 설명</h4>
+        <table>
+          <tr>
+            <th>value, ...</th>
+            <td>출력할 값들입니다. 콤마로 여러 개를 전달할 수 있습니다.</td>
+          </tr>
+          <tr>
+            <th>sep</th>
+            <td>값 사이에 넣을 구분 문자열입니다. 기본값은 공백(<code>' '</code>) 입니다.</td>
+          </tr>
+          <tr>
+            <th>end</th>
+            <td>출력 끝에 붙일 문자열입니다. 기본값은 줄바꿈(<code>'\n'</code>) 입니다.</td>
+          </tr>
+          <tr>
+            <th>file</th>
+            <td>
+              출력할 “대상(목적지)”입니다. 기본값은 화면(<code>sys.stdout</code>) 입니다.<br>
+              파일 객체를 주면 <b>화면이 아니라 파일에 출력(저장)</b>됩니다.
+            </td>
+          </tr>
+          <tr>
+            <th>flush</th>
+            <td>
+              출력 버퍼를 즉시 비울지 여부입니다. 기본값은 <code>False</code> 입니다.<br>
+              <code>True</code>이면 줄바꿈이 없어도 즉시 출력됩니다.
+            </td>
+          </tr>
+        </table>
+
+        <div class="note">
+          ✅ <b>print()</b>에 값을 넣지 않으면 <b>줄바꿈만 출력되어 빈 줄</b>이 생깁니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 기본 출력 -->
+    <section>
+      <h2>3. 기본 출력</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>값 출력</h3>
+          <pre><code>print("안녕하세요")
+print(123)</code></pre>
+          <p class="muted">문자열, 숫자 등 어떤 값이든 출력할 수 있습니다.</p>
+        </div>
+
+        <div class="card">
+          <h3>빈 줄 출력</h3>
+          <pre><code>print()  # 줄바꿈만 실행되어 빈 줄이 생깁니다.</code></pre>
+          <p class="muted">출력 사이에 “공백 줄”을 만들 때 사용합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. sep -->
+    <section>
+      <h2>4. sep 옵션</h2>
+      <div class="card">
+        <h3>값 사이 구분 문자열을 바꿉니다.</h3>
+        <pre><code># 콤마로 여러 값을 주면 기본 sep=' ' (공백)
+print("파이썬", "자바", "C언어")    # 파이썬 자바 C언어
+
+# sep를 '-'로 지정하면 값 사이가 '-'로 연결됩니다.
+print("2026", "01", "29", sep="-") # 2026-01-29</code></pre>
+
+        <div class="aside">
+          <div class="badge">TIP</div>
+          <div>
+            <b>sep</b>는 문자열이므로 <code>", "</code>, <code>" / "</code>, <code>"\t"</code>처럼 다양하게 사용할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. end -->
+    <section>
+      <h2>5. end 옵션</h2>
+      <div class="card">
+        <h3>출력 끝(마지막)에 붙을 문자열을 바꿉니다.</h3>
+        <pre><code># 기본 end는 '\n' (줄바꿈)
+print("Hello", "World", end="! ")
+print("Python~")  # Hello World! Python~ (한 줄로 이어짐)</code></pre>
+
+        <div class="note">
+          ✅ end를 이용하면 “한 줄 진행 표시”, “한 줄로 이어 출력” 같은 표현이 쉬워집니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. file -->
+    <section>
+      <h2>6. file 옵션</h2>
+      <div class="grid">
+
+        <div class="card">
+          <h3>기본값: 화면(sys.stdout)</h3>
+          <pre><code>import sys
+
+print("기본 출력은 화면입니다.")
+print("이것도 화면", file=sys.stdout)</code></pre>
+          <p class="muted">
+            print()는 기본적으로 <b>표준 출력(stdout)</b>으로 보내며, 보통 터미널/콘솔에 보입니다.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>파일로 출력(=파일에 저장)</h3>
+          <pre><code>f = open("out.txt", "w", encoding="utf-8")
+
+print("이 문장은 파일에 저장됩니다.", file=f)
+print("화면에는 안 보입니다.", file=f)
+
+f.close()</code></pre>
+          <p class="muted">
+            <b>file=f</b>로 출력 대상을 파일로 바꾸면 print 결과가 파일에 기록됩니다.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="note">
+        ✅ <b>file 옵션 한 줄 정리</b><br>
+        print()의 출력 “목적지”를 바꿉니다.<br>
+        화면이 기본이고, 파일 객체를 넣으면 <b>로그/결과 저장</b>에 활용됩니다.
+      </div>
+    </section>
+
+    <!-- 7. flush -->
+    <section>
+      <h2>7. flush 옵션</h2>
+      <div class="card">
+        <h3>출력을 즉시 보여주고 싶을 때 사용합니다.</h3>
+        <pre><code>import time
+
+# flush=False (기본값) : 버퍼에 모일 수 있습니다.
+for i in range(5):
+    print(i, end=" ")
+    time.sleep(1)
+print("end")</code></pre>
+
+        <pre><code>import time
+
+# flush=True : 매번 즉시 출력됩니다.
+for i in range(5):
+    print(i, end=" ", flush=True)
+    time.sleep(1)
+print("end")</code></pre>
+
+        <p class="muted">
+          터미널에서 진행률/로딩 표시를 만들 때 flush=True가 유용합니다.
+        </p>
+
+        <hr class="sep">
+
+        <h4>참고: 기본 버퍼 크기 확인</h4>
+        <pre><code>import io
+print(io.DEFAULT_BUFFER_SIZE)  # 예: 8192 (8KB)</code></pre>
+      </div>
+    </section>
+
+    <!-- 8. 문자열 포매팅 -->
+    <section>
+      <h2>8. 문자열 포매팅(출력에 변수 넣기)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>1) .format() 방식</h3>
+          <pre><code>name = "파이썬"
+age = 35
+
+print("이름: {}, 나이: {}".format(name, age))</code></pre>
+          <p class="muted">{} 자리에 format() 값이 순서대로 들어갑니다.</p>
+        </div>
+
+        <div class="card">
+          <h3>2) f-string 방식 (추천)</h3>
+          <pre><code>name = "파이썬"
+age = 35
+
+print(f"이름: {name}, 나이: {age}")</code></pre>
+          <p class="muted">가독성이 좋고 Python 3.6+에서 사용 가능합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>9. 정리</h2>
+      <div class="card">
+        <table>
+          <tr>
+            <th>sep</th>
+            <td>값 사이 구분자를 바꿉니다. (예: 날짜 2026-01-29)</td>
+          </tr>
+          <tr>
+            <th>end</th>
+            <td>출력 끝 문자열을 바꿉니다. (줄바꿈 대신 이어 출력)</td>
+          </tr>
+          <tr>
+            <th>file</th>
+            <td>출력 목적지를 바꿉니다. (화면 → 파일/로그 저장)</td>
+          </tr>
+          <tr>
+            <th>flush</th>
+            <td>출력을 즉시 보여줍니다. (진행률/로딩 표시)</td>
+          </tr>
+        </table>
+        <span class="mini">※ sep/end/file/flush는 print()를 “출력 도구”처럼 만들기 위한 옵션입니다.</span>
+      </div>
+    </section>
+
+    
+
+  </div>
+</body>
+</html>

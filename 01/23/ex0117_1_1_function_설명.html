@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" >
+<title>JavaScript Function </title>
+
+<style>
+  :root{
+    --bg:#f7f8fb;
+    --card:#ffffff;
+    --text:#111827;
+    --muted:#6b7280;
+    --line:#e5e7eb;
+    --accent:#2563eb;
+    --good:#10b981;
+    --warn:#ef4444;
+    --codebg:#0b1020;
+    --code:#e5e7eb;
+    --head:#0f172a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:var(--bg);
+    padding:28px;
+    line-height:1.75;
+    color:var(--text);
+  }
+  .wrap{max-width:1120px;margin:0 auto;}
+  header{
+    background:linear-gradient(135deg,#1d4ed8,#2563eb,#0ea5e9);
+    color:#fff;
+    padding:22px 20px;
+    border-radius:16px;
+    box-shadow:0 12px 26px rgba(0,0,0,.10);
+  }
+  header h1{margin:0 0 6px;font-size:26px;letter-spacing:-0.2px;}
+  header p{margin:0;opacity:.92;font-size:14px;}
+
+  section{
+    background:var(--card);
+    margin-top:14px;
+    padding:18px;
+    border-radius:14px;
+    border:1px solid var(--line);
+    box-shadow:0 8px 18px rgba(0,0,0,.05);
+  }
+  h2{margin:0 0 10px;font-size:20px;color:var(--head);}
+  h3{margin:16px 0 8px;font-size:15px;color:var(--head);}
+  p{margin:8px 0;}
+  ul, ol{margin:8px 0 0;padding-left:18px;}
+  li{margin:6px 0;}
+  .mini{color:var(--muted);font-size:13px;}
+
+  pre{
+    margin:10px 0 0;
+    background:var(--codebg);
+    color:var(--code);
+    padding:12px 14px;
+    border-radius:12px;
+    overflow:auto;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  code{font-family:Consolas,"Courier New",monospace;font-size:13.5px;}
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  th, td{
+    padding:12px 12px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+    font-size:14px;
+  }
+  th{
+    background:#f3f4f6;
+    text-align:left;
+    font-weight:800;
+  }
+  tr:last-child td{border-bottom:none;}
+
+  .note{
+    background:#ecfdf5;
+    border-left:4px solid var(--good);
+    padding:10px 12px;
+    border-radius:10px;
+    color:#065f46;
+    margin-top:10px;
+  }
+  .warn{
+    background:#fef2f2;
+    border-left:4px solid var(--warn);
+    padding:10px 12px;
+    border-radius:10px;
+    color:#991b1b;
+    margin-top:10px;
+  }
+  .pill{
+    display:inline-block;
+    font-size:12px;
+    padding:3px 10px;
+    border-radius:999px;
+    background:#eff6ff;
+    border:1px solid #dbeafe;
+    color:#1d4ed8;
+    margin-right:6px;
+    margin-bottom:6px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  @media (max-width:900px){
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <header>
+    <h1>JavaScript Function (함수) </h1>
+    <p>함수 개념, 선언/표현식, 호출 방법, 매개변수·return, 즉시 실행 함수(IIFE)</p>
+  </header>
+
+  <section>
+    <h2>1) 함수란?</h2>
+    <p>
+      함수(Function)는 <b>여러 줄의 코드를 묶어 이름(또는 변수)에 저장</b>해 두었다가, 필요할 때 호출하여 실행하는 구조입니다.
+      함수를 사용하면 <b>코드 재사용</b>과 <b>유지보수</b>가 쉬워집니다.
+    </p>
+
+    <div class="mini">
+      <span class="pill">재사용</span>
+      <span class="pill">구조화</span>
+      <span class="pill">유지보수</span>
+      <span class="pill">가독성</span>
+    </div>
+
+    <div class="note">
+      함수는 JavaScript에서 <b>자료형이 function인 값</b>입니다. 따라서 변수에 저장되고, 전달될 수 있습니다.
+    </div>
+  </section>
+
+  <section>
+    <h2>2) 함수 기본 형태</h2>
+
+    <h3>2-1. 함수 선언식(Function Declaration)</h3>
+    <p class="mini">
+이름이 반드시 있으며, 실행 전에 함수가 미리 등록되어  
+선언 위치와 관계없이 같은 범위 안에서는 먼저 호출할 수 있습니다. 
+</p>
+    <pre><code>function add(a, b) {
+  return a + b;
+}
+
+alert(add(3, 5)); // 8</code></pre>
+
+    <div class="note">
+  함수 선언식으로 만든 함수는  
+  자바스크립트가 코드를 실행하기 전에 미리 등록해 둡니다(호이스팅). <br> 
+  따라서 같은 범위 안에서는  
+  함수 선언보다 호출이 앞에 있어도 정상적으로 실행됩니다.
+</div>
+
+    <h3>2-2. 함수 표현식(Function Expression)</h3>
+    <p class="mini">
+함수의 이름이 없는 함수를 익명함수라고 합니다. <br>
+함수를 변수에 저장한 뒤 변수를 통해 호출해야 하며 함수는 할당이 끝난 후에만 사용할 수 있습니다.
+</p>
+    <pre><code>let sub = function(a, b) {
+  return a - b;
+};
+
+alert(sub(10, 4)); // 6</code></pre>
+
+
+    <h3>2-3. 이름이 있는 함수 표현식(Named Function Expression)</h3>
+    <p class="mini">함수에 이름을 붙일 수 있으며, 디버깅 시 함수 이름이 표시되어 유용한 경우가 있습니다.</p>
+    <pre><code>let a = function bar() {
+  return 3;
+};
+
+alert(a()); // 3</code></pre>
+
+<div class="warn">
+  함수 표현식은 변수에 함수가 할당되기 전에는 호출할 수 없습니다.  <br>
+  즉, 선언보다 호출이 먼저 오면 오류가 발생합니다.
+</div>
+  </section>
+
+  <section>
+    <h2>3) 함수 호출 방법(Calling a Function)</h2>
+    <p>
+      함수는 <b>함수 이름 뒤에 괄호 <code>()</code>를 붙여</b> 호출합니다.
+      괄호 안에는 함수가 필요로 하는 값(인수, argument)을 전달할 수 있습니다.
+    </p>
+
+    <h3>3-1. 기본 호출: 함수명()</h3>
+    <pre><code>function hello() {
+  alert("안녕하세요!");
+}
+
+hello(); // 함수 호출</code></pre>
+
+    <h3>3-2. 인수(argument) 전달: 함수명(값, 값)</h3>
+    <p class="mini">함수 정의에서 받는 쪽이 매개변수(parameter), 호출할 때 넣는 값이 인수(argument)입니다.</p>
+    <pre><code>function add(a, b) {   // a, b는 매개변수(parameter)
+  return a + b;
+}
+
+alert(add(3, 5)); // 3, 5는 인수(argument)</code></pre>
+
+    <h3>3-3. 반환값을 변수에 저장해서 사용</h3>
+    <pre><code>function multiply(x, y) {
+  return x * y;
+}
+
+let result = multiply(4, 3); // 반환값 저장
+document.write(result);      // 12</code></pre>
+
+    <h3>3-4. 이벤트에서 호출(버튼 클릭 등)</h3>
+    <p class="mini">HTML 이벤트 속성 또는 addEventListener로 함수를 연결하여 호출할 수 있습니다.</p>
+
+    <pre><code>&lt;button onclick="sayHi()"&gt;인사&lt;/button&gt;
+
+&lt;script&gt;
+function sayHi() {
+  alert("반갑습니다!");
+}
+&lt;/script&gt;</code></pre>
+
+    <pre><code>&lt;button id="btn"&gt;클릭&lt;/button&gt;
+
+&lt;script&gt;
+function onClickBtn() {
+  alert("이벤트로 호출되었습니다.");
+}
+
+document.querySelector("#btn").addEventListener("click", onClickBtn);
+&lt;/script&gt;</code></pre>
+
+    <div class="warn">
+      <b>주의:</b> <code>addEventListener("click", onClickBtn)</code> 처럼 함수 이름만 전달해야 합니다.
+      <code>onClickBtn()</code> 처럼 괄호를 붙이면 <b>즉시 실행</b>되어 이벤트가 아니라 실행 결과가 전달됩니다.
+    </div>
+  </section>
+
+  <section>
+    <h2>4) 매개변수(parameter)와 반환값(return)</h2>
+
+    <div class="grid">
+      <div>
+        <h3>4-1. 매개변수(parameter)</h3>
+        <p>함수에 전달되는 입력값을 받는 변수입니다.</p>
+        <pre><code>function greet(name) {
+  alert(name + "님, 환영합니다.");
+}
+
+greet("홍길동");</code></pre>
+      </div>
+
+      <div>
+        <h3>4-2. 반환값(return)</h3>
+        <p>함수 실행 결과를 돌려주는 키워드입니다. return이 없으면 undefined가 반환됩니다.</p>
+        <pre><code>function multiply(x, y) {
+  return x * y;
+}
+
+let result = multiply(4, 3);
+alert(result); // 12</code></pre>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>return을 만나면</b> 함수 실행이 즉시 종료됩니다.
+    </div>
+  </section>
+
+  <section>
+    <h2>5) 즉시 실행 함수(IIFE-Immediately Invoked Function Expression)</h2>
+    <p>
+      즉시 실행 함수는 <b>정의하자마자 바로 실행되는 함수</b>입니다.
+      한 번만 실행하고 끝내는 초기화 코드에 자주 사용됩니다.
+    </p>
+
+    <pre><code>(function () {
+  alert("즉시 실행합니다.");
+})();</code></pre>
+
+    <p class="mini">
+      (함수 정의) 를 괄호로 감싸서 “값”으로 만든 뒤, 바로 ()를 붙여 호출합니다.
+    </p>
+  </section>
+
+  <section>
+    <h2>6) typeof로 함수 자료형 확인</h2>
+    <p>함수는 자료형이 <code>function</code>으로 확인됩니다.</p>
+
+    <pre><code>function test() {}
+
+console.log(typeof test); // function</code></pre>
+  </section>
+
+  <section>
+    <h2>7) 함수 선언식 vs 함수 표현식 비교</h2>
+
+    <table>
+      <tr>
+        <th>구분</th>
+        <th>형태</th>
+        <th>호출 방법</th>
+        <th>특징</th>
+      </tr>
+      <tr>
+        <td>함수 선언식</td>
+        <td><code>function name(){}</code></td>
+        <td><code>name()</code></td>
+        <td>
+          호이스팅 영향으로 <b>script 태그 내용을 읽기 전에 선언적 함수부터 읽혀</b>
+          선언 이전에도 호출이 가능한 경우가 많습니다.
+        </td>
+      </tr>
+      <tr>
+        <td>함수 표현식</td>
+        <td><code>let f = function(){}</code></td>
+        <td><code>f()</code></td>
+        <td>변수에 저장된 후 호출됩니다. 선언보다 호출이 먼저 오면 오류가 발생합니다.</td>
+      </tr>
+      <tr>
+        <td>즉시 실행 함수</td>
+        <td><code>(function(){})()</code></td>
+        <td>자동 실행</td>
+        <td>정의 즉시 1회 실행됩니다. 초기화 코드에 자주 사용됩니다.</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>8) 실습 예제: 입력 → 처리 → 출력</h2>
+    <p class="mini">prompt로 입력받고, 함수로 처리한 뒤, 결과를 화면에 출력합니다.</p>
+
+    <pre><code>function showNumber() {
+  let n = prompt("숫자를 입력하세요", "숫자");
+  document.body.innerHTML += "&lt;p&gt;입력한 숫자 = " + n + "&lt;/p&gt;";
+}
+
+showNumber();</code></pre>
+
+    
+  </section>
+
+  <section>
+    <h2>9) 정리</h2>
+    <ul>
+      <li>함수는 코드를 묶어 저장하고 필요할 때 호출하여 실행됩니다.</li>
+      <li>함수 선언식은 <code>function name(){}</code> 형태로 작성됩니다.</li>
+      <li>함수 선언식은 script 처리 시 선언적 함수가 먼저 읽혀 선언 이전에도 호출 가능한 경우가 많습니다.</li>
+      <li>함수 표현식은 함수를 변수에 저장한 뒤 <code>변수명()</code> 형태로 호출됩니다.</li>
+      <li>즉시 실행 함수는 정의하자마자 한 번 실행됩니다.</li>
+      <li><code>typeof</code> 결과는 <code>function</code> 입니다.</li>
+    </ul>
+  </section>
+
+ 
+</div>
+</body>
+</html>

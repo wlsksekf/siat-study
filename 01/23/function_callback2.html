@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>callback</title>
+</head>
+<body>
+    <script>
+        function callTentimes(callback) {
+            for(let i=0; i<10; i++){
+            callback(i);
+        }    
+    }
+        
+        callTentimes(function (index) {
+                alert("함수 호출: "+ index);
+            });
+    </script>    
+</body>
+</html>

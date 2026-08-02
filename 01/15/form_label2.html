@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>텍스트 라벨 예제</title>
+</head>
+<body>
+    <p>라벨의 텍스트를 클릭해도 됨.
+        라벨 태그 안에 input태그 작성
+    </p>
+    <form method="get" action="result.html">
+        성별: &nbsp;
+        <label>남성
+        <input type="radio" name="gender"value="male" checked>
+        </label>
+
+        <label>여성
+        <input type="radio" name="gender"value="female" checked>
+        </label>
+
+        <br>
+        <hr>
+        <input type="submit" value="전송">
+        <input type="reset" value="취소">
+    </form>
+</body>
+</html>

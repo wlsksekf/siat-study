@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>자바스크립트 연산자(Operator)</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9fafb;
+      padding: 28px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      color: #111827;
+    }
+
+    h2 {
+      margin-top: 26px;
+      font-size: 20px;
+      color: #111827;
+      border-left: 4px solid #4a6cf7;
+      padding-left: 10px;
+    }
+
+    p { margin: 10px 0; }
+
+    .note {
+      background-color: #eef3ff;
+      border: 1px solid #dbe6ff;
+      border-left: 4px solid #4a6cf7;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    /* Notion 스타일 코드 블록 */
+    pre {
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      display: block;
+    }
+
+    /* 인라인 코드 */
+    code.inline {
+      background-color: #f6f8fa;
+      border: 1px solid #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    /* 표 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 6px;
+      background-color: #ffffff;
+    }
+
+    thead th {
+      background-color: #111827;
+      color: #ffffff;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    tbody td {
+      border-top: 1px solid #e5e7eb;
+      padding: 10px 12px;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid #e5e7eb;
+      background: #f6f8fa;
+      margin-right: 6px;
+    }
+
+    .footer {
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px dashed #e5e7eb;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>자바스크립트 연산자(Operator) </h1>
+    <p>
+      이 문서는 <strong>연산자(Operator)</strong>의 개념과 구성 요소, 주요 종류를 정리합니다.
+    </p>
+
+    <div class="note">
+      연산자는 값(피연산자)에 대해 계산·비교·논리 판단·저장 등의 작업을 수행하는 기호입니다.
+    </div>
+
+    <h2>1. 연산자란 무엇인가?</h2>
+    <p>
+      <strong>연산자(Operator)</strong>는 값(피연산자)을 대상으로 연산을 수행하여
+      새로운 값을 만들거나(true/false 포함) 저장하는 기호입니다.
+    </p>
+
+    <h2>2. 연산자 구성 요소</h2>
+    <p>아래 예시에서 연산의 대상과 기호를 구분해 봅니다.</p>
+
+    <pre><code>3 + 5</code></pre>
+
+    <table>
+      <thead>
+        <tr>
+          <th>요소</th>
+          <th>이름</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3, 5</td>
+          <td>피연산자(operand)</td>
+          <td>연산의 대상이 되는 값</td>
+        </tr>
+        <tr>
+          <td>+</td>
+          <td>연산자(operator)</td>
+          <td>연산을 수행하는 기호</td>
+        </tr>
+        <tr>
+          <td>3 + 5</td>
+          <td>표현식(expression)</td>
+          <td>실행 결과로 하나의 값이 나오는 코드</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. 연산자의 역할 예시</h2>
+    <p>
+      연산자는 다양한 종류가 있으며, 목적에 따라 결과가 달라집니다.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>역할</th>
+          <th>대표 연산자</th>
+          <th>예시</th>
+          <th>결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag">계산</span>산술</td>
+          <td>+, -, *, /, %, **</td>
+          <td><span class="inline-code"><code class="inline">10 / 4</code></span></td>
+          <td>2.5</td>
+        </tr>
+        <tr>
+          <td><span class="tag">비교</span>조건 판단</td>
+          <td>&gt;, &lt;, &gt;=, &lt;=, ===, !==</td>
+          <td><code class="inline">10 &gt; 4</code></td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td><span class="tag">논리</span>조건 결합</td>
+          <td>&amp;&amp;, ||, !</td>
+          <td><code class="inline">true &amp;&amp; false</code></td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td><span class="tag">저장</span>할당</td>
+          <td>=, +=, -=, *= ...</td>
+          <td><code class="inline">x += 1</code></td>
+          <td>x = x + 1</td>
+        </tr>
+        <tr>
+          <td><span class="tag">선택</span>조건 연산</td>
+          <td>?:</td>
+          <td><code class="inline">score &gt;= 60 ? "합격" : "불합격"</code></td>
+          <td>"합격" 또는 "불합격"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>4. 예제: 연산자가 표현식을 만든다</h2>
+    <p>
+      연산자와 피연산자가 결합하면 <strong>표현식</strong>이 되고,
+      표현식은 실행 결과로 값이 나옵니다.
+    </p>
+
+    <pre><code>let x = 10 + 5;
+// 10 + 5 는 산술 연산 표현식이며 결과는 15
+
+x = x + 1;
+// x + 1 이 먼저 계산되고(표현식 → 값), 그 결과가 x에 저장됩니다.</code></pre>
+
+    <div class="note">
+      <strong>정리</strong><br>
+      <ul>
+        <li>연산자: 작업을 수행하는 기호</li>
+        <li>피연산자: 연산의 대상(값)</li>
+        <li>표현식: 실행 결과로 하나의 값이 나오는 코드</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

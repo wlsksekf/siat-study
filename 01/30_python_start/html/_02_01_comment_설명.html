@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <title>교안 - 2.1 주석과 코드 작성 규칙</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", Arial, sans-serif;
+      line-height:1.8;
+      color:#111827;
+      background:#f6f7fb;
+    }
+    .container{
+      max-width:1080px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:26px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.06);
+    }
+    header{
+      padding:18px 18px 16px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,0.14);
+    }
+    header h1{margin:0 0 6px; font-size:26px}
+    header p{margin:0; opacity:.95}
+
+    section{margin-top:22px}
+    h2{margin:0 0 10px; font-size:20px}
+    h3{margin:14px 0 8px; font-size:16px}
+    h4{margin:12px 0 6px; font-size:14px; color:#0f172a}
+    p{margin:8px 0}
+    ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:12px;
+    }
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 1fr 1fr;}
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    .aside{
+      display:flex;
+      gap:10px;
+      background:#eef2ff;
+      border:1px solid #c7d2fe;
+      padding:12px 14px;
+      border-radius:12px;
+      margin:12px 0;
+      color:#1e3a8a;
+    }
+    .badge{
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      background:#4338ca;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+    }
+    .pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      color:#374151;
+      font-size:12px;
+      margin-right:6px;
+      margin-top:6px;
+    }
+
+    pre{
+      margin:10px 0;
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:14px;
+      border-radius:12px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+
+    .steps{
+      list-style:none;
+      padding:0;
+      margin:10px 0 0;
+      display:grid;
+      gap:10px;
+    }
+    .step{
+      display:flex;
+      gap:10px;
+      padding:12px 14px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      background:#fff;
+    }
+    .step .num{
+      width:28px;
+      height:28px;
+      border-radius:10px;
+      background:#111827;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+      font-size:13px;
+    }
+    .step b{color:#0f172a}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    th,td{
+      border-bottom:1px solid #e5e7eb;
+      padding:12px 10px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      background:#f3f4f6;
+      font-weight:700;
+    }
+    tr:last-child td{border-bottom:none}
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      background:#fefce8;
+      border:1px solid #fde68a;
+      border-radius:12px;
+      color:#92400e;
+    }
+
+    .quiz{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:16px;
+    }
+    details{
+      margin-top:10px;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    summary{cursor:pointer; font-weight:700}
+    a{color:#2563eb; text-decoration:none}
+    a:hover{text-decoration:underline}
+    hr.sep{border:none;border-top:1px dashed #e5e7eb;margin:16px 0}
+    .muted{color:#6b7280}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>2.1 주석과 코드 작성 규칙</h1>
+      <p>주석의 종류 · docstring · 코딩 규칙(PEP 8 기본) · 용어 정리 · 실습/퀴즈/과제</p>
+      <div>
+        <span class="pill">Comment</span>
+        <span class="pill">Docstring</span>
+        <span class="pill">Indentation</span>
+        <span class="pill">snake_case</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. 주석(Comment)의 개념</h2>
+      <div class="aside">
+        <div class="badge">👉</div>
+        <div>
+          <b>주석</b>은 코드 실행에는 영향을 주지 않는 설명문입니다.<br>
+          코드 이해, 유지 보수와 협업 시 필수이며, 파이썬에서는 <b>#</b> 기호를 사용합니다.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>주석을 왜 쓰나요?</h3>
+          <ul>
+            <li>코드의 <b>의도</b>를 남겨 이해하기 쉽습니다.</li>
+            <li>나중에 다시 봐도 빠르게 파악할 수 있습니다.</li>
+            <li>팀 협업에서 “설명 없는 코드”를 줄여줍니다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>주석 작성 팁</h3>
+          <ul>
+            <li>무조건 길게 쓰기보다, <b>핵심 의도</b>를 남깁니다.</li>
+            <li>코드가 스스로 말하는 부분(예: 단순 변수명)은 과도한 주석을 피합니다.</li>
+            <li>“무엇을”보다 “왜(이유)”를 적으면 도움이 됩니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. 주석의 종류</h2>
+
+      <div class="card">
+        <h3>2-1) 한 줄 주석</h3>
+        <p><b>#</b> 뒤에 작성합니다.</p>
+        <pre><code># 이 코드는 Hello World를 출력합니다.
+print("Hello World")</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>2-2) 여러 줄 주석</h3>
+        <p>파이썬은 별도의 다중 주석 문법이 없으므로, 여러 줄을 주석 처리하려면 <b>각 줄 앞에 #</b>을 붙입니다.</p>
+        <pre><code># 여러 줄 주석은 각 줄 앞에 #을 붙여 작성합니다.
+# 이 코드는 Hello World를 출력합니다.
+print("Hello World")</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>2-3) 문서화 문자열 (docstring)</h3>
+        <ul>
+          <li>작은 따옴표 3개(<code>'''</code>) 또는 큰따옴표 3개(<code>"""</code>)로 감쌉니다.</li>
+          <li>함수는 def<b> 선언 바로 아래</b>에 작성합니다.</li>
+          <li>클래스는 class<b> 선언 바로 아래</b>에 작성합니다.</li>
+          <li>모듈은 .py<b> 파일의 맨 위</b>에 작성합니다.</li>
+        </ul>
+
+        <h4>예제 코드</h4>
+        <pre><code>def add(a, b):
+    """
+    두 수를 더하는 함수입니다.
+
+    매개변수:
+        a (int): 첫 번째 숫자
+        b (int): 두 번째 숫자
+
+    반환값:
+        int: 두 수의 합
+    """
+    return a + b
+
+help(add)</code></pre>
+
+        <div class="aside" style="margin-top:12px;">
+          <div class="badge">👉</div>
+          <div>
+            함수 설명, 매개변수, 반환값이 도움말에 표시됩니다.
+          </div>
+        </div>
+
+     
+      </div>
+    </section>
+
+    <section>
+      <h2>3. 코드 작성 규칙</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>기본 규칙(요약)</h3>
+          <ul>
+            <li><b>들여쓰기</b>: 공백 4칸 사용 (탭 X)</li>
+            <li><b>변수명</b>: 의미 있는 이름, <b>snake_case</b> 권장</li>
+            <li><b>함수명</b>: 소문자 + snake_case</li>
+            <li><b>줄 길이</b>: 79자 이내(권장)</li>
+            <li><b>공백</b>: 연산자 앞뒤로 공백 사용</li>
+          </ul>
+          <p class="muted">※ PEP 8 (Python Enhancement Proposal 8) 은
+파이썬 코드를 일관성 있고 읽기 쉽게 작성하기 위한 공식 코딩 스타일 규칙 문서입니다.<br>위 규칙은 PEP 8 스타일 가이드의 기본 원칙을 쉽게 정리한 내용입니다.</p>
+        </div>
+
+        <div class="card">
+          <h3>공백 사용 예</h3>
+          <pre><code># 권장(O)
+x = a + b
+
+# 비권장(X)
+x=a+b</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>파이썬 기본 용어 정리</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>용어</th>
+            <th>영어</th>
+            <th>정의</th>
+            <th>예시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>표현식</b></td>
+            <td>Expression</td>
+            <td><b>값으로 평가될 수 있는 코드 조각</b></td>
+            <td><code>1 + 2</code>, <code>x * 3</code>, <code>len("hi")</code></td>
+          </tr>
+          <tr>
+            <td><b>식별자</b></td>
+            <td>Identifier</td>
+            <td><b>변수·함수·클래스 등의 이름</b></td>
+            <td><code>x</code>, <code>total_sum</code>, <code>print</code></td>
+          </tr>
+          <tr>
+            <td><b>키워드</b></td>
+            <td>Keyword</td>
+            <td><b>파이썬에서 예약된 특별한 의미의 단어</b></td>
+            <td><code>if</code>, <code>for</code>, <code>def</code>, <code>return</code></td>
+          </tr>
+          <tr>
+            <td><b>문장</b></td>
+            <td>Statement</td>
+            <td><b>하나의 동작을 수행하는 실행 단위</b></td>
+            <td><code>x = 10</code><br><code>if x &gt; 0:</code></td>
+          </tr>
+          
+          <tr>
+            <td><b>프로그램</b></td>
+            <td>Program</td>
+            <td><b>특정 목적을 수행하도록 구성된 코드 전체</b></td>
+            <td>하나의 <code>.py</code> 파일</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    
+  </div>
+</body>
+</html>

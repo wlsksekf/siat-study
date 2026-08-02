@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<link href="css/join.css" rel="stylesheet">
+<script src='js/validate_add_function.js' defer></script>
+<body>
+    <form name="myform" method="get" action="send.html" id="myform">
+        <div class="container">
+        <fieldset>
+            <legend>유효성 검사</legend>
+
+            <label for="id">ID</label>
+            <div class="input-group">
+            <input type="text" placeholder="Enter id" name="id" id="id">
+            <input type="button" value="ID중복검사" id="doubleCheck">
+            </div>
+
+            <label for="jumin1">주민번호</label>
+            <div class="input-group jumin-group">
+            <input type="text" placeholder="앞자리" maxLength="6" name="jumin1" id="jumin1">
+            <span class="dash">-</span>
+            <input type="text" placeholder="뒷자리" maxLength="7" name="jumin2" id="jumin2">
+            </div>
+
+            <label for="email">E-mail</label>
+            <div class="input-group">
+            <input type="text" name="email" id="email">
+            <span>@</span>
+            <input type="text" name="domain" id="domain"> 
+            <select name="sel" id="sel">
+                <option value="">직접입력</option>
+                <option value="naver.com">naver.com</option>
+                <option value="daum.net">daum.net</option>
+                <option value="nate.com">nate.com</option>
+                <option value="gmail.com">gmail.com</option>
+            </select>   
+            </div>
+
+            <label>성별</label>
+            <div class="container2">
+            <input type="radio" name="gender" id="gender1">남자
+            <input type="radio" name="gender" id="gender2">여자
+            </div>
+
+            <label>취미</label>
+            <div class="container2">
+            <input type="checkbox" name="hobby" id="hobby1" value="공부">광합성
+            <input type="checkbox" name="hobby" id="hobby2" value="게임">게임
+            <input type="checkbox" name="hobby" id="hobby3" value="운동">손가락 운동
+            <input type="checkbox" name="hobby" id="hobby4" value="등산">ATP 생성
+            <input type="checkbox" name="hobby" id="hobby5" value="낚시">호흡하기
+            </div>
+
+            <label for="post1">우편번호</label>
+            <div class="input-group">
+            <input type="text" maxLength="5" name="post1" id="post1">
+            <input type="button" value="우편검색" id="postSearch">
+            </div>
+
+            <label for="address">주소</label>
+            <input type="text" name="address" id="address">
+
+            <label for="intro">자기소개</label>
+            <textarea name="intro" id="intro"></textarea>
+
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">회원가입</button>
+                <button type="reset" class="cancelbtn">취소</button>
+            </div>
+            </fieldset>
+        </div>
+    </form>    
+</body>
+</html>        

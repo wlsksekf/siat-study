@@ -1,0 +1,114 @@
+/* 기본 배경 및 폰트 설정 */
+body {
+  background-color: #f0f2f5;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* 메인 컨테이너 */
+.container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+h2 {
+  color: #1a1a1a;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/*  입력창(input) 스타일 */
+#msg {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 15px;
+  border: 2px solid #e1e4e8;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+#msg:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* 실행 버튼 스타일 */
+#btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#btn:hover {
+  background-color: #4338ca;
+}
+
+#btn:active {
+  transform: scale(0.98);
+}
+
+/* 로그 메시지 영역 */
+#log {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  min-height: 50px;
+  color: #475569;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.status-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+/* 성공 시 */
+#log.success {
+  background-color: #f0fdf4;
+  border-color: #22c55e;
+  color: #166534;
+}
+#log.success .status-label { color: #22c55e; }
+
+/* 실패 시 */
+#log.error {
+  background-color: #fef2f2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+#log.error .status-label { color: #ef4444; }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>표의 레이아웃 지정</title>
+<style>
+    #books caption{
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0.5em;
+    }
+
+    #books{
+        border-collapse: collapse;
+        width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    td, th, #books {
+        border-bottom: 1px solid black;
+    }
+
+    tr:hover{
+        background-color: orange;
+        color: white;
+    }
+    th:hover{
+        color: red;
+    }
+
+    thead{
+        background-color: gray;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <table id="books">
+        <caption>추천 도서 테이블</caption>
+        <thead>
+            <tr>
+                <th>작가</th><th>제목</th><th>출판사</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>월터</td><td>잡스</td><td>민음사</td>
+            </tr>
+            <tr>
+                <td>흥부와 놀부</td><td>선과 악</td><td>좋은출판사</td>
+            </tr>
+            <tr>
+                <td>괴테</td><td>파우스트</td><td>교학사</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python 메서드 종류 (인스턴스/클래스/정적 메서드)</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --panel:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --primary:#2563eb;
+      --primary-2:#1d4ed8;
+      --good:#16a34a;
+      --warn:#f59e0b;
+      --shadow:0 12px 30px rgba(17,24,39,.08);
+      --code-bg:#0b1220;
+      --code-text:#e5e7eb;
+      --code-border:#1f2a44;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.8;
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    .container{
+      max-width:1080px;
+      margin:0 auto;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header{
+      padding:26px 28px;
+      background:linear-gradient(135deg, rgba(37,99,235,.10), rgba(29,78,216,.04));
+      border-bottom:1px solid var(--border);
+    }
+
+    h1{
+      margin:0 0 6px 0;
+      font-size:26px;
+      letter-spacing:-.2px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .content{ padding:26px 28px 30px; }
+
+    h2{
+      margin:22px 0 10px;
+      font-size:20px;
+      border-left:6px solid var(--primary);
+      padding-left:10px;
+      letter-spacing:-.2px;
+    }
+
+    h3{
+      margin:18px 0 8px;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+
+    p{ margin:8px 0; }
+    ul{ margin:8px 0 8px 18px; }
+    li{ margin:4px 0; }
+
+    .note{
+      margin:14px 0;
+      padding:14px 14px;
+      border:1px solid rgba(37,99,235,.25);
+      background:rgba(37,99,235,.06);
+      border-radius:12px;
+    }
+    .note strong{ color:var(--primary-2); }
+
+    .tip{
+      margin:14px 0;
+      padding:14px 14px;
+      border:1px solid rgba(22,163,74,.25);
+      background:rgba(22,163,74,.06);
+      border-radius:12px;
+    }
+    .tip strong{ color:var(--good); }
+
+    .warn{
+      margin:14px 0;
+      padding:14px 14px;
+      border:1px solid rgba(245,158,11,.28);
+      background:rgba(245,158,11,.08);
+      border-radius:12px;
+    }
+    .warn strong{ color:#b45309; }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:10px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+    }
+    th, td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{
+      background:#f9fafb;
+      text-align:left;
+      color:#374151;
+      font-weight:700;
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    pre{
+      margin:10px 0;
+      padding:14px 14px;
+      background:var(--code-bg);
+      color:var(--code-text);
+      border:1px solid var(--code-border);
+      border-radius:12px;
+      overflow:auto;
+      line-height:1.6;
+      font-size:13px;
+    }
+    code{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+    .kbd{
+      display:inline-block;
+      padding:2px 7px;
+      border:1px solid var(--border);
+      border-bottom-width:2px;
+      border-radius:8px;
+      background:#fff;
+      font-family:ui-monospace, monospace;
+      font-size:12px;
+    }
+
+    /* Tabs */
+    .tabs{
+      margin-top:12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .tab-head{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      background:#f9fafb;
+    }
+    .tab-btn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:13px;
+      color:#374151;
+    }
+    .tab-btn[aria-selected="true"]{
+      border-color:rgba(37,99,235,.45);
+      background:rgba(37,99,235,.10);
+      color:var(--primary-2);
+    }
+    .tab-panel{ display:none; padding:14px 14px 6px; }
+    .tab-panel.active{ display:block; }
+
+    footer{
+      padding:18px 28px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+      background:#fbfcff;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      background:rgba(37,99,235,.10);
+      color:var(--primary-2);
+      border:1px solid rgba(37,99,235,.25);
+      margin-left:8px;
+      vertical-align:middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>파이썬 메서드 종류 <span class="badge">Instance / Class / Static</span></h1>
+      <p class="subtitle">클래스에서 자주 쓰는 3가지 메서드(인스턴스, 클래스, 정적 메서드)를 개념 → 문법 → 예시 순서로 정리합니다.</p>
+    </header>
+
+    <div class="content">
+      <h2>1. 개념</h2>
+      <p>파이썬 클래스에서 메서드는 크게 세 가지 종류로 나눌 수 있습니다.</p>
+      <ol>
+        <li>
+          <strong>인스턴스 메서드 (Instance Method)</strong>
+          <ul>
+            <li>가장 일반적인 메서드입니다.</li>
+            <li>첫 번째 매개변수로 <code>self</code>를 받으며, 인스턴스 변수에 접근 가능합니다.</li>
+            <li>특정 객체(인스턴스)와 연관되어 동작합니다.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>클래스 메서드 (Class Method)</strong>
+          <ul>
+            <li>클래스 자체와 관련된 동작을 정의할 때 사용합니다.</li>
+            <li><code>@classmethod</code> 데코레이터를 사용합니다.</li>
+            <li>첫 번째 매개변수로 <code>cls</code>를 받아 클래스 변수에 접근 가능합니다.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>정적 메서드 (Static Method)</strong>
+          <ul>
+            <li>클래스/인스턴스에 직접적으로 의존하지 않는 동작을 정의합니다.</li>
+            <li><code>@staticmethod</code> 데코레이터를 사용합니다.</li>
+            <li><code>self</code>나 <code>cls</code>를 받지 않으며, 일반 함수와 비슷하지만 클래스 안에 포함됩니다.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="note">
+        <strong>핵심 요약:</strong><br>
+        인스턴스 메서드는 <span class="kbd">self</span>로 객체 상태를 다루고, 클래스 메서드는 <span class="kbd">cls</span>로 클래스 공통 데이터를 다루며, 정적 메서드는 클래스/객체 상태와 무관한 기능을 담을 때 사용됩니다.
+      </div>
+
+      <h2>2. 문법</h2>
+      <pre><code>class MyClass:
+    # 인스턴스 메서드
+    def instance_method(self):
+        print("인스턴스 메서드 호출")
+
+    # 클래스 메서드
+    @classmethod
+    def class_method(cls):
+        print("클래스 메서드 호출")
+
+    # 정적 메서드
+    @staticmethod
+    def static_method():
+        print("정적 메서드 호출")
+</code></pre>
+
+      <h2>3. 메서드 종류 한눈에 보기</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>데코레이터</th>
+            <th>첫 번째 매개변수</th>
+            <th>접근 가능 대상</th>
+            <th>주 사용 목적</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>인스턴스 메서드</strong></td>
+            <td>없음</td>
+            <td><code>self</code></td>
+            <td>인스턴스 변수</td>
+            <td>객체(인스턴스)의 상태를 처리합니다.</td>
+          </tr>
+          <tr>
+            <td><strong>클래스 메서드</strong></td>
+            <td><code>@classmethod</code></td>
+            <td><code>cls</code></td>
+            <td>클래스 변수</td>
+            <td>클래스 공통 정보/규칙을 처리합니다.</td>
+          </tr>
+          <tr>
+            <td><strong>정적 메서드</strong></td>
+            <td><code>@staticmethod</code></td>
+            <td>없음</td>
+            <td>없음(직접 접근 불가)</td>
+            <td>독립적인 기능(유틸 함수)을 제공합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. 예시</h2>
+
+      <div class="tabs" id="tabs">
+        <div class="tab-head" role="tablist" aria-label="메서드 예시 탭">
+          <button class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1" data-target="panel-1">① 인스턴스 메서드</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2" data-target="panel-2">② 클래스 메서드</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3" data-target="panel-3">③ 정적 메서드</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-4" id="tab-4" data-target="panel-4">복합 예제</button>
+        </div>
+
+        <!-- Panel 1 -->
+        <section class="tab-panel active" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+          <h3>① 인스턴스 메서드 (Instance Method)</h3>
+          <ul>
+            <li>첫 번째 매개변수로 <code>self</code>를 받습니다.</li>
+            <li><code>self.name</code>, <code>self.age</code>처럼 인스턴스 변수에 접근 가능합니다.</li>
+          </ul>
+
+          <pre><code>class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def introduce(self):
+        print(f"안녕하세요, 저는 {self.name}이고, 나이는 {self.age}살입니다.")
+
+p1 = Person("지민", 25)
+p1.introduce()</code></pre>
+
+          <p><strong>출력</strong></p>
+          <pre><code>안녕하세요, 저는 지민이고, 나이는 25살입니다.</code></pre>
+
+          <div class="tip">
+            <strong>포인트:</strong><br>
+            인스턴스 메서드는 “이 객체의 name, age”처럼 <u>객체별로 다른 값</u>을 다룰 때 사용됩니다.
+          </div>
+        </section>
+
+        <!-- Panel 2 -->
+        <section class="tab-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2">
+          <h3>② 클래스 메서드 (Class Method)</h3>
+          <ul>
+            <li><code>@classmethod</code>를 붙입니다.</li>
+            <li>첫 번째 매개변수는 <code>cls</code>이며, 클래스 변수에 접근 가능합니다.</li>
+            <li>인스턴스 변수(<code>self.name</code> 등)에는 직접 접근할 수 없습니다.</li>
+          </ul>
+
+          <pre><code>class Person:
+    species = "인간"
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @classmethod
+    def show_species(cls):
+        print(f"이 클래스의 종은 {cls.species}입니다.")
+
+Person.show_species()  # 클래스에서 직접 호출
+
+p1 = Person("지민", 25)
+p1.show_species()      # 인스턴스에서도 호출 가능</code></pre>
+
+          <p><strong>출력</strong></p>
+          <pre><code>이 클래스의 종은 인간입니다.
+이 클래스의 종은 인간입니다.</code></pre>
+
+          <div class="warn">
+            <strong>주의:</strong><br>
+            클래스 메서드는 <code>cls</code>로 클래스 변수에 접근합니다. 따라서 객체마다 달라지는 인스턴스 변수는 다루기 어렵습니다.
+          </div>
+        </section>
+
+        <!-- Panel 3 -->
+        <section class="tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3">
+          <h3>③ 정적 메서드 (Static Method)</h3>
+          <ul>
+            <li><code>@staticmethod</code>를 붙입니다.</li>
+            <li><code>self</code>, <code>cls</code>를 받지 않습니다.</li>
+            <li>클래스/인스턴스 변수에 의존하지 않는 기능을 클래스 안에 넣고 싶을 때 사용됩니다.</li>
+          </ul>
+
+          <pre><code>class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @staticmethod
+    def is_adult(age):
+        return age &gt;= 18
+
+print(Person.is_adult(20))  # True
+
+p1 = Person("지민", 25)
+print(p1.is_adult(15))      # False</code></pre>
+
+          <div class="note">
+            <strong>설명:</strong><br>
+            정적 메서드는 “나이(age)를 받아 성인인지 판단하기”처럼, 클래스나 객체 상태와 관계없이 동작하는 기능을 담을 때 유용합니다.
+          </div>
+        </section>
+
+        <!-- Panel 4 -->
+        <section class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4">
+          <h3>복합 예제 (Instance + Class + Static)</h3>
+
+          <pre><code>class Student:
+    school_name = "파이썬 고등학교"  # 클래스 변수
+
+    def __init__(self, name, age):
+        self.name = name      # 인스턴스 변수
+        self.age = age
+
+    # 인스턴스 메서드
+    def introduce(self):
+        print(f"안녕하세요, 제 이름은 {self.name}이고 {self.age}살입니다.")
+
+    # 클래스 메서드
+    @classmethod
+    def school_info(cls):
+        print(f"저희 학교는 {cls.school_name}입니다.")
+
+    # 정적 메서드
+    @staticmethod
+    def welcome():
+        print("학생 여러분, 환영합니다!")
+
+# 사용 예시
+s1 = Student("홍길동", 18)
+s1.introduce()        # 인스턴스 메서드 호출
+
+Student.school_info() # 클래스 메서드 호출
+Student.welcome()     # 정적 메서드 호출</code></pre>
+
+          <div class="tip">
+            <strong>정리:</strong><br>
+            <ul>
+              <li><strong>introduce()</strong>는 학생 개인(인스턴스)의 이름/나이를 사용합니다.</li>
+              <li><strong>school_info()</strong>는 학교 이름처럼 클래스 공통 정보를 사용합니다.</li>
+              <li><strong>welcome()</strong>은 상태와 무관한 안내 문구를 출력합니다.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <h2>5. 실전 선택 기준</h2>
+      <div class="grid">
+        <div>
+          <h3>어떤 메서드를 선택하면 되나요?</h3>
+          <ul>
+            <li><strong>객체(인스턴스)마다 값이 다르다</strong> → 인스턴스 메서드를 사용합니다.</li>
+            <li><strong>클래스 공통 규칙/설정</strong> → 클래스 메서드를 사용합니다.</li>
+            <li><strong>상태와 무관한 유틸 기능</strong> → 정적 메서드를 사용합니다.</li>
+          </ul>
+
+          <div class="note">
+            <strong>추가 팁:</strong><br>
+            “클래스 안에 넣긴 했는데 self/cls가 필요 없다”면 정적 메서드로 두는 편이 의도가 더 명확해집니다.
+          </div>
+        </div>
+
+        <div>
+          <h3>자주 나오는 질문</h3>
+          <div class="warn">
+            <strong>Q.</strong> 클래스 메서드는 인스턴스에서도 호출 가능한가요?<br>
+            <strong>A.</strong> 호출은 가능하지만, 내부에서는 <code>cls</code>로 클래스 데이터만 다룹니다.
+          </div>
+          <div class="warn">
+            <strong>Q.</strong> 정적 메서드는 왜 클래스 안에 넣나요?<br>
+            <strong>A.</strong> 기능이 해당 클래스와 “논리적으로 관련”이 있을 때, 묶어두면 구조가 깔끔해집니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+  </div>
+
+  <script>
+    (function () {
+      const tabs = document.getElementById("tabs");
+      if (!tabs) return;
+
+      const buttons = tabs.querySelectorAll(".tab-btn");
+      const panels = tabs.querySelectorAll(".tab-panel");
+
+      function activate(targetId) {
+        buttons.forEach(btn => {
+          const selected = btn.dataset.target === targetId;
+          btn.setAttribute("aria-selected", selected ? "true" : "false");
+        });
+        panels.forEach(panel => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => activate(btn.dataset.target));
+      });
+    })();
+  </script>
+</body>
+</html>

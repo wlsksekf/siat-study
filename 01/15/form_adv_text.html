@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고급 형식으로 입력하기: 서식이 있는 텍스트</title>
+</head>
+<body>
+    <form action="result.html">
+        <p>Email: <input type="email" name="email" required></p>
+        <p><input type="submit" value="전송"></p>
+    </form>
+
+    <form action="result.html">
+        <p>URL: <input type="url" name="url" required></p>
+        <p><input type="submit" value="전송"></p>
+    </form>
+
+    <form action="result.html">
+        <p>URL: <input type="url" value="http://" name="url" required></p>
+        <p><input type="submit" value="전송"></p>
+    </form>
+
+    <form action="result.html">
+        <p>Tel: <input type="tel" placeholder="00*-000*-0000" name="tel" pattern="[0-9]{2,3}-[0-9]{3,4}-[0,9]{4}" required></p>
+        <p><input type="submit" value="전송"></p>
+    </form>
+
+    <form action="result.html">
+        <p>Search: <input type="search" name="search" placeholder="Search..."></p>
+        <p><input type="submit" value="전송"></p>
+    </form>
+</body>
+</html>

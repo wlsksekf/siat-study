@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>매개변수와 인자 개수가 일치하지 않는 경우</title>
+</head>
+<body>
+    <script>
+        function getSum(){
+            let sum = 0;
+
+            console.log(`=====[실행결과]=====`);
+            for (let i = 0; i < arguments.length; i++) {
+                console.log(`arguments[${i}]=${arguments[i]}`)
+                sum += arguments[i];
+            }
+            console.log(`합=${sum}`);
+        }
+
+      // 매개변수는 없는데, 인자는 5개 전달
+      getSum(10, 20, 30, 40, 50);
+    </script>    
+</body>
+</html>

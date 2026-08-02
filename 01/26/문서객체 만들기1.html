@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서 객체 만들기1</title>
+    <script>
+        window.onload = function(){
+            let h1 = document.createElement('h1');
+            let textNode = document.createTextNode('Hello DOM');
+
+            h1.appendChild(textNode);
+
+            document.body.appendChild(h1);
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교안 - 파이썬 특징과 자료형</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:28px;
+  font-family:"맑은 고딕", Arial, sans-serif;
+  line-height:1.75;
+  color:#111827;
+  background:#f6f7fb;
+}
+.container{
+  max-width:1040px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:24px;
+  box-shadow:0 10px 22px rgba(0,0,0,0.06);
+}
+header{
+  padding:18px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#2563eb,#0ea5e9);
+  color:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+}
+header h1{margin:0 0 6px;font-size:26px}
+header p{margin:0;opacity:.95}
+
+section{margin-top:20px}
+h2{margin:0 0 10px;font-size:20px}
+h3{margin:12px 0 8px;font-size:16px}
+h4{margin:12px 0 6px;font-size:14px;color:#0f172a}
+ul{margin:6px 0 0 18px}
+li{margin:6px 0}
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.05);
+}
+.callout{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px 14px;
+  margin:10px 0;
+}
+.callout strong{display:block;margin-bottom:4px}
+
+.note{
+  margin-top:12px;
+  padding:12px 14px;
+  background:#fefce8;
+  border:1px solid #fde68a;
+  border-radius:12px;
+  color:#92400e;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+}
+th,td{
+  border:1px solid #e5e7eb;
+  padding:10px;
+}
+th{background:#f3f4f6}
+pre{
+  background:#0b1020;
+  color:#e5e7eb;
+  padding:12px;
+  border-radius:12px;
+  overflow:auto;
+}
+code{font-family:Consolas, monospace}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <h1>파이썬 자료형</h1>
+  <p>자료형 분류</p>
+</header>
+
+
+
+<!-- 자료형 분류 -->
+<section>
+  <h2>1. 파이썬 자료형 분류</h2>
+
+  <div class="card">
+    <h3>① 기본 자료형</h3>
+    <table>
+      <tr><th>자료형</th><th>예</th><th>설명</th></tr>
+      <tr><td>int</td><td>10</td><td>정수</td></tr>
+      <tr><td>float</td><td>3.14</td><td>실수</td></tr>
+      <tr><td>bool</td><td>True</td><td>논리값</td></tr>
+      <tr><td>str</td><td>"Hello"</td><td>문자열</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>② 컬렉션 자료형</h3>
+    <table>
+      <tr><th>자료형</th><th>예</th><th>특징</th></tr>
+      <tr><td>list</td><td>[1,2,3]</td><td>순서 O, 수정 O</td></tr>
+      <tr><td>tuple</td><td>(1,2,3)</td><td>순서 O, 수정 X</td></tr>
+      <tr><td>set</td><td>{1,2,3}</td><td>중복 X</td></tr>
+      <tr><td>dict</td><td>{"a":1}</td><td>Key-Value</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+  <h3>③ 변경 가능성 (Mutable / Immutable)</h3>
+
+  <div class="callout">
+    <strong>핵심 개념</strong>
+    Python에서 모든 값은 객체(Object)입니다.  
+    객체는 값 자체를 변경할 수 있는지 여부에 따라  
+    Mutable(변경 가능) 과 Immutable(변경 불가능) 로 나뉩니다.
+  </div>
+
+  <table>
+    <tr><th>구분</th><th>자료형</th><th>특징</th></tr>
+    <tr>
+      <td>Mutable</td>
+      <td>list, dict, set</td>
+      <td>객체 내부 값을 직접 수정 가능</td>
+    </tr>
+    <tr>
+      <td>Immutable</td>
+      <td>int, float, bool, str, tuple</td>
+      <td>객체 내부 값 수정 불가 → 새 객체 생성</td>
+    </tr>
+  </table>
+
+  <h4>✔ Mutable 예시</h4>
+<pre><code>
+a = [1,2,3]
+a[0] = 100
+print(a)      # [100, 2, 3]
+</code></pre>
+   리스트 객체 내부 값이 직접 변경됩니다.
+
+  <h4>✔ Immutable 예시</h4>
+<pre><code>
+s = "hello"
+s = s + "!"
+print(s)      # hello!
+</code></pre>
+   문자열은 수정 불가 → 새 문자열 객체가 생성됩니다.
+
+  <h4>✔ 메모리 관점</h4>
+<pre><code>
+x = 10
+y = x
+x = 20
+</code></pre>
+
+<ul>
+  <li>10 과 20 은 각각 별도의 int 객체</li>
+  <li>x 는 10 → 20 객체로 참조 변경</li>
+  <li>기존 10 객체는 y 가 계속 참조</li>
+</ul>
+
+  <div class="note">
+    <b>정리</b><br>
+    Mutable 객체는 "객체 내부 값 변경"<br>
+    Immutable 객체는 "새 객체를 만들어 참조 변경"<br><br>
+    따라서 Python 변수는 값을 담는 것이 아니라  
+    <b>객체를 가리키는 이름표(참조)</b> 입니다.
+  </div>
+</div>
+
+
+  <div class="card">
+  <h3>④ 특수 자료형</h3>
+
+  <div class="callout">
+    <strong>핵심 개념</strong>
+    특수 자료형은 특정 목적을 위해 제공되는  
+    파이썬의 내장(Built-in) 자료형입니다.
+  </div>
+
+  <table>
+    <tr><th>자료형</th><th>예</th><th>설명</th></tr>
+
+    <tr>
+      <td>NoneType</td>
+      <td>None</td>
+      <td>값이 없음을 의미 (null 개념)</td>
+    </tr>
+
+    <tr>
+      <td>range</td>
+      <td>range(1, 5)</td>
+      <td>연속된 숫자 시퀀스를 생성</td>
+    </tr>
+
+
+  </table>
+
+  <h4>✔ NoneType</h4>
+<pre><code>
+x = None
+print(x)         # None
+print(type(x))   # &lt;class 'NoneType'&gt;
+</code></pre>
+  변수에 아직 값이 없음을 표현할 때 사용
+
+  <h4>✔ range</h4>
+<pre><code>
+r = range(1, 5)
+print(list(r))   # [1, 2, 3, 4]
+</code></pre>
+  반복문에서 숫자 시퀀스를 효율적으로 생성
+
+
+
+  <div class="note">
+    <b>정리</b><br>
+    None → 값 없음 표현<br>
+    range → 숫자 시퀀스 생성<br>
+
+  </div>
+</div>
+
+
+  <div class="note">
+    <b>정리</b><br>
+    파이썬의 모든 값은 객체이며  
+    용도에 따라 다양한 자료형으로 분류됩니다.
+  </div>
+</section>
+
+<section>
+  <h2>2. 함수와 메서드 구분</h2>
+
+  <div class="card">
+    <div class="callout">
+      <strong>정의</strong>
+      모듈에 정의된 것은 함수(Function),  
+      클래스 내부에 정의된 것은 메서드(Method)라고 부릅니다.
+    </div>
+
+<pre><code>
+# 함수
+def add(a,b):
+    return a+b
+
+# 메서드
+class Person:
+    def say(self):
+        print("Hello")
+</code></pre>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

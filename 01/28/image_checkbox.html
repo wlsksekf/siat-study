@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>모든 체크박스 선택/해제</title>
+
+</head>
+<body>
+    <div>모든 체크박스 선택/해제 - checked 속성 이용</div>
+    <hr>
+    <form>
+        <label><input type="checkbox" name="all" value='모두 선택/해제'>ALL</label><br>
+        <label><input type="checkbox" name="icon" value='images/image1.png'>image1</label>
+        <label><input type="checkbox" name="icon" value='images/image2.png'>image2</label>
+        <label><input type="checkbox" name="icon" value='images/image3.png'>image3</label>
+    </form>
+    <script>
+        const all = document.querySelector('input[name=all]');
+        all.addEventListener('click', show);
+        
+        function show(){
+            const icons = document.querySelectorAll('input[name=icon]');
+            
+            for (let i = 0; i < icons.length; i++) {
+                console.log(this.checked);
+                icons[i].checked = this.checked;
+            }
+        };
+    </script>
+</body>
+</html>

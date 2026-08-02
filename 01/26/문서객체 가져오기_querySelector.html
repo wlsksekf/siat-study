@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서 객체 가져오기</title>
+    <script>
+        window.onclick = function(){
+            const header1 = document.querySelector('#header-1');
+            const header2 = document.querySelector('#header-2');
+
+            header1.innerHTML = 'with getElementById() : 햇살이';
+            header2.innerHTML = 'with getElementById() : 좋아요';
+        }
+    </script>
+</head>
+<body>
+    <h1 id="header-1">클릭</h1>
+    <h1 id="header-2">클릭</h1>
+</body>
+</html>

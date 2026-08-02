@@ -1,0 +1,91 @@
+  /*  폰트와 배경 설정 */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  /* 카드 레이아웃 컨테이너 */
+  .container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  h2 {
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  /* 버튼 디자인 (호버 애니메이션 포함) */
+  #btn {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  #btn:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  }
+
+  #btn:active {
+    transform: translateY(0);
+  }
+
+  /* 결과 로그 영역 (상태별 디자인) */
+  #log {
+    padding: 1.2rem;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 1px dashed #d1d5db;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    word-break: break-all;
+    color: #6b7280;
+  }
+
+  /* 상태별 스타일 클래스 */
+  #log.success {
+    background: #ecfdf5;
+    border-color: #10b981;
+    color: #10b981;
+    font-weight: 600;
+  }
+
+  #log.error {
+    background: #fef2f2;
+    border-color: #ef4444;;
+    color: #ef4444;;
+    font-weight: 600;
+  }
+
+  .status-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    opacity: 0.8;
+  }

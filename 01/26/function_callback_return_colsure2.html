@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>함수를 리턴하는 함수</title>
+</head>
+<body>
+    <script>
+        function createCounter() {
+            let count = 0;
+
+            return function() {
+                return ++count;
+            };
+        }
+
+        const myCounter = createCounter();
+
+        console.log(myCounter());
+        console.log(myCounter());
+        console.log(myCounter());
+
+        const myCounter2 = createCounter();
+
+        console.log(myCounter2());
+        console.log(myCounter2());
+        console.log(myCounter2());
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>구구단 표</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: auto;
+            font-size: 20px;
+        }
+
+        tr,
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        thead {
+            background-color: blue;
+            color: white;
+        }
+
+        tr:nth-child(odd) {
+            background-color: rgba(192, 192, 192, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        let dan = prompt("출력할 단을 입력하세요 (2~9)");
+        if (dan === null) {
+            alert("입력이 취소되었습니다.")
+        } else {
+            while (dan < 2 || dan > 9 || Number.isNaN(Number(dan))) {
+                alert("2~9 사이의 숫자만 입력해야 합니다. 다시 입력해주세요.")
+                dan = prompt("출력할 단을 입력하세요 (2~9)");
+                if (dan === null) {
+                    alert("입력이 취소되었습니다.")
+                    break;
+                }
+            }
+        }
+
+        if (dan !== null) {
+            let table = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>${dan}단</th>
+                        </tr>
+                    </thead>
+                <tbody>
+            `;
+
+            for (i = 1; i <= 9; i++) {
+                table += `
+                <tr>
+                    <td>${dan} X  ${i} = ${dan * i}</td>            
+                </tr>
+                `;
+
+            }
+
+            table += `</tbody></table>`;
+
+            document.body.innerHTML = table;
+        }
+
+    </script>
+
+
+</body>
+
+</html>

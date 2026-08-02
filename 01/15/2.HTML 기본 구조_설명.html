@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML 기본 구조 </title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#2563eb;
+      --accent2:#0ea5e9;
+      --codebg:#0b1020;
+      --code:#e5e7eb;
+      --good:#10b981;
+      --warn:#ef4444;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.75;
+      padding:28px;
+    }
+    .wrap{max-width:1100px;margin:0 auto;}
+    header{
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#fff;
+      border-radius:16px;
+      padding:22px 20px;
+      box-shadow:0 12px 26px rgba(0,0,0,.10);
+    }
+    header h1{margin:0 0 6px;font-size:24px}
+    header p{margin:0;opacity:.92}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:18px;
+      margin-top:18px;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns: 1fr;}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
+    }
+    h2{
+      margin:0 0 10px;
+      font-size:18px;
+      border-left:5px solid var(--accent);
+      padding-left:10px;
+    }
+    h3{
+      margin:16px 0 8px;
+      font-size:15px;
+      color:#111827;
+    }
+    p{margin:8px 0}
+    ul, ol{margin:8px 0 8px 18px}
+    li{margin:4px 0}
+    .note{
+      border-left:4px solid var(--accent);
+      background:#eef2ff;
+      padding:12px 12px;
+      border-radius:10px;
+      color:#1e3a8a;
+      margin-top:10px;
+    }
+    .warn{
+      border-left:4px solid var(--warn);
+      background:#fff1f2;
+      padding:12px 12px;
+      border-radius:10px;
+      color:#9f1239;
+      margin-top:10px;
+    }
+    .good{
+      border-left:4px solid var(--good);
+      background:#ecfdf5;
+      padding:12px 12px;
+      border-radius:10px;
+      color:#065f46;
+      margin-top:10px;
+    }
+    .mini{color:var(--muted);font-size:13px}
+    pre{
+      background:var(--codebg);
+      color:var(--code);
+      padding:14px;
+      border-radius:12px;
+      overflow:auto;
+      margin:10px 0;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    code{font-family:Consolas, Menlo, monospace; font-size:13px}
+    .kbd{
+      font-family:Consolas, Menlo, monospace;
+      background:#111827;
+      color:#fff;
+      padding:2px 7px;
+      border-radius:7px;
+      font-size:12px;
+      display:inline-block;
+      margin:0 2px;
+    }
+    .toc a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+    .toc a:hover{
+      text-decoration:underline;
+    }
+    .tag{
+      display:inline-block;
+      background:#f1f5f9;
+      border:1px solid var(--line);
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:12px;
+      color:#0f172a;
+      margin-right:6px;
+      margin-bottom:6px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:13px;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:10px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      background:#f8fafc;
+    }
+    footer{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>HTML 기본 구조 </h1>
+      <p>HTML 문서는 <b>요소(element)</b>와 <b>속성(attribute)</b>으로 구성되며, 문서의 시작에는 <b>DOCTYPE</b> 선언이 포함됩니다.</p>
+    </header>
+
+    <div class="grid">
+      <!-- MAIN -->
+      <main class="card">
+        <h2 id="intro">1. HTML 문서란 무엇인가요</h2>
+        <p>
+          HTML(HyperText Markup Language)은 웹 문서의 <b>구조</b>를 만드는 언어입니다.<br>
+          HTML 문서는 <b>태그(tag)</b>로 표기하는 <b>요소(element)</b>와, 요소에 추가 정보를 주는 <b>속성(attribute)</b>으로 이루어집니다.
+        </p>
+
+        <div class="note">
+          HTML 문서는 보통 다음 구성으로 이루어집니다.<br>
+          <span class="tag">DOCTYPE</span>
+          <span class="tag">html 요소</span>
+          <span class="tag">head 요소</span>
+          <span class="tag">body 요소</span>
+        </div>
+
+        <h2 id="doctype">2. DOCTYPE이란 무엇인가요</h2>
+        <p>
+          <b>DOCTYPE</b>은 문서를 구성하는데 사용한 <b>규약(표준)</b>을 알려주는 선언입니다.<br>
+          문서가 어떤 HTML 규격을 따르는지 브라우저에게 알려주는 역할을 합니다.
+        </p>
+
+        <div class="warn">
+          웹 문서에 DOCTYPE 정보가 없으면 브라우저는 문서의 규약을 정확히 알 수 없어<br>
+          웹 문서를 <b>잘못 처리할 수 있습니다.</b>
+        </div>
+
+        <h3>2-1. HTMLDOCTYPE</h3>
+        <pre><code>&lt;!DOCTYPE html&gt;</code></pre>
+        <p class="mini">
+          위 선언은 “이 문서는 HTML규약을 따릅니다” 라는 의미입니다.
+        </p>
+
+        <h2 id="html">3. &lt;html&gt; 요소의 역할</h2>
+        <p>
+          <b>&lt;html&gt;</b> 요소는 문서 전체를 감싸며, 이 안에 문서 내용이 들어갑니다.<br>
+          일반적으로 다음 두 영역이 포함됩니다.
+        </p>
+        <ul>
+          <li><b>&lt;head&gt;</b> 요소: 문서에 대한 정보(메타데이터)가 포함됩니다.</li>
+          <li><b>&lt;body&gt;</b> 요소: 브라우저 화면에 보이는 실제 내용이 포함됩니다.</li>
+        </ul>
+
+        <h2 id="head">4. &lt;head&gt; 요소에 들어가는 것들</h2>
+        <p>
+          <b>&lt;head&gt;</b> 요소에는 “문서 제목, 문자 인코딩, CSS/JS 연결 정보” 같은 문서 정보가 들어갑니다.
+        </p>
+
+        <h3>4-1. &lt;title&gt; 요소</h3>
+        <p>
+          <b>&lt;title&gt;</b> 요소는 문서 제목을 나타냅니다.<br>
+          브라우저 탭 제목으로 표시됩니다.
+        </p>
+
+        <h3>4-2. &lt;meta&gt; 요소</h3>
+        <p>
+          <b>&lt;meta&gt;</b> 요소는 문자 인코딩 정보 또는 검색엔진을 위한 정보 등을 설정합니다.
+        </p>
+
+        <div class="good">
+          HTML5에서 가장 기본이 되는 인코딩 설정은 다음과 같습니다.<br>
+          <span class="kbd">&lt;meta charset="UTF-8"&gt;</span> 로 설정됩니다.
+        </div>
+
+        <h3>4-3. 기타 head 요소</h3>
+        <ul>
+          <li><b>&lt;link&gt;</b> 요소: 외부 CSS 파일 등을 연결합니다.</li>
+          <li><b>&lt;script&gt;</b> 요소: 자바스크립트를 작성하거나 외부 JS 파일을 연결합니다.</li>
+          <li><b>&lt;style&gt;</b> 요소: 문서 내부에 CSS를 작성합니다.</li>
+        </ul>
+
+        <h2 id="body">5. &lt;body&gt; 요소에 들어가는 것들</h2>
+        <p>
+          <b>&lt;body&gt;</b> 요소에는 브라우저 화면에 출력되는 내용이 들어갑니다.<br>
+          예를 들어 제목, 단락, 목록, 표, 이미지 등이 포함됩니다.
+        </p>
+
+        <h2 id="element-attr">6. 요소(element)와 속성(attribute)</h2>
+
+        <h3>6-1. 요소(element)란 무엇인가요</h3>
+        <p>
+          요소는 웹 문서를 구성하는 기본 단위입니다.<br>
+          일반적으로 <b>시작 태그</b> + <b>내용</b> + <b>종료 태그</b>로 이루어집니다.
+        </p>
+
+        <pre><code>&lt;p&gt;안녕하세요&lt;/p&gt;
+&lt;h1&gt;제목입니다&lt;/h1&gt;</code></pre>
+
+        <h3>6-2. 속성(attribute)란 무엇인가요</h3>
+        <p>
+          속성은 요소에 <b>추가 정보</b>를 주기 위해서 사용됩니다.<br>
+          속성은 보통 <b>시작 태그 안</b>에 작성되며, <b>이름과 값</b>의 쌍으로 구성됩니다.
+        </p>
+
+        <pre><code>&lt;img src="cat.png" alt="고양이 사진"&gt;
+&lt;a href="https://example.com"&gt;이동하기&lt;/a&gt;</code></pre>
+
+        <ul>
+          <li>이름과 값 사이에는 <b>=</b> 문자가 사용됩니다.</li>
+          <li>값은 <b>" "</b> 또는 <b>' '</b>로 감싸서 작성됩니다.</li>
+          <li>요소는 여러 속성을 가질 수 있으며, 속성은 <b>공백</b>으로 구분됩니다.</li>
+        </ul>
+
+        <h2 id="tag">7. 태그(tag)와 단독 태그</h2>
+        <p>
+          태그는 문서에서 요소를 표시하기 위해 붙이는 <b>꼬리표</b>입니다.<br>
+          태그에는 시작 태그와 종료 태그가 있을 수 있으며, 내용이 없는 요소는 단독 태그로 사용됩니다.
+        </p>
+
+        <h3>7-1. 복합 태그(시작+종료가 있는 태그)</h3>
+        <pre><code>&lt;title&gt;문서 제목&lt;/title&gt;
+&lt;div&gt;내용&lt;/div&gt;</code></pre>
+
+        <h3>7-2. 단독 태그(내용이 없는 태그)</h3>
+        <p class="mini">
+          단독 태그는 내용이 없기 때문에 종료 태그가 없습니다.<br>
+        </p>
+        <pre><code>&lt;img src="cat.png" alt="고양이"&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;br&gt;</code></pre>
+
+        <div class="note">
+          예: img, meta, link, br, hr, input 등으로 사용됩니다.
+        </div>
+
+        <h2 id="comment">8. 주석(comment)</h2>
+        <p>
+          주석은 브라우저 화면에는 보이지 않지만, 문서 작성자가 메모를 남기기 위해 사용됩니다.
+        </p>
+        <pre><code>&lt;!-- 여기는 주석입니다. 브라우저 화면에는 표시되지 않습니다. --&gt;</code></pre>
+
+        <h2 id="specialchars">9. 특수문자(예약 문자)</h2>
+        <p>
+          HTML에서 <b>&lt;</b>, <b>&gt;</b> 같은 문자는 태그를 표현하는데 사용되므로 그대로 쓰면 문제가 생길 수 있습니다.<br>
+          이때는 <b>엔티티(entity)</b>로 작성합니다.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>표현하려는 문자</th>
+              <th>HTML 엔티티</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>&lt;</td>
+              <td><code>&amp;lt;</code></td>
+              <td>태그 시작 기호이므로 엔티티로 작성합니다.</td>
+            </tr>
+            <tr>
+              <td>&gt;</td>
+              <td><code>&amp;gt;</code></td>
+              <td>태그 끝 기호이므로 엔티티로 작성합니다.</td>
+            </tr>
+            <tr>
+              <td>&amp;</td>
+              <td><code>&amp;amp;</code></td>
+              <td>엔티티 시작 기호이므로 엔티티로 작성합니다.</td>
+            </tr>
+            <tr>
+              <td>"</td>
+              <td><code>&amp;quot;</code></td>
+              <td>속성 값에서 큰따옴표가 필요할 때 사용합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 id="charset">10. 문자 코드(인코딩)</h2>
+        <p>
+          웹 문서는 문자 인코딩을 지정해야 글자가 깨지지 않습니다.<br>
+          가장 많이 사용하는 방식은 <b>UTF-8</b>이며, head에 다음과 같이 작성합니다.
+        </p>
+        <pre><code>&lt;meta charset="UTF-8"&gt;</code></pre>
+
+        <h2 id="full-example">11. HTML 기본 구조 전체 예제</h2>
+        <p>
+          아래 예제는 HTML기본 구조를 모두 포함한 예제입니다.<br>
+          그대로 복사해서 <b>.html</b> 파일로 저장하면 실행됩니다.
+        </p>
+
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;나의 첫 HTML 문서&lt;/title&gt;
+
+  &lt;!-- 외부 CSS 연결 예시 --&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+
+  &lt;!-- 내부 CSS 예시 --&gt;
+  &lt;style&gt;
+    body { font-family: Arial, sans-serif; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;안녕하세요&lt;/h1&gt;
+  &lt;p&gt;이 문서는 HTML 기본 구조 예제입니다.&lt;/p&gt;
+
+  &lt;!-- 이미지(단독 태그) 예시 --&gt;
+  &lt;img src="cat.png" alt="고양이 사진"&gt;
+
+  &lt;!-- 자바스크립트 예시 --&gt;
+  &lt;script&gt;
+    console.log("HTML 문서가 로드되었습니다.");
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <div class="good">
+          정리하면, HTML 문서는 <b>DOCTYPE → html → head/body</b> 순서로 작성되며,<br>
+          내용은 요소로 구성되고, 요소의 추가 정보는 속성으로 표현됩니다.
+        </div>
+      </main>
+
+      <!-- SIDE -->
+      <aside class="card toc">
+        <h2>목차</h2>
+        <ol>
+          <li><a href="#intro">HTML 문서란</a></li>
+          <li><a href="#doctype">DOCTYPE</a></li>
+          <li><a href="#html">html 요소</a></li>
+          <li><a href="#head">head 요소</a></li>
+          <li><a href="#body">body 요소</a></li>
+          <li><a href="#element-attr">요소와 속성</a></li>
+          <li><a href="#tag">태그와 단독 태그</a></li>
+          <li><a href="#comment">주석</a></li>
+          <li><a href="#specialchars">특수문자</a></li>
+          <li><a href="#charset">문자 코드</a></li>
+          <li><a href="#full-example">전체 예제</a></li>
+        </ol>
+
+        <h3>정리</h3>
+        <ul>
+          <li>DOCTYPE은 문서 규약을 알려줍니다.</li>
+          <li>head는 문서 정보를 포함합니다.</li>
+          <li>body는 화면에 보이는 내용을 포함합니다.</li>
+          <li>요소는 태그로 표현됩니다.</li>
+          <li>속성은 시작 태그 안에서 이름=값으로 작성됩니다.</li>
+        </ul>
+      </aside>
+    </div>
+
+    <footer>
+      © HTML Basic Structure Handout
+    </footer>
+  </div>
+</body>
+</html>

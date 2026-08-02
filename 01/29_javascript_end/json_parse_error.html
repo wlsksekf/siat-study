@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>JSON.parse() 의미</title>
+</head>
+<body>
+    <p>JSON 문자열 -> 자바스크립트 객체/배열로 변환</p>
+    <script>
+        try {
+            const jsonText = '{"name":"Kim Jin Hwan","age":26}';
+            const obj = JSON.parse(jsonText);
+
+            console.log(obj.name);
+            console.log(obj.age);
+
+        } catch (err) {
+            console.log("에러:", err.message);
+        }
+    </script>
+</body>
+</html>

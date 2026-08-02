@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="js/ex0213.js" defer></script>
+</head>
+<style>
+    /* 기본 스타일 초기화 및 배경 설정 */
+body {
+    font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    color: #333;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* 테이블 기본 스타일 */
+table {
+    border-collapse: collapse;
+    width: 650px;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    overflow: hidden; /* 테두리 둥글게 */
+}
+
+/* 테이블 헤더 및 셀 공통 */
+th, td {
+    padding: 18px 15px;
+    text-align: center;
+    border-bottom: 1px solid #edf2f7;
+}
+
+/* 헤더 배경색 */
+th {
+    background-color: #4a69bd;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* 텍스트 입력창 스타일 */
+input[type="text"] {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #d1d8e0;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #4a69bd;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 105, 189, 0.3);
+}
+
+/* 읽기 전용 필드 (readOnly) */
+input[readOnly] {
+    background-color: #f1f2f6;
+    border: none;
+    color: #2f3542;
+    font-weight: bold;
+    cursor: default;
+}
+
+/* 가격 및 합계 강조 */
+.price {
+    color: #eb4d4b;
+    font-weight: 600;
+}
+
+/* 마지막 합계 행  */
+tr:last-child {
+    background-color: #f9f9f9;
+}
+
+tr:last-child td {
+    border-bottom: none;
+    font-weight: bold;
+}
+
+/* 버튼 영역 */
+input[type="reset"], 
+input[type="submit"] {
+    padding: 12px 30px;
+    margin: 15px 8px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+input[type="reset"] {
+    background-color: #a5b1c2;
+    color: white;
+}
+
+input[type="submit"] {
+    background-color: #38ada9;
+    color: white;
+}
+
+input[type="reset"]:hover, 
+input[type="submit"]:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+</style>
+<body>
+    <h2>서적 주문 양식</h2>
+    <form action="result.html" method="get">
+        <table>
+            <tr>
+                <th>책 제목</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>합계</th>
+            </tr>
+            <tr>
+                <td>4차 산업</td>
+                <td class="price">30,000원</td>
+                <td><input id="book1" type="text" value="0"
+                            onclick="this.select();"></td>
+                <td><input id="book1Total" type="text" value="0" readonly>원</td>            
+            </tr>
+            <tr>
+                <td>다이어트</td>
+                <td class="price">27,000원</td>
+                <td><input id="book2" type="text" value="0"
+                            onclick="this.select();"></td>
+                <td><input id="book2Total" type="text" value="0" readonly>원</td>            
+            </tr>
+            <tr>
+                <td>윤식당</td>
+                <td class="price">25,000원</td>
+                <td><input id="book3" type="text" value="0"
+                            onclick="this.select();"></td>
+                <td><input id="book3Total" type="text" value="0" readonly>원</td>            
+            </tr>
+            <tr>
+                <td>합계</td>
+                <td>&nbsp;</td>
+                <td><input id="totalNumber" type="text" value="0" readonly></td>        
+                <td><input id="totalPrice" type="text" value="0" readonly></td>        
+            </tr>
+        </table>
+        <input type="reset" value="초기화">
+        <input type="submit" value="제출">
+    </form>
+</body>
+</html>

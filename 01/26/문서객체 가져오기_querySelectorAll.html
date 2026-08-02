@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서 객체 가져오기</title>
+    <script>
+        window.onclick = function(){
+            const headers = document.querySelectorAll('h1');
+
+            headers[0].innerHTML = '첫번째 h1<br>';
+            headers[1].innerHTML = '두번째 h1<br>';
+
+            headers.forEach(function(h, index){
+                h.innerHTML += `NodeList=headers[${index}]<hr>`;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1 id="header-1">클릭</h1>
+    <h1 id="header-2">클릭</h1>
+</body>
+</html>

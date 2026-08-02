@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>함수를 리턴하는 함수</title>
+</head>
+<body>
+    <script>
+        function returnFunction(){
+
+            return function(){
+                alert("Hello Funtion..!");
+            };
+        }
+
+        const result = returnFunction();
+
+        console.log(result);
+        result();
+
+        returnFunction()();
+    </script>
+</body>
+</html>

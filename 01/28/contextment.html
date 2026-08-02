@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>oncontextmenu</title>
+<script>
+    document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        alert("컨텍스트 메뉴 사용이 금지됨");
+    });
+</script>
+</head>
+<body>
+    <h3>마우스 관련 이벤트 리스너</h3>
+    <hr>
+    <div>마우스 오른쪽 클릭 금지</div>
+    <img src="images/image1.png">
+</body>
+</html>

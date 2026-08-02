@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서 객체 가져오기</title>
+<style>
+    input:nth-child(1){
+        color: green;
+        font-weight: bold;
+    }
+
+    input:nth-child(2){
+        background-color: orange;
+        color: white;
+    }
+</style>
+
+    <script>
+        window.onload= function(){
+            const inputs = document.querySelectorAll('input[name=age]');
+
+            inputs[0].value = '24살입니다';
+
+            inputs[1].focus();
+        };
+    </script>
+</head>
+<body>
+    <input type="text" name="age">
+    <input type="text" name="age">
+</body>
+</html>

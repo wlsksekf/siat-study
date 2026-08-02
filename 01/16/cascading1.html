@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>css상속과 캐스케이딩 이해</title>
+<style>
+    body {background-color: aquamarine;}
+    h3 {
+        color: red;
+    }
+    h3 {
+        color: blue;
+    }
+    p {
+        font-size: 20px;
+        color: gray;
+    }
+    strong {
+        color: darkorange;
+        font-style: italic;
+        font-size: 30px;
+    }
+</style>
+</head>
+<body>
+
+    <h3>스타일시트 이해(이 제목은 블루)</h3>
+
+    <P>
+        이 영역은 부모 요소인 p 태그임
+        <strong>이 영역은 자식 요소인 strong 태그임</strong>
+    </P>
+
+</body>
+</html>

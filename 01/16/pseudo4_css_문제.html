@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>가상 클래스 선택자 - ':'기호를 사용하는 선택자</title>
+<style>
+    p{font-size: 10px;}
+    a{color: blue;}
+    a:visited{color: green;}
+    a:active{color: yellow;}
+    p::first-letter{font-size: 30px; background-color: silver;}
+    h3:link::after {content: ' - ' attr(href);}
+    h3::before{content: ' ◆ ';}
+    h3::after{content: ' ⓒ ';}
+</style>
+</head>
+<body>
+    <h3><strong>스타일시트</strong>이해하기</h3>
+    <p>이 예제는<strong>css</strong>의 개념을 설명함</p>
+    <p>선택자에 <a href="http://www.w3c.org">가상 요소 선택자</a>와
+    <a href="http://www.naver.com">선택자 조합</a>을 적용하여 스타일을
+        지정함</p>
+</body>
+</html>

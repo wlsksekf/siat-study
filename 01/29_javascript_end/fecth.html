@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link href="css/ex0404.css" rel="stylesheet">
+</head>
+<body>
+    <h2>fetch + JSON 실습</h2>
+    <p>버튼을 클릭하면 users.json 파일을 비동기로 불러옵니다.</p>
+    <button id="btn">데이터 불러오기</button>
+    <div id="status">상태: 대기 중...</div>
+    <table>
+        <thead>
+            <tr>
+                <th>속성</th><th>의미</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <tr><td colspan="4">아직 데이터가 없습니다.</td></tr>
+        </tbody>
+    </table>
+    <script>
+        const btn = document.getElementById("btn");
+        const tbody = document.getElementById("tbody");
+        const status = document.getElementById("status");
+
+        btn.addEventListener("click", function() {
+
+            status.classList.remove("success", "error");
+            status.textContent = "상태: 데이터 불러오는 중...";
+
+            fetch("./data/users.json")
+                .then(function(response) {
+                    
+                    if (!response.ok) {
+                        throw new Error("HTTP 오류 " + response.status);
+                    }
+
+                    status.classList.add("success");
+                    status.textContent = "상태: 데이터 불러오기 성공";
+
+                    tbody.innerHTML = `
+                        <tr><td>response.status</td><td>${response.status}</td></tr>
+                        <tr><td>response.ok</td><td>${response.ok}</td></tr>
+                        <tr><td>response.url</td><td>${response.url}</td></tr>`;
+                })
+                .catch(function(err) {
+                    status.classList.add("error");
+                    status.textContent = "상태: 오류 발생!";
+                    tbody.innerHTML = `<tr><td colspan="2">에러: ${err.message}</td></tr>`;
+                });
+        });
+    </script>
+</body>
+</html>

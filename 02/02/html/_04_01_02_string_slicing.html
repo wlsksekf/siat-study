@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>교안 - Python 문자열 슬라이싱</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", Arial, sans-serif;
+      line-height:1.8;
+      color:#111827;
+      background:#f6f7fb;
+    }
+    .container{
+      max-width:1080px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:26px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.06);
+    }
+    header{
+      padding:18px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,0.14);
+    }
+    header h1{margin:0 0 6px;font-size:26px}
+    header p{margin:0;opacity:.95}
+
+    section{margin-top:22px}
+    h2{margin:0 0 10px;font-size:20px}
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+      margin-top:12px;
+    }
+
+    .aside{
+      display:flex;
+      gap:10px;
+      background:#eef2ff;
+      border:1px solid #c7d2fe;
+      padding:12px 14px;
+      border-radius:12px;
+      margin-top:10px;
+      color:#1e3a8a;
+    }
+    .badge{
+      width:30px;height:30px;border-radius:10px;
+      background:#4338ca;color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+    }
+
+    pre{
+      margin:10px 0;
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:14px;
+      border-radius:12px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .diagram{
+      background:#f8fafc;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:14px;
+      white-space:pre;
+      font-family: Consolas, monospace;
+      margin-top:8px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    th,td{
+      border-bottom:1px solid #e5e7eb;
+      padding:12px;
+      text-align:left;
+    }
+    th{background:#f3f4f6;width:30%}
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      background:#fefce8;
+      border:1px solid #fde68a;
+      border-radius:12px;
+      color:#92400e;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <h1>Python 문자열 슬라이싱(Slicing)</h1>
+  <p>문자열의 일부 구간을 잘라내는 방법</p>
+</header>
+
+<section>
+  <h2>1. 슬라이싱이란?</h2>
+  <div class="aside">
+    <div class="badge">👉</div>
+    <div>
+      <b>슬라이싱(Slicing)</b>이란  
+      문자열(또는 리스트)의 <b>일부 구간을 잘라내어 추출</b>하는 기능입니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>기본 형식</h3>
+    <div class="diagram">문자열[시작 : 끝 : 간격]</div>
+
+    <table>
+      <tr>
+        <th>시작(start)</th>
+        <td>슬라이싱을 시작할 인덱스 (포함)</td>
+      </tr>
+      <tr>
+        <th>끝(end)</th>
+        <td>슬라이싱을 끝낼 인덱스 (❗끝-1 까지 포함)</td>
+      </tr>
+      <tr>
+        <th>간격(step)</th>
+        <td>몇 칸씩 이동할지 결정 (기본값 = 1)</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      ✅ 끝 인덱스는 <b>포함되지 않는다</b> → start ~ end-1
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. 기본 슬라이싱 예제</h2>
+  <div class="card">
+<pre><code>text = "Python Programming"
+
+print(text[0:6])   # Python
+print(text[:6])    # Python
+print(text[7:])    # Programming</code></pre>
+
+    <div class="diagram">
+text = "Python Programming"
+index:  0 1 2 3 4 5 6 7 ...
+결과:
+text[0:6] → Python
+text[7:]  → Programming
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. 간격(step) 활용</h2>
+  <div class="card">
+<pre><code>print(text[::2])   # Pto rgamn
+print(text[::-1])  # gnimmargorP nohtyP</code></pre>
+
+    <table>
+      <tr>
+        <th>[::2]</th>
+        <td>처음부터 끝까지 <b>2칸씩 건너뛰며 출력</b></td>
+      </tr>
+      <tr>
+        <th>[::-1]</th>
+        <td>문자열을 <b>역순(뒤집기)</b> 출력</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      ✅ 간격이 <b>음수</b>이면 <b>뒤에서 앞으로 역방향</b> 이동합니다.
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. 음수 인덱스 활용</h2>
+  <div class="card">
+<pre><code>print(text[1:-1])  # ython Programmin</code></pre>
+
+    <div class="diagram">
+음수 인덱스:
+-1 → 마지막 문자  
+-2 → 뒤에서 두 번째 문자
+    </div>
+
+    <div class="note">
+      ✅ [1:-1] → 첫 글자와 마지막 글자를 제외한 전체 출력
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5. 숫자 문자열 예제</h2>
+  <div class="card">
+<pre><code>text = "0123456789abcde"
+
+print(text[0:3])    # 012
+print(text[:3])     # 012
+print(text[3:4])    # 3
+print(text[:3:2])   # 02
+print(text[::2])    # 02468ace
+print(text[:-1])    # 0123456789abcd
+print(text[-1])     # e</code></pre>
+
+  <table>
+    <tr><th>[0:3]</th><td>0~2까지 출력</td></tr>
+    <tr><th>[:3:2]</th><td>처음부터 2칸씩 → 02</td></tr>
+    <tr><th>[:-1]</th><td>마지막 문자 제외</td></tr>
+    <tr><th>[-1]</th><td>마지막 문자만 출력</td></tr>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>6. 정리</h2>
+  <div class="card">
+    <table>
+      <tr>
+        <th>[start:end]</th>
+        <td>start부터 end-1까지</td>
+      </tr>
+      <tr>
+        <th>[:end]</th>
+        <td>처음부터 end-1까지</td>
+      </tr>
+      <tr>
+        <th>[start:]</th>
+        <td>start부터 끝까지</td>
+      </tr>
+      <tr>
+        <th>[::step]</th>
+        <td>간격(step)만큼 건너뛰기</td>
+      </tr>
+      <tr>
+        <th>[::-1]</th>
+        <td>문자열 뒤집기</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      ✅ 슬라이싱은 문자열뿐 아니라 리스트, 튜플에도 동일하게 사용됩니다.
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+
+======================================
+요구 사항
+1. 전역 변수 newWindow 를 사용하지 않습니다.
+2. 즉시 실행 함수(IIFE) 안에서 newWindow 를 선언합니다.
+3. 익명 함수가 {open_window, close_window} 객체를 배열이 아니라 객체 형태로 반환합니다.
+4. 반환된 객체를 windowController 변수에 저장합니다.
+5. 버튼 html 입니다.
+    <button onclick="windowController.open_window();">
+    새로운 창(탭 윈도우)을 엽니다.
+    </button>
+
+    <button onclick="windowController.close_window();">
+    연 창을 닫습니다.
+    </button>
+
+============위 요구 사항이 어려울 때===============================
+
+
+    let newWindow = null;
+
+    function open_window() {
+        const url = window.prompt(
+            "원하는 URL 주소를 입력하시오",
+            "http://www.naver.com"
+        );
+
+        // 문자열이 하나 이상이면 true
+        if (url) {
+            newWindow = window.open(url);
+        }
+    }
+
+    function close_window() {
+        // 창이 열려 있을 때만 닫기
+        if (newWindow && !newWindow.closed) {
+            newWindow.close();
+        } else {
+            alert("닫을 창이 없습니다.");
+        }
+    }
+
+
+1. 위 내용을 익명 함수에 넣고 즉시 실행 후 결과를
+windowController 에 저장합니다.
+
+2. 익명 함수에서 리턴되는 것은 배열로 {open_window, close_window} 입니다.
+
+3. html의 body는 다음과 같습니다.
+    <button onclick="windowController.open_window();">
+    새로운 창(탭 윈도우)을 엽니다.
+    </button>
+
+    <button onclick="windowController.close_window();">
+    연 창을 닫습니다.
+    </button>

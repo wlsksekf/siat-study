@@ -1,0 +1,17 @@
+.venv/
+venv/
+
+.env
+env/
+
+# Eclipse metadata
+.metadata/
+.bin/
+.settings/
+.loadpath
+.project
+.classpath
+
+# Java binary files
+*.class
+*.pdf

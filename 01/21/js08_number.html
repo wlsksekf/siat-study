@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+ <meta charset="UTF-8">
+ <title>Number</title>
+</head>
+<body>
+
+ <script>
+    console.log(Number("100px"));   // 문자는 NaN
+    console.log(Number("   "));     // 공백은 0
+    // NaN은 Number타입이지만 정상적인 숫자는 아님
+
+
+    //Number.isNaN() -> NaN이면 true
+    console.log(Number.isNaN("a")); //false
+    console.log(Number.isNaN("1")); //fasle
+    console.log(Number.isNaN(1));   //false(1은 숫자이지만 NaN이 아님)
+    console.log(Number.isNaN(NaN)); //true
+
+
+
+
+ </script>
+
+</body>
+</html>

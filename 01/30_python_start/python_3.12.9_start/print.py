@@ -1,0 +1,7 @@
+print("안녕하세요")
+print(123)
+print()
+print("파이썬", "자바", "C언어")
+print("2026", "01", "29", sep="_")
+print("Hello", "World", end="! ")
+print("Python~")

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>글자색 반복</title>
+<style>
+    @keyframes textColorAnimation {
+        0% {color: red;}
+        20% {color: orange;}
+        40% {color: yellow;}
+        60% {color: green;}
+        80% {color: blue;}
+        100% {color: purple;}
+    }
+
+    span{
+        font-weight: bold;
+        font-size: 70px;
+        animation-name: textColorAnimation;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+    }
+</style>
+</head>
+<body>
+    <p><span>맛점하셨나요?</span></p>
+</body>
+</html>

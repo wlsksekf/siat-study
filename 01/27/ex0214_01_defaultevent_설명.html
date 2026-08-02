@@ -1,0 +1,133 @@
+﻿<!-- 교안: 디폴트 이벤트(Default Event) 제거 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>교안 - 디폴트 이벤트(Default Event) 제거</title>
+<style>
+  body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.7;
+    background:#f7f8fb;
+    color:#1f2937;
+    padding:28px;
+  }
+  .container{
+    max-width: 900px;
+    margin: auto;
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:24px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.06);
+  }
+  h1{margin-top:0;}
+  h2{margin-top:18px;}
+  .card{
+    background:#f9fafb;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:16px;
+    margin-top:12px;
+  }
+  pre{
+    background:#0b1020;
+    color:#e5e7eb;
+    padding:14px;
+    border-radius:8px;
+    overflow:auto;
+  }
+  code{color:#38bdf8;}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>디폴트 이벤트(Default Event)</h1>
+
+<div class="card">
+<p>
+<strong>디폴트 이벤트</strong>란  
+이벤트가 발생했을 때 <strong>브라우저가 기본적으로 수행하는 동작</strong>을 말합니다.
+</p>
+
+<ul>
+  <li>&lt;a&gt; 태그 클릭 → 다른 페이지로 이동</li>
+  <li>&lt;form&gt; submit → 서버로 데이터 전송</li>
+</ul>
+
+<p>
+이 기본 동작을 막고 싶을 때  
+<strong>디폴트 이벤트 제거</strong>를 사용합니다.
+</p>
+</div>
+
+<h2>디폴트 이벤트 제거 방법</h2>
+
+<div class="card">
+<h3>방법 1 : onsubmit에서 false 반환</h3>
+<pre><code>
+document.getElementById("my-form").onsubmit = function(){
+  return false; // submit 기본 동작 제거
+};
+</code></pre>
+</div>
+
+<div class="card">
+<h3>방법 2 : 인라인 이벤트에서 return false</h3>
+<pre><code>
+function whenSubmit(){
+  return false;
+}
+
+&lt;form onsubmit="return whenSubmit()"&gt;
+</code></pre>
+</div>
+
+<div class="card">
+<h3>방법 3 : event.preventDefault()</h3>
+<pre><code>
+&lt;a href="http://www.naver.com" 
+   onclick="event.preventDefault()"&gt;
+네이버 이동 막기
+&lt;/a&gt;
+</code></pre>
+</div>
+
+<div class="card">
+<h3>방법 4 : addEventListener + preventDefault</h3>
+<pre><code>
+function whenSubmit(event){
+  event.preventDefault(); // 기본 submit 동작 제거
+}
+
+document.querySelector("#login")
+        .addEventListener("submit", whenSubmit);
+</code></pre>
+</div>
+
+
+
+<script>
+  // submit 이벤트 연결
+  document.getElementById('my-form').onsubmit = function(){
+    alert("submit 기본 동작이 제거되었습니다.");
+    return false; // 서버 전송 차단
+  };
+</script>
+</div>
+
+<h2>정리</h2>
+
+<div class="card">
+<ul>
+  <li>디폴트 이벤트는 브라우저가 자동 수행하는 기본 동작입니다.</li>
+  <li>return false 또는 event.preventDefault() 로 제거합니다.</li>
+  <li>폼 검증, AJAX 전송 등에 반드시 활용됩니다.</li>
+</ul>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+ <meta charset="UTF-8">
+ <title>for 반복문</title>
+</head>
+<body>
+
+ <script>
+    let output = "";
+    let sum = 0;
+    let sick = "";
+    for (let i = 10; i >= 1; i -= 2) {
+        output += `${i}<hr>`;
+        sum += i;
+        sick += i;
+
+        if(i > 2){
+            sick += ` + `;
+        }
+    }
+
+    document.body.innerHTML = output;
+    document.body.innerHTML += `${sick} = ${sum}입니다`;
+ </script>
+
+</body>
+</html>

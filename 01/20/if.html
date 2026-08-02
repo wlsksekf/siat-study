@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>if문</title>
+</head>
+<body>
+<script>
+let score = 75;
+
+let output = "";
+
+let input = "";
+
+if (score >= 60) {
+    output += "<p>합격입니다.</p>";
+}
+
+if (score >= 80) {
+    output += "<p>우수한 성적입니다.</p>";
+} else {
+    output += "<p>좀 더 노력하세요.</p>";
+}
+
+if (input) {
+output += "<p>입력값이 있음</p>";
+} else {
+output += "<p>입력값이 없음</p>";
+}
+
+document.body.innerHTML = output;
+</script>
+</body>
+</html>

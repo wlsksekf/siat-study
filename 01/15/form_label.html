@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>텍스트 라벨 예제</title>
+</head>
+<body>
+    <p>라벨의 텍스트를 클릭해도 됨.
+        라벨 태그의 for속성값과 input태그의 id속성값이 같을 시
+    </p>
+    <form method="get" action="result.html">
+        성별: &nbsp;
+        <label for="male">남성</label>
+        <input type="radio" name="gender" id="male" value="male" checked>
+        <label for="female">여성</label>
+        <input type="radio" name="gender" id="female" value="female" checked>
+        <br>
+        <hr>
+        <input type="submit" value="전송">
+        <input type="reset" value="취소">
+    </form>
+</body>
+</html>

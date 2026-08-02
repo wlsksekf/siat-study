@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>이벤트 버블링 문제</title>
+<style>
+    div:nth-child(1){
+        border: 5px solid red;
+    }
+    div>div:nth-child(1){
+        border: 5px solid orange;
+    }
+    h1{
+        border: 5px solid yellow;
+    }
+    p{
+        border: 5px solid green;
+    }
+</style>
+</head>
+<body>
+    <div class="item" id="외부div">
+        <div class="item" id="내부div">
+            <h1 class="item" id="h1">
+                <p class="item" id="Paragraph">Paragraph</p>
+            </h1>
+        </div>
+    </div>
+
+    <script>
+        const items = document.querySelectorAll('.item');
+
+        function somthing(e){
+            const message = `현재 이벤트 실행하는 객체의 아이디 
+            = ${e.currentTarget.id}\n이벤트 발생 객체 태그 이름
+            = ${e.target.tagName}`;
+            alert(message);
+        }
+
+        for(let i=0; i<items.length; i++){
+            items[i].addEventListener('click', somthing, false);
+        }
+    </script>
+</body>
+</html>

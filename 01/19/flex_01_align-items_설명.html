@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Flexbox align-items 통합 교안</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:#f7f8fb;
+      padding:30px;
+      line-height:1.8;
+      color:#222;
+    }
+    .container {
+      max-width:1000px;
+      margin:auto;
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1,h2,h3 {
+      color:#0d6efd;
+    }
+    pre {
+      background:#272822;
+      color:#f8f8f2;
+      padding:15px;
+      border-radius:6px;
+      overflow-x:auto;
+    }
+    table {
+      border-collapse:collapse;
+      width:100%;
+      margin-top:10px;
+    }
+    th,td {
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+    th {
+      background:#e9f0ff;
+    }
+
+    /* 예제용 Flex 컨테이너 공통 */
+    .flex-box {
+      display:flex;
+      border:2px solid #0d6efd;
+      background:#eef5ff;
+      padding:10px;
+      margin:10px 0 18px 0;
+      height:220px; /* align-items 차이를 보기 위해 높이를 줍니다 */
+    }
+
+    /* 이미지 크기 통일 */
+    .flex-box img {
+      width:70px;
+      height:70px;
+    }
+
+    /* baseline 예제를 위해 2번째 이미지만 크기 변경 */
+    .baseline-demo img:nth-child(2) {
+      width:70px;
+      height:110px;
+    }
+
+    /* stretch 예제를 위해 height:auto + 이미지가 늘어나는 모습을 보기 위해 block 처리 */
+    .stretch-demo img {
+      height:auto;
+      display:block;
+    }
+
+    .label {
+      font-weight:bold;
+      margin-top:22px;
+    }
+    .note {
+      background:#f3f4f6;
+      border-left:5px solid #0d6efd;
+      padding:12px 14px;
+      border-radius:8px;
+      margin:12px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h1>Flexbox 정렬 : align-items</h1>
+<hr>
+
+<h2>1. align-items란?</h2>
+<p>
+align-items 속성은  
+<strong>Flex 컨테이너의 교차축(cross axis, 세로 방향)으로 아이템들을 어떻게 정렬할지</strong> 결정합니다.<br>
+(단, flex-direction: row; 가 기본값일 때)
+</p>
+
+<div class="note">
+  <b>기억하기</b><br>
+  justify-content : 가로(주축) 정렬<br>
+  align-items : 세로(교차축) 정렬
+</div>
+
+<h2>2. align-items 속성값</h2>
+
+<table>
+  <tr><th>값</th><th>설명</th></tr>
+  <tr><td>flex-start</td><td>아이템을 컨테이너의 위쪽(시작점)으로 정렬합니다.</td></tr>
+  <tr><td>flex-end</td><td>아이템을 컨테이너의 아래쪽(끝점)으로 정렬합니다.</td></tr>
+  <tr><td>center</td><td>아이템을 세로 가운데로 정렬합니다.</td></tr>
+  <tr><td>baseline</td><td>아이템을 텍스트 기준선(baseline)에 맞춰 정렬합니다.</td></tr>
+  <tr><td>stretch</td><td>아이템을 컨테이너 높이에 맞게 늘립니다(아이템에 높이가 지정되지 않은 경우).</td></tr>
+</table>
+
+<h2>3. 기본 예제</h2>
+
+<pre>
+.flex-container {
+  display: flex;
+  align-items: flex-end;
+}
+</pre>
+
+<div class="flex-box" style="align-items:flex-end;">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+</div>
+
+<p>
+위 예제는 align-items: flex-end; 로 설정되어  
+이미지들이 컨테이너 아래쪽으로 정렬됩니다.
+</p>
+
+<hr>
+
+<h2>4. align-items 값 변경 실습 + 결과</h2>
+<p>아래는 align-items 값을 바꿨을 때의 실제 실행 결과입니다.</p>
+
+<div class="label">1) align-items: flex-start</div>
+<div class="flex-box" style="align-items:flex-start;">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+</div>
+<p>→ 아이템들이 위쪽부터 정렬됩니다.</p>
+
+<div class="label">2) align-items: flex-end</div>
+<div class="flex-box" style="align-items:flex-end;">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+</div>
+<p>→ 아이템들이 아래쪽부터 정렬됩니다.</p>
+
+<div class="label">3) align-items: center</div>
+<div class="flex-box" style="align-items:center;">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+</div>
+<p>→ 아이템들이 세로 가운데 정렬됩니다.</p>
+
+
+
+<div class="label">4) align-items: baseline</div>
+<!-- baseline 설명 문장 -->
+<p class="note">
+baseline은 <b>텍스트 기준선</b>을 맞추는 정렬입니다.<br>
+아래 예제는 <b>글자 크기가 다른 텍스트 요소</b>를 배치하여 기준선이 어떻게 맞춰지는지 보여줍니다.
+</p>
+
+<div class="flex-box" style="align-items:baseline;">
+  <div style="font-size:20px; background:#ffd;">Text A</div>
+  <div style="font-size:40px; background:#cfc;">Text B</div>
+  <div style="font-size:28px; background:#ccf;">Text C</div>
+</div>
+
+<p>
+→ 글자 크기가 달라도 <b>텍스트의 아랫부분 기준선(baseline)</b>이 나란히 정렬됩니다.
+</p>
+
+
+
+<div class="label">5) align-items: stretch</div>
+<p class="note">
+stretch는 아이템의 높이가 고정되어 있지 않으면(기본값 auto) 컨테이너 높이에 맞춰 늘어납니다.<br>
+이미지는 기본적으로 늘어나지 않는 경우가 많아, <b>실습에서는 이미지가 늘어나는 모습을 보기 쉽도록</b> 스타일을 일부 조정했습니다.
+</p>
+<div class="flex-box stretch-demo" style="align-items:stretch;">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+  <img src="../19/images/strawberry.png" alt="딸기">
+</div>
+<p>→ 아이템이 컨테이너 높이에 맞춰 늘어납니다(조건에 따라 달라질 수 있습니다).</p>
+
+<hr>
+
+<h2>5. 정리</h2>
+<ul>
+  <li>align-items는 <b>세로(교차축)</b> 정렬을 담당합니다.</li>
+  <li>flex-direction 기본값은 row 이므로 교차축은 세로입니다.</li>
+  <li>flex-start / center / flex-end 로 위·가운데·아래 정렬을 쉽게 할 수 있습니다.</li>
+  <li>baseline은 <b>텍스트 기준선</b>을 맞추는 정렬입니다.</li>
+  <li>stretch는 아이템의 높이가 지정되지 않았을 때 컨테이너 높이에 맞춰 늘어납니다.</li>
+</ul>
+
+</div>
+</body>
+</html>

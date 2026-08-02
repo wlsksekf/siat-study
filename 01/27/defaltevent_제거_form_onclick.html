@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link href="css/ex0214.css" rel="stylesheet">
+<title>과제</title>
+</head>
+<script>
+    window.onload = function() {
+        const form = document.getElementById('my-form');
+
+        form.addEventListener('submit', function(e) {
+            const inputs = form.querySelectorAll('input');
+
+            for (let i = 0; i < inputs.length; i++) {
+                const target = inputs[i];
+
+                if (target.value.trim() === "") {
+                    const label = target.getAttribute('placeholder') || '항목';
+                    alert(label + '을(를) 입력하세요');
+                    target.focus();
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            const pw = document.getElementById('pass');
+            const pwck = document.getElementById('pass-check');
+
+            if (pw.value !== pwck.value) {
+                alert('비밀번호가 다릅니다. 다시 입력해 주세요');
+                pw.value = "";
+                pwck.value = "";
+                pw.focus();
+                e.preventDefault();
+                return;
+            }
+
+            alert('성공');
+        });
+    }
+</script>
+<body>
+    <form id="my-form" action="id_Number.html">
+        <fieldset>
+            <legend>회원가입 폼</legend>
+            <label for="name">이름</label>
+            <input type="text" name="name" id="name">
+
+            <label for="pass">비밀번호</label>
+            <input type="password" name="pass" id="pass">
+
+            <label for="pass-check">비밀번호 확인</label>
+            <input type="password" id="pass-check">
+
+            <input type="submit" value="제출">
+        </fieldset>
+    </form>
+</body>
+</html>

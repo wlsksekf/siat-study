@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>window</title>
+<script>
+    let newWindow = null;
+
+    function open_window() {
+        const url = window.prompt(
+            "원하는 URL 주소를 입력하시오",
+            "http://www.naver.com"
+        );
+
+        if (url) {
+            newWindow = window.open(url);
+        }
+    }
+
+    function close_window() {
+        if (newWindow && !newWindow.closed) {
+            newWindow.close();
+        } else {
+            alert("닫을 창이 없습니다.");
+        }
+    }
+</script>
+</head>
+<body>
+    <button onclick="open_window();">창열기</button>
+    <button onclick="close_window();">창닫기</button>
+</body>
+</html>

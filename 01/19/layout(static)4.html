@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>위치/크기 지정 속성</title>
+<style>
+    body{
+        height: 1500px;
+    }
+
+    div{
+        width: 100px;
+        height: 100px;
+        color: white;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #box1{
+        position:absolute;
+        left: 80px;
+        top: 50px;
+        background-color: red;
+    }
+    #box2{
+        position: fixed;
+        left: 200px;
+        top: 50px;
+        background-color: blue;
+    }
+</style>
+</head>
+<body>
+    <h3>스크롤을 내려보세요</h3>
+    <div id="box1">absolute</div>
+    <div id="box2">fixed</div>
+</body>
+</html>

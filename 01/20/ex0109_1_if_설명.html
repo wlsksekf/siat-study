@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>조건문 if / if-else 교안</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9fafb;
+      padding: 28px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    /* 노션 스타일 코드 블록 */
+    pre {
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    pre code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      display: block;
+    }
+
+    /* 인라인 코드 */
+    code.inline {
+      background-color: #f6f8fa;
+      border: 1px solid #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    .note {
+      background-color: #eef3ff;
+      border-left: 4px solid #4a6cf7;
+      padding: 12px 14px;
+      margin: 14px 0;
+      border-radius: 8px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 18px 0;
+    }
+
+    ul {
+      margin: 8px 0 8px 18px;
+    }
+
+    li { margin: 6px 0; }
+  </style>
+
+  <!-- 실행 코드 -->
+  <script>
+    let score = 75;
+
+    // if문 예제
+    if (score >= 60) {
+      console.log("합격입니다.");
+    }
+
+    // if-else문 예제
+    if (score >= 80) {
+      console.log("우수한 성적입니다.");
+    } else {
+      console.log("좀 더 노력하세요.");
+    }
+
+    // Truthy / Falsy 예제
+    let input = "";
+
+    if (input) {
+      console.log("입력값이 있습니다.");
+    } else {
+      console.log("입력값이 없습니다.");
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>조건문 if / if-else</h1>
+
+    <p>
+      <strong>조건문(Conditional Statement)</strong>은  
+      조건식의 결과에 따라 실행할 코드를 결정하는 문장입니다.
+    </p>
+
+    <div class="note">
+      if문은 조건식이 true 또는 false로 평가되어  
+      실행 흐름을 제어합니다.
+    </div>
+
+    <hr />
+
+    <h2>1. if문</h2>
+
+    <p>
+      <code class="inline">if</code>문은 조건식이  
+      <strong>true</strong>일 때만 중괄호 안의 코드를 실행합니다.
+    </p>
+
+    <pre><code>if (조건식) {
+  실행할 문장;
+}</code></pre>
+
+    <h3>예시</h3>
+
+    <pre><code>let score = 75;
+
+if (score >= 60) {
+  console.log("합격입니다.");
+}</code></pre>
+
+    <ul>
+      <li><code class="inline">score &gt;= 60</code> → true 이므로 실행</li>
+      <li>false이면 아무 동작도 하지 않음</li>
+    </ul>
+
+    <hr />
+
+    <h2>2. if - else문</h2>
+
+    <p>
+      <code class="inline">if-else</code>문은  
+      조건이 true 인 경우와 false 인 경우를 모두 처리합니다.
+    </p>
+
+    <pre><code>if (조건식) {
+  조건이 true일 때 실행
+} else {
+  조건이 false일 때 실행
+}</code></pre>
+
+    <h3>예시</h3>
+
+    <pre><code>let score = 75;
+
+if (score >= 80) {
+  console.log("우수한 성적입니다.");
+} else {
+  console.log("좀 더 노력하세요.");
+}</code></pre>
+
+    <ul>
+      <li>score ≥ 80 → "우수한 성적입니다."</li>
+      <li>그 외 → "좀 더 노력하세요."</li>
+    </ul>
+
+    <hr />
+
+    <h2>3. Truthy / Falsy 와 if문</h2>
+
+    <p>
+      if문의 조건식에는 Boolean 값뿐 아니라  
+      <strong>Truthy / Falsy 규칙</strong>이 적용됩니다.
+    </p>
+
+    <pre><code>if (값) {
+  // 값이 Truthy 이면 실행
+} else {
+  // 값이 Falsy 이면 실행
+}</code></pre>
+
+    <div class="note">
+      <strong>Falsy 값</strong><br>
+      false, 0, "", null, undefined, NaN
+    </div>
+
+    <div class="note">
+      <strong>Truthy 값</strong><br>
+      Falsy를 제외한 모든 값  
+      (예: "hi", 1, [], {}, function(){})
+    </div>
+
+    <h3>예시</h3>
+
+    <pre><code>let input = "";
+
+if (input) {
+  console.log("입력값이 있습니다.");
+} else {
+  console.log("입력값이 없습니다.");
+}</code></pre>
+
+    <hr />
+
+    <h2>4. 정리</h2>
+    <ul>
+      <li>if문은 조건이 true 일 때만 실행됩니다.</li>
+      <li>if-else문은 true / false 경우를 모두 처리합니다.</li>
+      <li>조건식은 Truthy / Falsy 규칙에 따라 평가됩니다.</li>
+      <li>조건문은 프로그램의 실행 흐름을 제어합니다.</li>
+    </ul>
+
+    <div class="note">
+      조건문은 조건식의 결과에 따라  
+      실행할 코드를 선택하는 제어문입니다.
+    </div>
+  </div>
+</body>
+</html>

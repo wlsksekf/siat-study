@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML 하이퍼링크 HTML</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:#f7f8fb;
+      line-height:1.8;
+      padding:30px;
+      color:#222;
+    }
+    .container {
+      max-width:900px;
+      margin:auto;
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1,h2 {
+      color:#0d6efd;
+    }
+    pre {
+      background:#272822;
+      color:#f8f8f2;
+      padding:15px;
+      border-radius:6px;
+      overflow:auto;
+    }
+    code {
+      color:#ffd866;
+    }
+    table {
+      border-collapse:collapse;
+      width:100%;
+      margin-top:10px;
+    }
+    th,td {
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+    th {
+      background:#e9f0ff;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h1>하이퍼링크(Hyperlink)</h1>
+
+<hr>
+
+<h2>1. 하이퍼링크란?</h2>
+<p>
+하이퍼링크(hyperlink)는  
+<strong>HTML 문서에서 다른 문서로 이동할 수 있도록 연결하는 기능</strong>입니다.  
+텍스트나 이미지에 웹 페이지 주소(URL)를 연결하여  
+클릭하면 해당 페이지로 이동됩니다.  
+하이퍼링크는 줄여서 <strong>링크(link)</strong>라고 부릅니다.
+</p>
+
+
+
+<h2>2. 하이퍼링크 기본 문법</h2>
+
+<pre>
+&lt;a href="이동할 주소"&gt;표시할 텍스트&lt;/a&gt;
+</pre>
+
+<table>
+<tr><th>속성</th><th>설명</th></tr>
+<tr><td>href</td><td>이동할 웹 페이지 주소(URL)를 지정합니다.</td></tr>
+<tr><td>title</td><td>마우스를 올리면 말풍선 설명이 표시됩니다.</td></tr>
+</table>
+
+
+
+<h2>3. 절대 주소(외부 사이트) 이동 예제</h2>
+
+<p>
+다음 예제는 다른 웹 사이트로 이동하는  
+<strong>절대 주소 하이퍼링크</strong> 예제입니다.
+</p>
+
+<pre>
+&lt;a href="https://www.w3c.or.kr" title="W3C 대한민국 사무국"&gt;
+  W3C 사무국(KOR) 방문
+&lt;/a&gt;
+</pre>
+
+<pre>
+&lt;a href="https://www.w3schools.com/" title="배우러 가요"&gt;
+  https://www.w3schools.com/
+&lt;/a&gt;
+</pre>
+
+<pre>
+&lt;a href="https://entertain.naver.com/home" title="TV연예"&gt;
+  네이버 연예
+&lt;/a&gt;
+</pre>
+
+
+
+<h2>4. 실제 실행 예제</h2>
+
+<ul>
+  <li>
+    <a href="https://www.w3c.or.kr" title="W3C 대한민국 사무국">
+      W3C 사무국(KOR) 방문
+    </a>
+  </li>
+  <li>
+    <a href="https://www.w3schools.com/" title="배우러 가요">
+      https://www.w3schools.com/
+    </a>
+  </li>
+  <li>
+    <a href="https://entertain.naver.com/home" title="TV연예">
+      네이버 연예
+    </a>
+  </li>
+</ul>
+
+<p>
+각 링크를 클릭하면 지정된 웹 사이트로 이동됩니다.
+</p>
+
+
+
+<h2>5. 새 창에서 열기</h2>
+
+<pre>
+&lt;a href="https://www.naver.com" target="_blank"&gt;
+네이버 새 창 열기
+&lt;/a&gt;
+</pre>
+
+<p>
+<code>target="_blank"</code> 속성을 사용하면  
+링크가 새 탭(새 창)에서 열립니다.
+</p>
+
+
+
+<h2>6. 정리</h2>
+
+<ul>
+  <li>&lt;a&gt; 태그로 하이퍼링크를 만듭니다.</li>
+  <li>href 속성에 이동할 주소를 작성합니다.</li>
+  <li>title 속성은 말풍선 설명이 표시됩니다.</li>
+  <li>target="_blank" 는 새 창에서 열립니다.</li>
+</ul>
+
+
+
+</div>
+</body>
+</html>

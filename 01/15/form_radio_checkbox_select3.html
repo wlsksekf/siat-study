@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>선택 입력 예제</title>
+</head>
+<body>
+    <h3>다양한 선택 입력</h3>
+    <form method="get" action="result.html">
+        <p>회원여부:
+            <input type="radio" name="member" value="yes" checked>회원
+            <input type="radio" name="member" value="no" checked>비회원<br>
+        </p>
+        <p>성별:
+            <input type="radio" name="gender" value="male" checked>남
+            <input type="radio" name="gender" value="female">여<br>
+        </p>
+        <p>취미(중복가능):
+            <input type="checkbox" name="hobby" value="read" checked>독서
+            <input type="checkbox" name="hobby" value="movie">영화
+            <input type="checkbox" name="hobby" value="music">음악
+            <input type="checkbox" name="hobby" value="sports">스포츠
+        </p>
+        <input type="submit" value="전송">
+    </form>
+</body>
+</html>

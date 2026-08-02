@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <h1>콤마어쩌구</h1>
+    <h1>25,000,000원</h1>
+    <div id="output"></div>
+<script>
+    const output = document.getElementById("output");
+
+    const data = "25,000,000원";
+
+    let dataResult = data.replace(",", "");
+    output.innerHTML += `${data} => ${dataResult}<hr>`;
+    
+    dataResult = data.replace(/,|원/g, "");
+    output.innerHTML += `${data} => ${dataResult}<hr>`;
+    
+    dataResult = "25/000/".replace(/\//g, "");
+    output.innerHTML += `25/000/ => ${dataResult}<hr>`;
+    
+    const data2 = 25000000;
+    dataResult = data2.toLocaleString();
+    output.innerHTML += `${data2} => ${dataResult}<hr>`;
+
+    const data3 = "abAb";
+    dataResult = data3.replace(/a/g, "*");
+    output.innerHTML += `${data3} => ${dataResult}<hr>`;
+
+    dataResult = data3.replace(/a/gi, "*");
+    output.innerHTML += `${data3} => ${dataResult}<hr>`;
+
+    const h1Text = document.querySelector("h1").textContent;
+    output.innerHTML += `첫번째 h1 내용 => ${h1Text}<hr>`;
+
+    const h1Text2 = document.querySelectorAll("h1")[1].textContent;
+    output.innerHTML += `두번째 h1 내용 => ${h1Text2}<hr>`;
+
+    dataResult = h1Text2.replace(/,|원/g, "");
+    output.innerHTML += `숫자만 추출 => ${dataResult}<hr>`;
+</script>
+</body>
+</html>

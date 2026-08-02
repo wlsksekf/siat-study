@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>if-else문</title>
+</head>
+<body>
+<script>
+let score = 75;
+
+if (score >= 90) {
+    output = "A";
+} else if (score >= 80) {
+    output = "B";
+}
+else if (score >= 70) {
+    output = "C";
+}
+else if (score >= 60) {
+    output = "D";
+}
+else {
+    output = "F";
+}
+document.body.innerHTML = "<label>당신의 학점은"+output+"입니다.</label>";
+</script>
+</body>
+</html>

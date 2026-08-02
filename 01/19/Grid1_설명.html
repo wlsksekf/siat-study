@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CSS Grid Template Areas 교안</title>
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f7f8fb;
+    padding:30px;
+    line-height:1.8;
+    color:#222;
+  }
+  .container {
+    max-width:1000px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  }
+  h1,h2,h3 {
+    color:#0d6efd;
+  }
+  pre {
+    background:#272822;
+    color:#f8f8f2;
+    padding:15px;
+    border-radius:6px;
+    overflow-x:auto;
+  }
+  table {
+    border-collapse:collapse;
+    width:100%;
+    margin-top:10px;
+  }
+  th,td {
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center;
+  }
+  th {
+    background:#e9f0ff;
+  }
+
+  /* ===== Grid 예제 스타일 ===== */
+  .item1 { grid-area: header; }
+  .item2 { grid-area: menu; }
+  .item3 { grid-area: main; }
+  .item4 { grid-area: right; }
+  .item5 { grid-area: footer; }
+
+  .grid-container-demo {
+    display: grid;
+    grid-template-areas:
+      "header header header header header header"
+      "menu main main main right right"
+      "menu footer footer footer footer footer";
+    gap: 10px; 
+    background-color: #2196F3;
+    padding: 10px;
+    margin-top:15px;
+  }
+
+  .grid-container-demo > div {
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .note {
+    background:#f3f4f6;
+    border-left:5px solid #0d6efd;
+    padding:12px 14px;
+    border-radius:8px;
+    margin:12px 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>CSS Grid Layout : grid-template-areas</h1>
+<hr>
+
+<h2>1. CSS Grid란?</h2>
+<p>
+CSS Grid는  
+<strong>행(Row)과 열(Column)을 기반으로 웹 페이지 전체 레이아웃을 설계하는 2차원 레이아웃 시스템</strong>입니다.  
+float이나 position 없이도 복잡한 화면 구조를 쉽게 만들 수 있습니다.
+</p>
+
+<div class="note">
+✔ Flexbox → 한 줄(1차원) 정렬 중심  
+<br>
+✔ Grid → 행과 열(2차원) 레이아웃 설계 중심
+</div>
+
+<h2>2. Grid 컨테이너 만들기</h2>
+
+<pre>
+.grid-container {
+  display: grid;
+}
+</pre>
+
+<p>
+display:grid; 를 적용한 요소를  
+<strong>Grid 컨테이너</strong>라고 부르며,  
+그 안의 자식 요소들은 <strong>Grid 아이템</strong>이 됩니다.
+</p>
+
+<h2>3. grid-template-areas란?</h2>
+
+<p>
+grid-template-areas는  
+<strong>화면 레이아웃을 문자 이름으로 설계하는 방식</strong>입니다.  
+각 영역에 이름을 붙이고, 그 이름을 배치하여 페이지 구조를 만듭니다.
+</p>
+
+<h2>4. 기본 문법</h2>
+
+<pre>
+grid-template-areas:
+  "header header header"
+  "menu main right"
+  "footer footer footer";
+</pre>
+
+<p>
+따옴표 한 줄이 <b>하나의 행(Row)</b>을 의미합니다.
+</p>
+
+<h2>5. 영역 이름 지정</h2>
+
+<pre>
+.item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; }
+</pre>
+
+<p>
+각 Grid 아이템에 <b>grid-area 이름</b>을 지정하면  
+grid-template-areas 구조에 맞춰 자동 배치됩니다.
+</p>
+
+<hr>
+
+<h2>6. 전체 예제 코드</h2>
+
+<pre>
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header header header header header header"
+    "menu main main main right right"
+    "menu footer footer footer footer footer";
+  gap: 10px;
+}
+</pre>
+
+<h2>7. 실행 결과</h2>
+
+<div class="grid-container-demo">
+  <div class="item1">Header</div>
+  <div class="item2">Menu</div>
+  <div class="item3">Main</div>  
+  <div class="item4">Right</div>
+  <div class="item5">Footer</div>
+</div>
+
+<p>
+→ 이름으로 설계한 레이아웃이 화면에 그대로 배치됩니다.
+</p>
+
+<hr>
+
+<h2>8. 레이아웃 구조 시각화</h2>
+
+<pre>
+"header header header header header header"
+"menu   main   main   main   right  right"
+"menu   footer footer footer footer footer"
+</pre>
+
+<p>
+각 단어가 화면의 영역을 의미합니다.
+</p>
+
+<hr>
+
+<h2>9. 정리</h2>
+
+<ul>
+  <li>Grid는 2차원(행 + 열) 레이아웃 시스템입니다.</li>
+  <li>grid-template-areas는 레이아웃을 이름으로 설계합니다.</li>
+  <li>grid-area로 각 요소를 지정하면 자동 배치됩니다.</li>
+  <li>복잡한 웹 페이지 구조를 쉽게 만들 수 있습니다.</li>
+</ul>
+
+</div>
+</body>
+</html>

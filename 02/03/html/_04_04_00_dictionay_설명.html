@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <title>Python 딕셔너리(dict)  - Key/Value & Key 규칙</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"맑은 고딕", Arial, sans-serif;
+      background:#f6f7fb;
+      color:#111827;
+      padding:24px;
+      line-height:1.85;
+    }
+    .wrap{max-width:1100px;margin:0 auto}
+
+    /* 헤더(기존 들과 통일) */
+    header{
+      padding:18px 18px 16px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,0.14);
+      margin-bottom:16px;
+    }
+    header h1{font-size:26px;margin-bottom:6px}
+    header p{opacity:.95}
+    .pills{margin-top:10px}
+    .pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.35);
+      background:rgba(255,255,255,0.15);
+      color:#fff;
+      font-size:12px;
+      margin-right:6px;
+      margin-top:6px;
+    }
+
+    /* 레이아웃 */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+    .span6{grid-column:span 6}
+    .span12{grid-column:span 12}
+
+    h2{font-size:18px;margin-bottom:10px}
+    h3{font-size:15px;margin:12px 0 6px}
+    ul{padding-left:18px}
+    li{margin:6px 0}
+    .muted{color:#6b7280;font-size:13px}
+
+    /* 안내 박스 */
+    .aside{
+      display:flex;
+      gap:10px;
+      background:#eef2ff;
+      border:1px solid #c7d2fe;
+      padding:12px 14px;
+      border-radius:12px;
+      margin-top:10px;
+      color:#1e3a8a;
+    }
+    .badge{
+      width:30px;height:30px;border-radius:10px;
+      background:#4338ca;color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+      font-size:13px;
+    }
+    .note{
+      background:#fefce8;
+      border:1px solid #fde68a;
+      color:#92400e;
+      border-radius:12px;
+      padding:12px 14px;
+      margin-top:12px;
+      font-size:13px;
+    }
+    .ok{
+      background:#ecfdf5;
+      border:1px solid #a7f3d0;
+      color:#065f46;
+      border-radius:12px;
+      padding:12px 14px;
+      margin-top:12px;
+      font-size:13px;
+    }
+
+    /* 코드 */
+    pre, code{font-family:Consolas,"Courier New",monospace}
+    pre{
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:14px;
+      border-radius:12px;
+      overflow:auto;
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    /* 표 */
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      margin-top:10px;
+    }
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid #e5e7eb;
+      vertical-align:top;
+      font-size:13px;
+    }
+    th{
+      background:#f3f4f6;
+      text-align:left;
+      width:28%;
+      white-space:nowrap;
+      font-weight:700;
+    }
+    tr:last-child th, tr:last-child td{border-bottom:none}
+
+    /* 2열 미니 카드 */
+    .two{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    .mini{
+      border:1px dashed #d1d5db;
+      background:#fcfcfd;
+      border-radius:12px;
+      padding:14px;
+    }
+
+    details{
+      margin-top:12px;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    summary{cursor:pointer;font-weight:700}
+
+    footer{
+      margin-top:16px;
+      color:#6b7280;
+      font-size:12px;
+      text-align:center;
+    }
+    @media (max-width: 980px){
+      .span6{grid-column:span 12}
+      .two{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Python 딕셔너리(dict) </h1>
+    <p>Key/Value 개념 · 생성/조회 · key 자료형 규칙(immutable) </p>
+  </header>
+
+  <section class="grid">
+
+    <!-- 1) 딕셔너리 기본 개념 -->
+    <div class="card span6">
+      <h2>1) 딕셔너리(dict)란?</h2>
+      <div class="aside">
+        <div class="badge">👉</div>
+        <div>
+          딕셔너리(dict)는 <b>Key(키) : Value(값)</b> 한 쌍으로 데이터를 저장합니다.<br>
+          리스트처럼 “순서(index)”로 찾는 것이 아니라 <b>키(key)로 바로 조회</b>합니다.
+        </div>
+      </div>
+
+      <ul>
+        <li><b>{ }</b> 중괄호로 만들고 <b>key: value</b> 형태로 작성합니다.</li>
+        <li><b>mutable(변경 가능)</b> → 추가/수정/삭제가 가능합니다.</li>
+        <li>조회는 <b>d[키]</b> 또는 <b>d.get(키)</b>로 합니다.</li>
+      </ul>
+
+      <h3>기본 예제</h3>
+      <pre><code>d = {"name": "Alice", "age": 25}
+
+print(d["name"])  # Alice
+print(d["age"])   # 25</code></pre>
+
+      <div class="ok">
+         딕셔너리는 <b>키로 바로 찾기</b> 때문에 “검색 속도”가 빠른 편입니다.
+      </div>
+    </div>
+
+    <!-- 2) 조회 방식: [] vs get -->
+    <div class="card span6">
+      <h2>2) 조회 방식: d[키] vs d.get(키)</h2>
+      <div class="muted">둘 다 값을 꺼내지만, “키가 없을 때” 동작이 다릅니다.</div>
+
+      <pre><code>d = {"name": "Alice"}
+
+print(d["name"])      # Alice
+print(d.get("name"))  # Alice
+
+# 없는 키 조회
+# print(d["age"])      # KeyError 발생
+print(d.get("age"))   # None (기본값)</code></pre>
+
+      <div class="note">
+         <b>d[키]</b> : 키가 없으면 <b>KeyError</b>가 발생합니다.<br>
+         <b>d.get(키)</b> : 키가 없으면 기본으로 <b>None</b>을 반환합니다.<br><br>
+        실전에서는 “키가 없을 수도 있는 상황”이면 get()이 안전합니다.
+      </div>
+    </div>
+
+    <!-- 3) 키 자료형 규칙 -->
+    <div class="card span12">
+      <h2>3) 딕셔너리 key 규칙(가장 중요)</h2>
+      <div class="aside">
+        <div class="badge">핵심</div>
+        <div>
+          딕셔너리의 <b>key는 변경 불가능한(immutable) 자료형만 </b>사용 해야 합니다.<br>
+        </div>
+      </div>
+
+      <table>
+        <tr>
+          <th>키로 사용 가능</th>
+          <td>int, float, str, bool, tuple(단, 내부까지 immutable) 등</td>
+        </tr>
+        <tr>
+          <th>키로 사용 불가</th>
+          <td>list, dict, set 등 (mutable)</td>
+        </tr>
+      </table>   
+    </div>
+
+    <!-- 4) 가능한 키 예제 -->
+    <div class="card span12">
+      <h2>4) 키로 사용할 수 있는 자료형 예제 </h2>
+      <div class="muted">아래는 모두 정상 동작합니다.</div>
+
+      <div class="two">
+        <div class="mini">
+          <h3>정수(int) 키</h3>
+          <pre><code>d = {1: "one", 2: "two"}
+print(d[1])  # one</code></pre>
+        </div>
+
+        <div class="mini">
+          <h3>문자열(str) 키</h3>
+          <pre><code>d = {"name": "Alice", "age": 25}
+print(d["age"])  # 25</code></pre>
+        </div>
+
+        <div class="mini">
+          <h3>불리언(bool) 키</h3>
+          <pre><code>d = {True: "yes", False: "no"}
+print(d[True])   # yes</code></pre>
+        </div>
+
+        <div class="mini">
+          <h3>튜플(tuple) 키</h3>
+          <pre><code>d = {(1, 2): "point"}
+print(d[(1, 2)])  # point</code></pre>
+        </div>
+      </div>
+
+      <div class="note">
+        튜플은 immutable이라 보통 키로 사용 가능합니다.<br>
+        단, “튜플 내부”에 list 같은 mutable이 섞이면 키로 사용할 수 없습니다.
+      </div>
+    </div>
+
+    <!-- 5) 불가능한 키 예제 -->
+    <div class="card span12">
+      <h2>5) 키로 사용할 수 없는 자료형 예제 </h2>
+      <div class="muted">아래는 실행하면 TypeError(unhashable)가 발생합니다.</div>
+
+      <div class="two">
+        <div class="mini">
+          <h3>list 키 </h3>
+          <pre><code># d = {[1, 2]: "value"}
+# TypeError: unhashable type: 'list'</code></pre>
+          <div class="note">list는 mutable이라 키로 사용할 수 없습니다.</div>
+        </div>
+
+        <div class="mini">
+          <h3>dict 키 </h3>
+          <pre><code># d = {{1: 2}: "value"}
+# TypeError: unhashable type: 'dict'</code></pre>
+          <div class="note">dict도 mutable이라 키로 사용할 수 없습니다.</div>
+        </div>
+
+        <div class="mini">
+          <h3>set 키 </h3>
+          <pre><code># d = {{1, 2}: "value"}
+# TypeError: unhashable type: 'set'</code></pre>
+          <div class="note">set도 mutable이라 키로 사용할 수 없습니다.</div>
+        </div>
+
+        <div class="mini">
+          <h3>튜플 내부에 list 포함 </h3>
+          <pre><code># d = {(1, [2, 3]): "x"}
+# TypeError: unhashable type: 'list'</code></pre>
+          <div class="note">키로 쓰려면 튜플 내부까지 전부 immutable이어야 합니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6) 자주 쓰는 작업 -->
+    <div class="card span12">
+      <h2>6) 딕셔너리에서 자주 하는 작업(추가/수정/삭제)</h2>
+
+      <pre><code>d = {"name": "Alice", "age": 25}
+
+# 추가
+d["city"] = "Seoul"
+
+# 수정
+d["age"] = 26
+
+# 삭제
+del d["city"]
+
+print(d)  # {'name': 'Alice', 'age': 26}</code></pre>
+
+      <div class="ok">
+        딕셔너리는 mutable이라 key를 이용해 값 추가/수정/삭제가 가능합니다.
+      </div>
+
+      <details>
+        <summary>Tip: keys(), values(), items()</summary>
+        <pre><code>d = {"name": "Alice", "age": 25}
+
+print(d.keys())    # dict_keys(['name', 'age'])
+print(d.values())  # dict_values(['Alice', 25])
+print(d.items())   # dict_items([('name', 'Alice'), ('age', 25)])</code></pre>
+      </details>
+    </div>
+
+    <!-- 7) 정리 -->
+    <div class="card span12">
+      <h2>정리</h2>
+      <ul>
+        <li>딕셔너리는 <b>key: value</b>로 저장하며 <b>키로 조회</b>합니다.</li>
+        <li>딕셔너리는 <b>mutable</b>이라 데이터 추가/수정/삭제가 가능합니다.</li>
+        <li>튜플은 키로 가능하지만, <b>튜플 내부에 mutable이 있으면 불가능</b>합니다.</li>
+      </ul>
+  
+    </div>
+
+  </section>
+
+</div>
+</body>
+</html>

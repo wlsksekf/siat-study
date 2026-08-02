@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>for 반복문 2</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: 400px; }
+    th, td { border: 1px solid #333; padding: 10px; text-align: center; }
+    th { background: #f3f4f6; }
+  </style>
+</head>
+
+<body>
+    <script>
+        let count = Number(prompt("입력할 사람 수"));
+
+        let table = `
+        <h2>입력된 개인정보</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>나이</th>
+                    <th>혈액형</th>
+                </tr>
+            </thead>
+        <tbody>
+        `;
+
+            for(let i = 1; i <= count; i++){
+                let name = prompt(`${i}번째 사람 이름 입력: `);
+                let age = prompt(`${i}번째 사람 나이 입력: `);
+                let abo= prompt(`${i}번째 사람 혈액형 입력: `);
+
+                table += `
+                <tr>
+                    <td>${name}</td>
+                    <td>${age}</td>
+                    <td>${abo}</td>
+                </tr>
+                `;
+            }
+
+            table += `</tbody></table>`;
+
+            document.body.innerHTML = table;
+
+    </script>
+
+</body>
+
+</html>

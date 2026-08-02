@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <title>교안 - 파일 입출력(File I/O)</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", Arial, sans-serif;
+      line-height:1.8;
+      color:#111827;
+      background:#f6f7fb;
+    }
+    .container{
+      max-width:1080px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:26px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.06);
+    }
+    header{
+      padding:18px 18px 16px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,0.14);
+    }
+    header h1{margin:0 0 6px; font-size:26px}
+    header p{margin:0; opacity:.95}
+
+    section{margin-top:22px}
+    h2{margin:0 0 10px; font-size:20px}
+    h3{margin:14px 0 8px; font-size:16px}
+    h4{margin:12px 0 6px; font-size:14px; color:#0f172a}
+    p{margin:8px 0}
+    ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:12px;
+    }
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 1fr 1fr;}
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    .aside{
+      display:flex;
+      gap:10px;
+      background:#eef2ff;
+      border:1px solid #c7d2fe;
+      padding:12px 14px;
+      border-radius:12px;
+      margin:12px 0;
+      color:#1e3a8a;
+    }
+    .badge{
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      background:#4338ca;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+    }
+    .pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      color:#374151;
+      font-size:12px;
+      margin-right:6px;
+      margin-top:6px;
+    }
+
+    pre{
+      margin:10px 0;
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:14px;
+      border-radius:12px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    th,td{
+      border-bottom:1px solid #e5e7eb;
+      padding:12px 10px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      background:#f3f4f6;
+      font-weight:700;
+    }
+    tr:last-child td{border-bottom:none}
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      background:#fefce8;
+      border:1px solid #fde68a;
+      border-radius:12px;
+      color:#92400e;
+    }
+
+    .quiz{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:16px;
+    }
+    details{
+      margin-top:10px;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    summary{cursor:pointer; font-weight:700}
+    hr.sep{border:none;border-top:1px dashed #e5e7eb;margin:16px 0}
+    .muted{color:#6b7280}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>파일 입출력(File I/O) - 열기 / 쓰기 / 읽기</h1>
+      <p>open() · mode(r/w/a) · encoding · with · read/readline/readlines · 예외 처리 · 실습/퀴즈</p>
+      <div>
+        <span class="pill">open</span>
+        <span class="pill">mode</span>
+        <span class="pill">encoding</span>
+        <span class="pill">with</span>
+        <span class="pill">read</span>
+        <span class="pill">write</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. 파일 입출력의 개념</h2>
+      <div class="aside">
+        <div class="badge">👉</div>
+        <div>
+          <b>파일 입출력(File I/O)</b>은 파일에 데이터를 <b>저장(쓰기)</b>하거나 파일에서 데이터를 <b>가져오는(읽기)</b> 작업입니다.<br>
+          기본 흐름은 <b>파일 열기 → 읽기/쓰기 → 파일 닫기</b> 입니다.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>왜 파일을 사용하나요?</h3>
+          <ul>
+            <li>프로그램 종료 후에도 데이터를 <b>저장</b>해 둘 수 있습니다.</li>
+            <li>텍스트(로그), 설정, 결과 등을 파일로 남겨 <b>관리</b>할 수 있습니다.</li>
+            <li>다른 프로그램과 데이터를 <b>교환</b>할 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>기본 규칙</h3>
+          <ul>
+            <li>텍스트 파일은 보통 <b>utf-8</b> 인코딩을 사용합니다.</li>
+            <li>읽기(<code>"r"</code>)는 파일이 없으면 에러가 발생합니다.</li>
+            <li>쓰기(<code>"w"</code>)는 기존 내용이 <b>삭제</b>될 수 있으니 주의합니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. open() 함수와 모드(mode)</h2>
+
+      <div class="card">
+        <h3>2-1) open() 기본 형태</h3>
+        <p>텍스트 파일을 다룰 때 가장 많이 쓰는 형태입니다.</p>
+        <pre><code>f = open("sample.txt", "r", encoding="utf-8")
+# ... 읽기/쓰기 작업 ...
+f.close()</code></pre>
+
+        <div class="note">
+          <b>중요</b><br>
+          파일 작업이 끝나면 반드시 <code>close()</code>로 닫아야 합니다. 닫지 않으면 저장이 누락되거나 파일이 잠길 수 있습니다.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>2-2) 모드(mode) 정리</h3>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:120px;">모드</th>
+              <th>의미</th>
+              <th>특징</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>"r"</code></td>
+              <td>읽기</td>
+              <td>파일이 없으면 에러가 발생합니다.</td>
+            </tr>
+            <tr>
+              <td><code>"w"</code></td>
+              <td>쓰기</td>
+              <td><b>기존 내용이 삭제</b>되고 새로 저장됩니다. 파일이 없으면 생성됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>"a"</code></td>
+              <td>추가 쓰기</td>
+              <td>기존 내용 뒤에 이어서 저장됩니다. 파일이 없으면 생성됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>"r+"</code></td>
+              <td>읽기 + 쓰기</td>
+              <td>읽고 쓰기가 모두 가능합니다. 파일이 없으면 에러가 발생합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="aside" style="margin-top:12px;">
+          <div class="badge">👉</div>
+          <div>
+            로그처럼 계속 누적 저장이 필요하면 <b>a 모드</b>를 사용합니다.<br>
+            <b>w 모드</b>는 실행할 때마다 파일이 초기화될 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. with open() (권장 방식)</h2>
+
+      <div class="card">
+        <h3>3-1) with를 사용하는 이유</h3>
+        <ul>
+          <li><b>자동으로 close()</b>가 호출되어 안전합니다.</li>
+          <li>실수로 파일을 닫지 않는 문제를 줄여줍니다.</li>
+        </ul>
+
+        <h4>예제</h4>
+        <pre><code>with open("sample.txt", "r", encoding="utf-8") as f:
+    data = f.read()
+
+print(data)</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. 파일 쓰기(write) 예제</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>4-1) 새로 쓰기 (w)</h3>
+          <p>파일이 없으면 생성되고, 있으면 기존 내용이 삭제됩니다.</p>
+          <pre><code>with open("sample.txt", "w", encoding="utf-8") as f:
+    f.write("안녕하세요\n")
+    f.write("파이썬 파일 입출력입니다.\n")
+    f.write("w 모드는 기존 내용을 삭제하고 새로 저장합니다.\n")</code></pre>
+        </div>
+
+        <div class="card">
+          <h3>4-2) 이어 쓰기 (a)</h3>
+          <p>파일 끝에 내용을 추가합니다.</p>
+          <pre><code>with open("sample.txt", "a", encoding="utf-8") as f:
+    f.write("이 줄은 a 모드로 추가된 내용입니다.\n")</code></pre>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>주의</b><br>
+        <code>write()</code>는 문자열만 저장합니다. 숫자는 <code>str()</code>로 변환해서 저장합니다.
+      </div>
+    </section>
+
+    <section>
+      <h2>5. 파일 읽기(read) 예제</h2>
+
+      <div class="card">
+        <h3>5-1) 전체 읽기 (read)</h3>
+        <pre><code>with open("sample.txt", "r", encoding="utf-8") as f:
+    data = f.read()
+
+print(data)</code></pre>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>5-2) 한 줄 읽기 (readline)</h3>
+          <p>한 줄씩 읽습니다. 줄 끝의 <code>\n</code>이 포함될 수 있습니다.</p>
+          <pre><code>with open("sample.txt", "r", encoding="utf-8") as f:
+    line1 = f.readline()
+    line2 = f.readline()
+
+print("1:", line1)
+print("2:", line2)</code></pre>
+        </div>
+
+        <div class="card">
+          <h3>5-3) 여러 줄 읽기 (readlines)</h3>
+          <p>각 줄을 원소로 가지는 리스트로 읽습니다.</p>
+          <pre><code>with open("sample.txt", "r", encoding="utf-8") as f:
+    lines = f.readlines()
+
+print(lines)  # ["...\\n", "...\\n", ...]</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. 숫자 데이터 저장 후 다시 숫자로 읽기</h2>
+      <div class="card">
+        <p>파일에서 읽은 값은 문자열이므로 <b>정수/실수로 변환</b>해야 합니다.</p>
+        <pre><code># 1) 저장 (숫자 -> 문자열)
+scores = [90, 80, 70]
+with open("scores.txt", "w", encoding="utf-8") as f:
+    for s in scores:
+        f.write(str(s) + "\n")
+
+# 2) 읽기 (문자열 -> 정수)
+with open("scores.txt", "r", encoding="utf-8") as f:
+    lines = f.readlines()
+
+scores2 = list(map(int, lines))
+print(scores2)  # [90, 80, 70]</code></pre>
+
+        <div class="aside" style="margin-top:12px;">
+          <div class="badge">👉</div>
+          <div>
+            숫자를 저장할 때는 <code>str()</code>로 변환합니다.<br>
+            숫자를 읽을 때는 <code>int()</code> 또는 <code>float()</code>로 변환합니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>7. 파일이 없을 때 예외 처리</h2>
+      <div class="card">
+        <pre><code>try:
+    with open("no_file.txt", "r", encoding="utf-8") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("파일이 존재하지 않습니다.")</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>8. 실습/퀴즈</h2>
+      <div class="quiz">
+        <p><b>아래 문제를 풀고, 정답을 펼쳐 확인합니다.</b></p>
+
+        <details open>
+          <summary>문제 1. hello.txt에 3줄 저장하기</summary>
+          <p>hello.txt 파일을 <code>"w"</code> 모드로 열고 다음 3줄을 저장합니다: Hello / Python / File I/O</p>
+          <hr class="sep">
+          <p class="muted"><b>정답</b></p>
+          <pre><code>with open("hello.txt", "w", encoding="utf-8") as f:
+    f.write("Hello\n")
+    f.write("Python\n")
+    f.write("File I/O\n")</code></pre>
+        </details>
+
+        <details>
+          <summary>문제 2. hello.txt에 End 한 줄 추가하기</summary>
+          <p>hello.txt 파일의 마지막에 <code>End</code> 한 줄을 추가합니다.</p>
+          <hr class="sep">
+          <p class="muted"><b>정답</b></p>
+          <pre><code>with open("hello.txt", "a", encoding="utf-8") as f:
+    f.write("End\n")</code></pre>
+        </details>
+
+        <details>
+          <summary>문제 3. hello.txt 전체 출력하기</summary>
+          <p>hello.txt 파일을 전체 읽어서 출력합니다. (<code>read()</code> 사용)</p>
+          <hr class="sep">
+          <p class="muted"><b>정답</b></p>
+          <pre><code>with open("hello.txt", "r", encoding="utf-8") as f:
+    data = f.read()
+
+print(data)</code></pre>
+        </details>
+
+        <details>
+          <summary>문제 4. scores2.txt에 점수 5개 저장 후 평균 출력하기</summary>
+          <p>[100, 90, 80, 70, 60]을 scores2.txt에 저장하고 다시 읽어 평균을 출력합니다.</p>
+          <hr class="sep">
+          <p class="muted"><b>정답</b></p>
+          <pre><code>scores = [100, 90, 80, 70, 60]
+
+# 저장
+with open("scores2.txt", "w", encoding="utf-8") as f:
+    for s in scores:
+        f.write(str(s) + "\n")
+
+# 읽기 + 변환
+with open("scores2.txt", "r", encoding="utf-8") as f:
+    lines = f.readlines()
+
+scores2 = list(map(int, lines))
+
+# 평균
+avg = sum(scores2) / len(scores2)
+print("평균:", avg)</code></pre>
+        </details>
+
+        <details>
+          <summary>문제 5. 파일이 없을 때 안내 문구 출력하기</summary>
+          <p>unknown.txt를 읽으려 시도하고 파일이 없으면 <code>파일이 없습니다</code>를 출력합니다.</p>
+          <hr class="sep">
+          <p class="muted"><b>정답</b></p>
+          <pre><code>try:
+    with open("unknown.txt", "r", encoding="utf-8") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("파일이 없습니다")</code></pre>
+        </details>
+      </div>
+
+      <div class="note">
+        <b>체크 포인트</b><br>
+        - <code>"w"</code>는 기존 내용이 삭제됩니다.<br>
+        - 파일에서 읽은 값은 문자열이므로 숫자는 <code>int()</code>로 변환합니다.<br>
+        - <code>with open()</code>을 사용하면 자동으로 닫힙니다.
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

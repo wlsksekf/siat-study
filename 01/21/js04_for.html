@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>for 반복문 3</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: auto; font-size: 20px;}
+    tr, th, td { border: 1px solid #333; padding: 10px 20px; text-align: center;}
+    .two {
+        border: 1px solid #333; padding: 10px 20px; text-align: center; background-color: rgba(255, 228, 196, 0.267);
+    }
+    th { background: #f3f4f6; }
+
+
+
+
+    /*  nth-child(odd) -> 부모 요소 안에서 나열된 <tr> 중 홀수 번째 행 선택
+        nth-child(even) -> 부모 요소 안에서 나열된 <tr> 중 짝수 번째 행 선택
+        즉, 테이블 행 (tr)의 순서를 기준을 번갈아 배경색 적용할 때 사용
+    */
+    tr:nth-child(even){
+        background-color: rgba(127, 255, 212, 0.425);
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+    <script>
+       let output = "";
+       let table = `
+        <table>         
+        `;
+                   
+       for (let i = 1; i <= 9; i++){
+        table += `<tr>`;
+
+        for(let dan = 2; dan <= 9; dan++){
+
+            table += `<td>${dan} X ${i} = ${i*dan}</td>`;
+
+        }
+        table += `</tr>`;
+       }
+       
+       table += `</table>`;
+
+       document.body.innerHTML = table;
+    </script>
+
+</body>
+
+</html>

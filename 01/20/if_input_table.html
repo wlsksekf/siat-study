@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이름에 따라 표 그리기</title>
+    <style>
+        table {
+            width: 300px;
+            text-align: center;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        td {
+            border: 1px solid gray;
+            padding: 10px;
+        }
+        .header {
+            background-color: skyblue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let name = prompt("이름을 입력하세요");
+
+        document.body.innerHTML = `
+            <h2>입력한 이름: ${name}</h2>
+            <table>
+                <tr>
+                    <td class="header">이름</td>
+                </tr>
+                <tr>
+                    <td>${name}</td>
+                </tr>
+            </table>
+        `;
+    </script>
+</body>
+</html>

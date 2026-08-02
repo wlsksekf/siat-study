@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link href="css/ex0403.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2>Promise</h2>
+    <p>실행하기 버튼 누르면 성공 혹은 실패 실행됨</p>
+    <button id="btn">Promise 실행하기</button>
+    <div id="log">실행하기 버튼 누르세요</div>
+</div>
+<script>
+    const btn = document.getElementById("btn");
+    const log = document.getElementById("log");
+
+    btn.addEventListener("click", runPromise);
+
+    function runPromise(){
+        log.classList.remove("success", "error");
+        log.innerHTML = `<span class="status-label">Loading...</span>비동기 작업 처리 중...`;
+
+        const p = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve("1단계\n");
+            }, 800);
+        });
+
+        p.then(function(result){
+        log.innerHTML = `then #1: ${result}<br>`;
+            return "2단계\n";
+        })
+        .then(function(next){
+        log.innerHTML += `then #2: ${next}<br>`;
+            return "3단계\n";
+        })
+        .then(function(finalValue){
+        log.innerHTML += `then #3: ${finalValue}<br>`;
+        })
+        .catch(function(err){
+        log.classList.add("error");
+        log.innerHTML += `실패: ${err}`;
+        });
+    }
+</script>
+</body>
+</html>

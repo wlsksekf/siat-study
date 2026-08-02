@@ -1,0 +1,6 @@
+[
+  {"id":1, "name":"김하나", "age":23, "city":"Seoul"},
+  {"id":2, "name":"이둘",   "age":28, "city":"Busan"},
+  {"id":3, "name":"박셋",   "age":31, "city":"Incheon"},
+  {"id":4, "name":"최넷",   "age":19, "city":"Daegu"}
+]

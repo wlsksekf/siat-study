@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>브라우저 객체(Browser Object Model) 교안</title>
+<style>
+  body{
+    font-family:"맑은 고딕", Arial, sans-serif;
+    background:#f6f7fb;
+    margin:0;
+    padding:30px;
+    color:#111827;
+    line-height:1.7;
+  }
+  .wrap{
+    max-width:1000px;
+    margin:auto;
+  }
+  header{
+    background:linear-gradient(135deg,#2563eb,#0ea5e9);
+    color:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.12);
+  }
+  header h1{margin:0;}
+  
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:15px;
+    margin-top:20px;
+  }
+  .card{
+    background:white;
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    border:1px solid #e5e7eb;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:18px;
+    color:#2563eb;
+  }
+  .desc{
+    font-size:14px;
+    color:#4b5563;
+  }
+  pre{
+    background:#0b1020;
+    color:#e5e7eb;
+    padding:12px;
+    border-radius:8px;
+    overflow:auto;
+    font-size:14px;
+  }
+  code{color:#38bdf8;}
+  .tip{
+    margin-top:10px;
+    background:#f1f5f9;
+    border:1px dashed #cbd5e1;
+    padding:10px;
+    border-radius:8px;
+    font-size:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>브라우저 객체 (Browser Object Model)</h1>
+  <p>자바스크립트가 브라우저를 제어하기 위해 제공하는 객체들</p>
+</header>
+
+<!-- 구조 카드 -->
+<section class="card" style="margin-top:20px;">
+  <h2>브라우저 객체 구조</h2>
+  <pre><code>window  (최상위 객체)
+ ├─ document   → 웹 문서(DOM)
+ ├─ location   → 주소(URL)
+ ├─ history    → 방문 기록
+ ├─ navigator  → 브라우저 정보
+ └─ screen     → 화면 정보</code></pre>
+
+  <div class="tip">
+    👉 <b>window</b> 객체가 최상위이며, 나머지 객체들은 window의 하위 객체입니다.
+  </div>
+</section>
+
+<!-- 카드 그리드 -->
+<div class="grid">
+
+  <div class="card">
+    <h2>window 객체</h2>
+    <p class="desc">브라우저 창 자체를 의미하는 최상위 객체</p>
+    <pre><code>alert("안녕하세요");</code></pre>
+    <div class="tip">모든 브라우저 객체는 window 안에 포함됩니다.</div>
+  </div>
+
+  <div class="card">
+    <h2>document 객체</h2>
+    <p class="desc">현재 웹페이지(HTML 문서)를 제어하는 객체 (DOM)</p>
+    <pre><code>document.body.style.background = "yellow";</code></pre>
+    <div class="tip">DOM 조작은 document 객체를 통해 수행합니다.</div>
+  </div>
+
+  <div class="card">
+    <h2>location 객체</h2>
+    <p class="desc">현재 페이지의 URL 정보를 제공</p>
+    <pre><code>console.log(location.href);</code></pre>
+    <div class="tip">페이지 이동도 가능합니다 → location.href = "주소"</div>
+  </div>
+
+  <div class="card">
+    <h2>history 객체</h2>
+    <p class="desc">브라우저 방문 기록을 제어</p>
+    <pre><code>history.back();</code></pre>
+    <div class="tip">뒤로가기 / 앞으로가기 기능 구현 가능</div>
+  </div>
+
+  <div class="card">
+    <h2>navigator 객체</h2>
+    <p class="desc">브라우저 및 운영체제 정보 제공</p>
+    <pre><code>console.log(navigator.userAgent);</code></pre>
+    <div class="tip">사용자 브라우저 판별 시 사용</div>
+  </div>
+
+  <div class="card">
+    <h2>screen 객체</h2>
+    <p class="desc">모니터 해상도 정보 제공</p>
+    <pre><code>console.log(screen.width, screen.height);</code></pre>
+    <div class="tip">반응형 화면 제어 시 참고 가능</div>
+  </div>
+
+</div>
+
+<!-- 정리 -->
+<section class="card" style="margin-top:20px;">
+  <h2>정리</h2>
+  <ul>
+    <li><b>window</b> : 브라우저 전체</li>
+    <li><b>document</b> : 웹페이지 내용 (DOM)</li>
+    <li><b>location</b> : 주소(URL)</li>
+    <li><b>history</b> : 방문 기록</li>
+    <li><b>navigator</b> : 브라우저 정보</li>
+    <li><b>screen</b> : 화면 해상도</li>
+  </ul>
+
+
+</section>
+
+</div>
+</body>
+</html>

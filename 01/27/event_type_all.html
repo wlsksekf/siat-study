@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<script>
+    function myEvent(e){
+        const message = `
+        이벤트 종류는 ${e.type} 입니다.
+        이벤트를 발생시킨 객체는 ${e.target.tagName} 입니다.
+        이벤트를 실행하고 있는 객체는 ${e.currentTarget.tagName} 입니다.
+        `;
+
+        alert(message);
+    }
+</script>
+<body>
+    <input type="button" value="이벤트 확인" onclick="myEvent(event)">
+</body>
+</html>

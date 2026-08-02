@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python 데코레이터(Decorator)</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --panel:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+
+      --primary:#2563eb;
+      --primary-2:#1d4ed8;
+      --good:#16a34a;
+      --warn:#f59e0b;
+
+      --shadow:0 12px 30px rgba(17,24,39,.08);
+
+      --code-bg:#0b1220;
+      --code-text:#e5e7eb;
+      --code-border:#1f2a44;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.85;
+      color:var(--text);
+      background:var(--bg);
+    }
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header{
+      padding:26px 28px;
+      background:linear-gradient(135deg, rgba(37,99,235,.10), rgba(29,78,216,.04));
+      border-bottom:1px solid var(--border);
+    }
+    h1{
+      margin:0 0 6px 0;
+      font-size:26px;
+      letter-spacing:-.2px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .content{ padding:26px 28px 30px; }
+
+    h2{
+      margin:22px 0 10px;
+      font-size:20px;
+      border-left:6px solid var(--primary);
+      padding-left:10px;
+      letter-spacing:-.2px;
+    }
+    h3{
+      margin:18px 0 8px;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+    p{ margin:8px 0; }
+    ul{ margin:8px 0 8px 18px; }
+    li{ margin:4px 0; }
+
+    .note, .tip, .warn{
+      margin:14px 0;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:#fff;
+    }
+    .note{ border-color: rgba(37,99,235,.25); background:rgba(37,99,235,.06); }
+    .note strong{ color:var(--primary-2); }
+
+    .tip{ border-color: rgba(22,163,74,.25); background:rgba(22,163,74,.06); }
+    .tip strong{ color:var(--good); }
+
+    .warn{ border-color: rgba(245,158,11,.28); background:rgba(245,158,11,.08); }
+    .warn strong{ color:#b45309; }
+
+    pre{
+      margin:10px 0;
+      padding:14px;
+      background:var(--code-bg);
+      color:var(--code-text);
+      border:1px solid var(--code-border);
+      border-radius:12px;
+      overflow:auto;
+      line-height:1.65;
+      font-size:13px;
+    }
+    code{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .flow{
+      border:1px dashed rgba(37,99,235,.35);
+      border-radius:14px;
+      padding:14px;
+      background:rgba(37,99,235,.04);
+      margin:12px 0;
+    }
+    .step{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      margin:10px 0;
+    }
+
+    /* Tabs */
+    .tabs{
+      margin-top:12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .tab-head{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      background:#f9fafb;
+    }
+    .tab-btn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:13px;
+      color:#374151;
+    }
+    .tab-btn[aria-selected="true"]{
+      border-color:rgba(37,99,235,.45);
+      background:rgba(37,99,235,.10);
+      color:var(--primary-2);
+    }
+    .tab-panel{ display:none; padding:14px 14px 8px; }
+    .tab-panel.active{ display:block; }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+      margin:12px 0;
+    }
+    th, td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{
+      background:#f9fafb;
+      text-align:left;
+      color:#374151;
+      font-weight:700;
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    footer{
+      padding:18px 28px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+      background:#fbfcff;
+    }
+
+    .kbd{
+      display:inline-block;
+      padding:2px 7px;
+      border:1px solid var(--border);
+      border-bottom-width:2px;
+      border-radius:8px;
+      background:#fff;
+      font-family:ui-monospace, monospace;
+      font-size:12px;
+    }
+
+    .answer{
+      border:1px solid rgba(22,163,74,.25);
+      background:rgba(22,163,74,.06);
+      border-radius:12px;
+      padding:12px;
+      margin-top:10px;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:800;
+      color:#065f46;
+    }
+    details{ margin:10px 0 0; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>파이썬 데코레이터(Decorator)</h1>
+      <p class="subtitle">
+        데코레이터의 개념 → 문법 → 예시 순서로 정리합니다.
+      </p>
+    </header>
+
+    <div class="content">
+      <h2>1. 개념</h2>
+      <ul>
+        <li><strong>정의</strong>: 함수를 인자로 받아 새로운 함수를 반환하는 함수입니다.</li>
+        <li><strong>역할</strong>: 원래 함수를 수정하지 않고 기능을 확장할 수 있습니다.</li>
+        <li><strong>활용 예시</strong>: 로깅(logging), 권한 체크, 실행 시간 측정 등입니다.</li>
+        <li><strong>동작 흐름</strong>: 원래 함수 → 데코레이터 → 새로운 함수</li>
+      </ul>
+
+      <div class="note">
+        <strong>핵심:</strong><br/>
+        데코레이터는 “기존 함수 코드를 손대지 않고”, 함수 실행 전/후에 동작을 끼워 넣는 방식으로 확장합니다.
+      </div>
+
+      <h2>2. 문법</h2>
+      <pre><code>def 데코레이터이름(func):
+    def wrapper(*args, **kwargs):
+        # 실행 전 처리
+        print("함수 실행 전 동작")
+
+        result = func(*args, **kwargs)
+
+        # 실행 후 처리
+        print("함수 실행 후 동작")
+
+        return result
+    return wrapper
+
+@데코레이터이름
+def 함수이름():
+    print("원래 함수 실행")
+
+함수이름()</code></pre>
+
+      <div class="tip">
+        <strong>@ 문법은 아래 코드와 동일하게 동작합니다.</strong><br/>
+        <span class="kbd">함수이름 = 데코레이터이름(함수이름)</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>func</code></td>
+            <td>원래 함수를 가리킵니다.</td>
+          </tr>
+          <tr>
+            <td><code>wrapper</code></td>
+            <td>원래 함수를 감싸는 함수(새로 반환되는 함수)입니다.</td>
+          </tr>
+          <tr>
+            <td><code>*args, **kwargs</code></td>
+            <td>원래 함수의 인자를 그대로 전달하기 위해 사용합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="warn">
+        <strong>주의:</strong><br/>
+        <code>*args, **kwargs</code>를 사용하면 “인자가 있는 함수”도 동일한 데코레이터로 처리할 수 있습니다.
+      </div>
+
+      <h2>3. 예시</h2>
+
+      <div class="tabs" id="tabs">
+        <div class="tab-head" role="tablist" aria-label="데코레이터 예시 탭">
+          <button class="tab-btn" role="tab" aria-selected="true" aria-controls="p1" id="t1" data-target="p1">예시 (1) 기존 호출 방식</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="p2" id="t2" data-target="p2">예시 (2) @ 문법</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3" data-target="p3">예시 (3) *args</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="p4" id="t4" data-target="p4">예시 (4) **kwargs</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="p5" id="t5" data-target="p5">예시 (5) 실행 시간 측정</button>
+        </div>
+
+        <!-- (1) -->
+        <section class="tab-panel active" role="tabpanel" id="p1" aria-labelledby="t1">
+          <h3>(1) 지금까지 사용하던 호출 방식</h3>
+          <pre><code>def hello_decorator(func):
+    def wrapper():
+        print("함수 시작!")
+        func()
+        print("함수 끝!")
+    return wrapper
+
+def say_hello():
+    print("안녕하세요!")
+
+say_hello = hello_decorator(say_hello)
+say_hello()</code></pre>
+
+          <p><strong>출력</strong></p>
+          <pre><code>함수 시작!
+안녕하세요!
+함수 끝!</code></pre>
+
+          <div class="note">
+            <strong>설명:</strong><br/>
+            <code>say_hello = hello_decorator(say_hello)</code>로 say_hello가 wrapper로 교체됩니다.
+          </div>
+        </section>
+
+        <!-- (2) -->
+        <section class="tab-panel" role="tabpanel" id="p2" aria-labelledby="t2">
+          <h3>(2) @ 문법으로 간단히 호출</h3>
+          <pre><code>def hello_decorator(func):
+    def wrapper():
+        print("함수 시작!")
+        func()
+        print("함수 끝!")
+    return wrapper
+
+@hello_decorator
+def say_hello():
+    print("안녕하세요!")
+
+say_hello()</code></pre>
+
+          <div class="tip">
+            <strong>포인트:</strong><br/>
+            <code>@hello_decorator</code>는 <code>say_hello = hello_decorator(say_hello)</code>와 동일하게 동작합니다.
+          </div>
+        </section>
+
+        <!-- (3) -->
+        <section class="tab-panel" role="tabpanel" id="p3" aria-labelledby="t3">
+          <h3>(3) 인자를 받는 함수 (*args 사용 예제)</h3>
+          <pre><code>def decorator_with_args(func):
+    def wrapper(*args, **kwargs):
+        print("함수 시작!")
+        result = func(*args, **kwargs)
+        print("함수 끝!")
+        return result
+    return wrapper
+
+@decorator_with_args
+def greet(name):
+    print(f"{name}님, 안녕하세요!")
+
+greet("지민")</code></pre>
+
+          <p><strong>출력</strong></p>
+          <pre><code>함수 시작!
+지민님, 안녕하세요!
+함수 끝!</code></pre>
+
+          <div class="note">
+            <strong>정리:</strong><br/>
+            <code>*args, **kwargs</code> 덕분에 인자 있는 함수도 문제없이 데코레이션 가능합니다.
+          </div>
+        </section>
+
+        <!-- (4) -->
+        <section class="tab-panel" role="tabpanel" id="p4" aria-labelledby="t4">
+          <h3>(4) 인자를 받는 함수 (*args, **kwargs 사용 예제)</h3>
+          <pre><code>def greet_decorator(func):
+    def wrapper(*args, **kwargs):
+        print("함수 시작!")
+
+        # kwargs에서 특정 키를 확인하고 사용
+        if 'greeting' in kwargs:
+            print(f"특별 인사: {kwargs['greeting']}")
+
+        # 원래 함수 실행
+        result = func(*args, **kwargs)
+
+        print("함수 끝!")
+        return result
+    return wrapper
+
+@greet_decorator
+def greet(name, **kwargs):
+    print(f"{name}님, 안녕하세요!")
+
+# 호출 예제 1: 일반 호출
+greet("지민")
+print("---")
+
+# 호출 예제 2: 키워드 인자 포함
+greet("민수", greeting="오늘 하루도 화이팅!")</code></pre>
+
+          <p><strong>출력</strong></p>
+          <pre><code>함수 시작!
+지민님, 안녕하세요!
+함수 끝!
+---
+함수 시작!
+특별 인사: 오늘 하루도 화이팅!
+민수님, 안녕하세요!
+함수 끝!</code></pre>
+        </section>
+
+        <!-- (5) -->
+        <section class="tab-panel" role="tabpanel" id="p5" aria-labelledby="t5">
+          <h3>(5) 실행 시간 측정</h3>
+          <pre><code>import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"실행 시간: {end - start:.4f}초")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(2)
+    print("작업 완료!")
+
+slow_function()</code></pre>
+
+          <p><strong>출력 예</strong></p>
+          <pre><code>작업 완료!
+실행 시간: 2.0003초</code></pre>
+
+          <div class="warn">
+            <strong>참고:</strong><br/>
+            실행 시간은 환경에 따라 소수점 값이 달라질 수 있습니다.
+          </div>
+        </section>
+      </div>
+
+      
+  
+  </div>
+
+  <script>
+    (function () {
+      const tabs = document.getElementById("tabs");
+      if (!tabs) return;
+
+      const buttons = tabs.querySelectorAll(".tab-btn");
+      const panels = tabs.querySelectorAll(".tab-panel");
+
+      function activate(targetId) {
+        buttons.forEach(btn => {
+          const selected = btn.dataset.target === targetId;
+          btn.setAttribute("aria-selected", selected ? "true" : "false");
+        });
+        panels.forEach(panel => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => activate(btn.dataset.target));
+      });
+    })();
+  </script>
+</body>
+</html>

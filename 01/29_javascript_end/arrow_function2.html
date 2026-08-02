@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <script>
+        const s = function (x) {return x*2;}
+        console.log(s(10));
+
+        const s2 = (x) => {return x*2;}
+        console.log(s2(10));
+
+        const s3 = x => x*2;
+        console.log(s3(10));
+
+        const s4 = x => {x*2};
+        console.log(s4(10));
+
+        const s5 = () => ({a:1});
+        console.log(s5().a);
+
+        const s6 = () => {return {a:10};};
+        console.log(s6().a);
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자바스크립트 코드 작성 위치</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9fafb;
+      padding: 28px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    h1, h2 {
+      color: #111827;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    pre {
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    pre code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre;
+      display: block;
+    }
+
+    code.inline {
+      background-color: #f6f8fa;
+      border: 1px solid #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    .note {
+      background-color: #eef3ff;
+      border-left: 4px solid #4a6cf7;
+      padding: 12px 14px;
+      margin: 14px 0;
+      border-radius: 8px;
+    }
+
+    ul {
+      margin: 8px 0 8px 18px;
+    }
+
+    li { margin: 8px 0; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>자바스크립트 코드 작성 위치</h1>
+
+    <p>
+      자바스크립트 코드는 HTML 문서 안에서  
+      <strong>세 가지 위치</strong>에 작성할 수 있습니다.
+    </p>
+
+    <hr>
+
+    <h2>1. HTML 태그의 이벤트 속성에 작성</h2>
+
+    <p>
+      HTML 태그의 이벤트 리스너 속성  
+      (<code class="inline">onclick</code>, <code class="inline">onload</code>,
+      <code class="inline">onchange</code>, <code class="inline">onkeyup</code>,
+      <code class="inline">onsubmit</code> 등)에 직접 작성합니다.
+    </p>
+
+    <pre><code>&lt;img src="Koala.jpg" onclick="this.src='Desert.png'"&gt;</code></pre>
+
+    <div class="note">
+      사용자가 이미지를 클릭하면  
+      이미지 파일이 다른 그림으로 변경됩니다.
+    </div>
+
+    <hr>
+
+    <h2>2. &lt;script&gt; 태그 안에 작성</h2>
+
+    <p>
+      HTML 문서 내부의 <code class="inline">&lt;script&gt;</code> 태그에  
+      자바스크립트 코드를 작성합니다.
+    </p>
+
+    <pre><code>&lt;script&gt;
+  alert("자바스크립트 안녕~!!!");
+&lt;/script&gt;</code></pre>
+
+    <div class="note">
+      페이지가 로드되면 알림창이 실행됩니다.
+    </div>
+
+    <hr>
+
+    <h2>3. 외부 자바스크립트 파일에 작성</h2>
+
+    <p>
+      자바스크립트 코드를 별도의 파일(<code class="inline">.js</code>)에 작성한 뒤  
+      HTML 문서에서 불러옵니다.
+    </p>
+
+    <pre><code>&lt;script src="welcome.js"&gt;&lt;/script&gt;</code></pre>
+
+    <div class="note">
+      여러 HTML 문서에서 같은 스크립트를 재사용할 수 있어  
+      <strong>유지보수와 관리가 편리</strong>합니다.
+    </div>
+
+    <hr>
+
+    <h2>4. 정리</h2>
+    <ul>
+      <li>이벤트 속성 → 간단한 동작 처리</li>
+      <li>&lt;script&gt; 태그 → 문서 내부 스크립트</li>
+      <li>외부 .js 파일 → 재사용성과 유지보수에 유리</li>
+    </ul>
+
+    <div class="note">
+      자바스크립트 코드는 HTML 내부 또는 외부 파일에서 실행될 수 있습니다.
+    </div>
+  </div>
+</body>
+</html>

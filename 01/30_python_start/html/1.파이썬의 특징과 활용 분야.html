@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <title>1. 파이썬의 특징과 활용 분야</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:28px;
+      font-family:"맑은 고딕", Arial, sans-serif;
+      line-height:1.75;
+      color:#111827;
+      background:#f6f7fb;
+    }
+    .container{
+      max-width:1040px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:24px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.06);
+    }
+    header{
+      padding:18px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:#fff;
+      box-shadow:0 6px 16px rgba(0,0,0,0.12);
+    }
+    header h1{margin:0 0 6px; font-size:26px}
+    header p{margin:0; opacity:.95}
+
+    section{margin-top:20px}
+    h2{margin:0 0 10px; font-size:20px}
+    h3{margin:12px 0 8px; font-size:16px}
+    h4{margin:12px 0 6px; font-size:14px; color:#0f172a}
+    p{margin:8px 0}
+    ul{margin:6px 0 0 18px}
+    li{margin:6px 0}
+
+    .aside{
+      display:flex;
+      gap:10px;
+      background:#eef2ff;
+      border:1px solid #c7d2fe;
+      padding:12px 14px;
+      border-radius:12px;
+      margin:10px 0;
+    }
+    .badge{
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      background:#4338ca;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+      flex:0 0 auto;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:18px;
+      margin-bottom:14px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    .pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      color:#374151;
+      font-size:12px;
+      margin-right:6px;
+    }
+
+    .callout{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      padding:12px 14px;
+      margin:10px 0;
+    }
+    .callout strong{display:block; margin-bottom:4px}
+
+    .steps{
+      list-style:none;
+      padding:0;
+      margin:10px 0 0;
+      display:grid;
+      gap:10px;
+    }
+    .step{
+      display:flex;
+      gap:10px;
+      padding:12px 14px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      background:#ffffff;
+    }
+    .step .num{
+      width:28px;
+      height:28px;
+      border-radius:10px;
+      background:#111827;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      flex:0 0 auto;
+      font-size:13px;
+    }
+    .step .content b{color:#0f172a}
+
+    .flow{
+      margin-top:10px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:14px;
+      overflow:auto;
+    }
+    .flow code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;}
+
+    pre{
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:12px;
+      border-radius:12px;
+      overflow:auto;
+      margin:10px 0;
+    }
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;}
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (min-width: 920px){
+      .split{grid-template-columns:1fr 1fr;}
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    th,td{
+      border-bottom:1px solid #e5e7eb;
+      padding:12px 10px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      background:#f3f4f6;
+      font-weight:700;
+    }
+    tr:last-child td{border-bottom:none}
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      background:#fefce8;
+      border:1px solid #fde68a;
+      border-radius:12px;
+      color:#92400e;
+    }
+    .k{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:8px;
+      background:#111827;
+      color:#fff;
+      font-size:12px;
+      margin:0 4px;
+    }
+    .muted{color:#6b7280}
+    hr.sep{margin:14px 0;border:none;border-top:1px dashed #e5e7eb}
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <h1>1.파이썬의 특징과 활용 분야</h1>
+  <p>Python 기본 개념 + 실행 구조(바이트코드/PVM) + .pyc 캐시 규칙</p>
+</header>
+
+<section>
+  <h2>기본 개념</h2>
+
+  <div class="aside">
+    <div class="badge">👉</div>
+    <div><b>프로그램</b> : 컴퓨터가 수행해야 할 작업을 순서대로 정리한 명령어들의 집합</div>
+  </div>
+
+  <div class="aside">
+    <div class="badge">👉</div>
+    <div><b>프로그래밍</b> : 문제 해결을 위해 컴퓨터가 이해할 수 있는 명령어를 논리적으로 작성하는 행위</div>
+  </div>
+
+  <div class="aside">
+    <div class="badge">👉</div>
+    <div><b>프로그래밍 언어</b> : 사람이 컴퓨터에게 작업을 지시하기 위해 정해진 규칙으로 작성하는 언어</div>
+  </div>
+</section>
+
+<section>
+  <h2>Python의 특징</h2>
+
+  <div class="card">
+    <h3>1) 인터프리터 기반 하이브리드 실행 구조</h3>
+    <div style="margin:8px 0 0;">
+      <span class="pill">바이트코드</span>
+      <span class="pill">PVM</span>
+      <span class="pill">__pycache__</span>
+      <span class="pill">.pyc</span>
+    </div>
+
+    <div class="callout">
+      <strong>핵심 개념</strong>
+      Python은 실행 시점에는 “인터프리터처럼” 동작하지만,
+      내부적으로는 소스 코드를 <b>바이트코드(bytecode)</b>로 만든 뒤
+      <b>Python Virtual Machine(PVM)</b>이 이를 해석(인터프리팅)하여 실행합니다.
+      즉, <b>컴파일(중간 코드 생성) + 인터프리팅</b>이 결합된 구조입니다.
+    </div>
+
+    <h4>① 실행 흐름(큰 그림)</h4>
+    <div class="flow">
+      <pre><code>
+소스 코드 (.py)
+  ↓ (1) 컴파일: 바이트코드 생성
+바이트코드 (.pyc, 또는 메모리 상 바이트코드)
+  ↓ (2) PVM이 바이트코드를 해석(인터프리팅)
+프로그램 실행
+      </code>
+      </pre>
+    </div>
+
+    <h4>② 단계별로 더 자세히 보기</h4>
+    <ol class="steps">
+      <li class="step">
+        <div class="num">1</div>
+        <div class="content">
+          <b>소스 코드 로딩</b><br>
+          Python 실행기가 <span class="k">.py</span> 파일을 읽어 들입니다.
+        </div>
+      </li>
+      <li class="step">
+        <div class="num">2</div>
+        <div class="content">
+          <b>바이트코드 컴파일</b><br>
+          실행을 위해 소스 코드를 바이트코드로 변환합니다.
+          <span class="muted">(이 바이트코드는 CPU 기계어가 아니라 “가상 머신용 중간 코드”입니다.)</span>
+        </div>
+      </li>
+      <li class="step">
+        <div class="num">3</div>
+        <div class="content">
+          <b>PVM에서 인터프리팅</b><br>
+          PVM이 바이트코드를 한 단계씩 해석하여 실행합니다.
+        </div>
+      </li>
+      <li class="step">
+        <div class="num">4</div>
+        <div class="content">
+          <b>(필요 시) 바이트코드 캐시</b><br>
+          재사용될 가능성이 높은 경우 바이트코드를 디스크에 저장해 다음 실행을 빠르게 합니다.
+        </div>
+      </li>
+    </ol>
+
+    <hr class="sep">
+
+    <h4>③ .pyc 파일은 언제 생성될까?</h4>
+    <div class="split">
+      <div class="callout">
+        <strong>주로 생성되는 경우: import 되는 “모듈”</strong>
+        <ul>
+          <li><span class="k">import</span> 로 불러오는 파일은 재사용될 가능성이 높습니다.</li>
+          <li>그래서 Python은 해당 모듈의 바이트코드를 <b>__pycache__/</b>에 <span class="k">.pyc</span>로 저장합니다.</li>
+          <li>다음 실행부터는 <b>소스 재컴파일을 줄이고</b> 실행을 시작할 수 있습니다.</li>
+        </ul>
+        <pre><code>main.py
+mymodule.py
+
+python main.py 실행
+→ __pycache__/mymodule.cpython-311.pyc 생성</code></pre>
+      </div>
+
+      <div class="callout">
+        <strong>기본적으로 생성되지 않는 경우: 직접 실행한 “메인 스크립트”</strong>
+        <ul>
+          <li><span class="k">python main.py</span> 처럼 직접 실행한 파일은</li>
+          <li>바이트코드로 변환되어 실행되지만, <b>기본 설정에서는 .pyc로 디스크에 저장하지 않는 경우가 많습니다.</b></li>
+          <li>즉, 바이트코드는 <b>메모리에서 만들어 실행</b>되고 종료 시 사라질 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="sep">
+
+    <h4>④ 하이브리드 방식의 장점/의미</h4>
+    <ul>
+      <li><b>편리함:</b> 수정 후 바로 실행됩니다(인터프리터 스타일로 동작합니다).</li>
+      <li><b>효율:</b> 중간 코드(바이트코드)를 사용하여 반복 실행에서 부담이 줄어듭니다.</li>
+      <li><b>플랫폼 독립성:</b> OS/CPU가 달라도 PVM 위에서 실행될 수 있습니다.</li>
+    </ul>
+
+    <h4>⑤ 구현체(파이썬 코드를 실행해 주는 프로그램)</h4>
+    <div class="callout">
+      <strong>핵심 개념</strong>
+      파이썬은 언어(문법)는 같지만, 실제로 코드를 실행하는 “구현체(엔진)”는 여러 종류가 있습니다.
+      환경/목적에 따라 적절한 구현체를 선택할 수 있습니다.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">구현체</th>
+          <th style="width:28%">기반/실행 환경</th>
+          <th>특징</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>CPython</b></td>
+          <td>C 기반</td>
+          <td>가장 널리 쓰이는 표준 구현체입니다. 일반적으로 “파이썬”이라 부르면 CPython을 의미합니다.</td>
+        </tr>
+        <tr>
+          <td><b>PyPy</b></td>
+          <td>JIT(Just-In-Time) 기반</td>
+          <td>JIT 최적화 등을 통해 성능 개선을 시도하는 구현체입니다. 반복 계산이 많은 코드에서 빠를 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td><b>Jython</b></td>
+          <td>JVM(Java)</td>
+          <td>파이썬 코드를 JVM 위에서 실행합니다. Java 라이브러리를 활용할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td><b>IronPython</b></td>
+          <td>.NET(CLR)</td>
+          <td>.NET 환경에서 파이썬을 실행합니다. C# 등 .NET 라이브러리와 연동할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td><b>MicroPython</b></td>
+          <td>임베디드/마이크로컨트롤러</td>
+          <td>아주 작은 장치(IoT 등)에서 동작하도록 가볍게 만든 구현체입니다. 표준 라이브러리가 축소되어 있을 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td><b>Stackless Python</b></td>
+          <td>CPython 변형</td>
+          <td>코루틴/동시성 처리 등 “스택 없는 실행 모델”에 초점을 둔 구현체입니다.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <b>정리</b><br>
+      대부분의 입문/일반 개발에서는 <b>CPython</b>을 사용합니다.<br>
+      성능 튜닝이 필요하면 <b>PyPy</b>를 고려할 수 있고,<br>
+      특정 실행 환경(JVM/.NET/임베디드)에서는 해당 구현체(Jython/IronPython/MicroPython)를 사용합니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>2) 동적 타이핑(Dynamic Typing)</h3>
+
+    <div class="callout">
+      <strong>정의</strong>
+      Python은 <b>동적 타이핑(Dynamic Typing)</b> 언어입니다.<br>
+      변수에 “자료형을 고정해서 선언”하지 않고, <b>값이 대입되는 순간</b> 그 값의 타입이 결정됩니다.
+    </div>
+
+    <h4> 예시(값이 바뀌면 타입도 바뀝니다)</h4>
+    <pre><code>x = 10
+print(type(x))   # &lt;class 'int'&gt;
+
+x = "hello"
+print(type(x))   # &lt;class 'str'&gt;
+</code></pre>
+
+    <h4>장점</h4>
+    <ul>
+      <li>타입 선언 없이 간결한 코드 작성</li>
+      <li>빠른 개발과 실험 가능</li>
+    </ul>
+
+    <h4>주의점</h4>
+    <ul>
+      <li>타입 오류는 실행 중 발생</li>
+    </ul>
+
+    <div class="note">
+      Python의 모든 값은 객체(Object)입니다.  
+      기본 자료형도 내부적으로는 객체입니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3) 간결한 문법 (들여쓰기)</h3>
+    <p>중괄호({}) 대신 들여쓰기로 코드 블록을 구분합니다.</p>
+    <pre><code>if True:
+    print("Hello")</code></pre>
+    <ul>
+      <li>코드 구조가 눈에 잘 들어옵니다.</li>
+      <li>들여쓰기가 문법이므로 공백/탭 혼용을 피하는 것이 좋습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>4) 객체지향 & 함수형 프로그래밍 지원</h3>
+    <p>클래스 기반 객체지향 + 함수형 스타일 모두 지원합니다.</p>
+    <ul>
+      <li>클래스/객체로 구조화 가능합니다.</li>
+      <li>함수, 람다 등을 활용할 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>5) 풍부한 라이브러리</h3>
+    <p>웹, 데이터 분석, 인공지능, 자동화 등 다양한 분야에서 활용 가능한 라이브러리가 풍부합니다.</p>
+    <ul>
+      <li>표준 라이브러리로 기본 기능만으로도 많은 작업이 가능합니다.</li>
+      <li>서드파티 패키지(표준 라이브러리가 아닌 외부 라이브러리 - 예) pip install requests)로 분야별 생태계가 매우 큽니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Python 활용 분야</h2>
+  <ul>
+    <li>웹 개발 : Django, Flask, Fast API</li>
+    <li>데이터 분석 & 과학 계산 : NumPy, pandas, matplotlib/seaborn</li>
+    <li>인공지능 : TensorFlow, PyTorch</li>
+    <li>자동화 : 스크립트(반복적으로 수행해야 하는 작업을 자동으로 처리하는 짧은 프로그램), 크롤링</li>
+    <li>교육용 언어</li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>grid layout</title>
+<style>
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: skyblue;
+    padding: 10px;
+}
+.grid-item{
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+    <h1>grid layout</h1>
+
+    <ul>
+        <li>2차원 레이아웃 시스템</li>
+        <li>부모 요소 핋요</li>
+        <li>자식 요소는 자동으로 그리드 항목</li>
+        <li>값 값 값</li>
+        <li>값의 개수 = 열의 개수</li>
+        <li>grid-template-columns: 1fr 1fr 1fr; = 남은 공간을 1 : 1 : 1비율로 나눈다</li>
+    </ul>
+
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자바스크립트 이벤트 · 이벤트 리스너 · 핸들러 & addEventListener() 교안</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"맑은 고딕", Arial, sans-serif;
+      background:#f6f7fb;
+      color:#111827;
+      line-height:1.75;
+      padding:28px;
+    }
+    .wrap{max-width:980px;margin:0 auto;}
+    header{
+      background:linear-gradient(135deg,#1d4ed8,#2563eb,#0ea5e9);
+      color:#fff;
+      border-radius:16px;
+      padding:20px 22px 18px;
+      box-shadow:0 16px 40px rgba(0,0,0,0.12);
+      margin-bottom:16px;
+    }
+    header h1{font-size:22px;margin-bottom:6px;}
+    header p{opacity:0.95;font-size:14px}
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      box-shadow:0 16px 40px rgba(0,0,0,0.08);
+      overflow:hidden;
+      margin:14px 0;
+    }
+    .card .hd{
+      background:#f9fafb;
+      border-bottom:1px solid #e5e7eb;
+      padding:14px 16px;
+      font-weight:700;
+    }
+    .card .bd{padding:16px;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .note{
+      border:1px solid #e5e7eb;
+      background:#fcfcfd;
+      border-radius:12px;
+      padding:12px 14px;
+    }
+
+    .k{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid #bae6fd;
+      background:#e0f2fe;
+      color:#075985;
+      font-size:12px;
+      vertical-align:middle;
+      margin-left:6px;
+    }
+
+    code, pre{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+    }
+    pre{
+      background:#0b1020;
+      color:#e5e7eb;
+      border-radius:12px;
+      padding:14px;
+      overflow:auto;
+      margin-top:10px;
+    }
+    ul{padding-left:18px}
+    li{margin:6px 0}
+    .mini{font-size:13px;color:#374151}
+    .hl{font-weight:700}
+    .demo{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    button{
+      border:1px solid #e5e7eb;
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    button:hover{background:#f3f4f6}
+    input{
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
+      min-width:240px;
+    }
+    .log{
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      border-radius:12px;
+      padding:12px;
+      min-height:72px;
+      white-space:pre-wrap;
+      margin-top:10px;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>자바스크립트 이벤트 · 이벤트 리스너 · 이벤트 핸들러 정리</h1>
+      <p>DOM 요소에서 발생하는 이벤트를 처리하기 위해 “리스너 등록 → 핸들러 실행” 흐름을 이해합니다.</p>
+    </header>
+
+    <section class="card">
+      <div class="hd">1) 이벤트(Event)란?</div>
+      <div class="bd">
+        <div class="note">
+          <p>
+            <span class="hl">이벤트(Event)</span>는 웹 페이지에서 발생하는 “일”입니다.
+            사용자의 동작이나 브라우저 상태 변화에 의해 발생합니다.
+          </p>
+          <ul>
+            <li><b>마우스</b> : <code>click</code>, <code>dblclick</code>, <code>mouseenter</code>, <code>mouseleave</code></li>
+            <li><b>키보드</b> : <code>keydown</code>, <code>keyup</code></li>
+            <li><b>폼</b> : <code>input</code>, <code>change</code>, <code>submit</code></li>
+            <li><b>문서/브라우저</b> : <code>load</code>, <code>scroll</code>, <code>resize</code></li>
+          </ul>
+          <p class="mini">
+            예) 버튼을 클릭하면 “click 이벤트가 발생합니다.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd">2) 이벤트 리스너(Event Listener)란?</div>
+      <div class="bd">
+        <div class="note">
+          <p>
+            <span class="hl">이벤트 리스너</span>는 <b>DOM 객체에서 이벤트가 발생할 경우</b>
+            해당 이벤트 처리 핸들러를 추가할 수 있는 오브젝트입니다. <span class="k">핵심</span>
+          </p>
+          <p style="margin-top:8px">
+            즉, “이 요소에서 click이 발생하면, 등록된 함수를 실행해 주세요” 라고 <b>등록</b>하는 역할입니다.
+          </p>
+        </div>
+
+        <div class="note" style="margin-top:12px">
+          <p>
+            아래 문장이 전체 흐름을 잘 요약합니다.
+          </p>
+          <ul>
+            <li><b>이벤트가 발생하면</b> 등록한 <b>이벤트 처리 핸들러가 실행됩니다.</b></li>
+            <li><b>W3C의 표준 방법</b>으로 DOM 객체의 <b>addEventListener()</b> 메소드로 이벤트 핸들러를 등록할 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd">3) 이벤트 핸들러(Handler)란?</div>
+      <div class="bd">
+        <div class="note">
+          <p>
+            <span class="hl">이벤트 핸들러</span>는 이벤트가 발생했을 때 실행되는 <b>함수</b>입니다.
+            (처리 함수, 이벤트 처리 함수라고도 합니다.)
+          </p>
+          <p class="mini" style="margin-top:8px">
+            예) click 이벤트가 발생했을 때 “알림창을 띄우기”, “색상 변경”, “데이터 전송” 등을 수행하는 함수가 핸들러입니다.
+          </p>
+        </div>
+
+        <pre><code>// 이벤트 핸들러(함수) 예시
+function changeflowerf(e){
+  alert("click 이벤트가 발생했습니다.");
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd">4) addEventListener(type, function_name, useCapture) 형식</div>
+      <div class="bd">
+        <div class="note">
+          <p><b>형식</b>) <code>addEventListener(type, function_name, useCapture)</code></p>
+          <ul style="margin-top:8px">
+            <li>
+              <b>(1) type</b> : 이벤트 타입을 나타내는 문자열로
+              <code>'click'</code>, <code>'load'</code>, <code>'keydown'</code> 등등
+            </li>
+            <li>
+              <b>(2) function_name</b> : 이벤트가 발생할 때 실행할 함수명
+            </li>
+            <li>
+              <b>(3) useCapture</b> :
+              <b>true</b> 이면 이벤트 흐름 중 <b>캡처 단계</b>에서 실행될 이벤트 핸들러를 등록합니다.<br>
+              <b>false</b> 이면 <b>버블 단계</b>에서 실행될 이벤트 핸들러를 등록합니다.
+              생략 가능하며 디폴트는 <b>false</b>입니다.
+            </li>
+          </ul>
+          <p class="mini" style="margin-top:10px">
+            예) <code>addEventListener('click', changeflowerf)</code>
+          </p>
+        </div>
+
+        <pre><code>// 예시: 버튼 클릭(click) 이벤트에 핸들러(changeflowerf) 등록
+const btn = document.querySelector("#btn");
+btn.addEventListener("click", changeflowerf); // useCapture 생략 → 기본 false(버블 단계)</code></pre>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd">5) 정리: 이벤트 처리 흐름</div>
+      <div class="bd">
+        <div class="note">
+          <ol style="padding-left:18px">
+            <li>DOM 요소에서 이벤트가 발생합니다. (예: 버튼 클릭)</li>
+            <li>해당 요소에 등록된 이벤트 리스너가 이벤트를 감지합니다.</li>
+            <li>등록된 이벤트 핸들러(함수)가 실행됩니다.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  
+  </div>
+
+  <script>
+    // 실제 동작 코드(위 교안 코드와 동일 흐름)
+
+    // 1) DOM 객체 선택
+    const btn = document.querySelector("#btn");
+
+    // 2) 이벤트 핸들러(처리 함수) 선언
+    function changeflowerf(e){
+      const text = document.querySelector("#userText").value;
+      document.querySelector("#log").textContent =
+        "이벤트 타입 = " + e.type + "\n" +
+        "실행된 핸들러 = changeflowerf\n" +
+        "입력한 값 = " + (text ? text : "(빈 값)");
+    }
+
+    // 3) 이벤트 리스너 등록 (W3C 표준)
+    btn.addEventListener("click", changeflowerf); // useCapture 생략 → false(버블 단계)
+  </script>
+</body>
+</html>

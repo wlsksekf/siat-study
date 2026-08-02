@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <img src="images/cherry.png">
+    <script>
+        const imgObject = document.querySelector('img');
+        
+        imgObject.onclick=()=>{
+            // this.src = 'images/messenger.png';
+            imgObject.src = 'images/messenger.png';
+            console.log(this === imgObject);
+        }
+    </script>
+</body>
+</html>

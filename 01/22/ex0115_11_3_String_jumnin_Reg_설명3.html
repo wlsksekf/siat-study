@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정규식과 RegExp(Regular Expression) 객체 교안 (수정/정리본)</title>
+<style>
+  body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.75;
+    background:#f7f8fb;
+    color:#1f2937;
+    padding:28px;
+  }
+  .container{
+    max-width: 920px;
+    margin: 0 auto;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:24px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.06);
+  }
+  h1,h2,h3{ margin: 14px 0 8px; }
+  p{ margin: 8px 0; }
+  pre{
+    background:#0b1020;
+    color:#e5e7eb;
+    padding:14px;
+    border-radius:10px;
+    overflow:auto;
+  }
+  code{
+    background:#111827;
+    color:#fff;
+    padding:2px 6px;
+    border-radius:5px;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0;
+  }
+  th,td{
+    border:1px solid #e5e7eb;
+    padding:10px;
+    vertical-align: top;
+  }
+  th{ background:#f3f4f6; }
+  .note{
+    background:#f3f4f6;
+    border-left:5px solid #2563eb;
+    padding:12px;
+    border-radius:8px;
+    margin:12px 0;
+  }
+  .warn{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:12px;
+    border-radius:8px;
+    margin:12px 0;
+  }
+  .btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:9px 14px;
+    border-radius:8px;
+    cursor:pointer;
+  }
+  .hr{
+    height:1px;
+    background:#e5e7eb;
+    margin:18px 0;
+  }
+  .small{
+    font-size: 13px;
+    color:#4b5563;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>정규식과 RegExp(Regular Expression) 객체</h1>
+
+
+<h2>1. 정규식(Regular Expression)이란?</h2>
+<p>
+정규 표현식은 문자열에서 <b>특정 문자 조합(패턴)</b>을 찾거나,
+<b>문자열 형식을 검사(검증)</b>하기 위한 규칙입니다.<br>
+자바스크립트에서 정규식은 <b>RegExp 객체</b>로 동작하며,
+리터럴(<code>/.../</code>)로 만들더라도 내부적으로는 RegExp 객체입니다.
+</p>
+
+<div class="small">
+  예) <code>/abc/ instanceof RegExp</code> 결과는 <b>true</b>입니다.
+</div>
+
+<h2>2. 정규식 작성 방법</h2>
+
+<h3>① 정규식 리터럴 방식</h3>
+<p>슬래시(<code>/</code>) 사이에 패턴을 작성합니다.</p>
+<pre><code>// 예: 주민번호 형태(예시) 6자리-7자리
+let reg = /^[0-9]{6}-[0-9]{7}$/;</code></pre>
+
+<h3>② RegExp 생성자 방식</h3>
+<p>
+문자열로 패턴을 전달하여 정규식 객체를 생성합니다.<br>
+<b>주의:</b> 문자열 안에서는 백슬래시(<code>\</code>)가 “이스케이프 문자”로 쓰이므로,
+<code>\d</code> 같은 표현을 넣으려면 <b>\\d</b>처럼 “백슬래시를 한 번 더” 써야 합니다.
+</p>
+<pre><code>// ^[0-9]{6}-[0-9]{7}$ 는 백슬래시가 없어 그대로 사용 가능
+let reg1 = new RegExp("^[0-9]{6}-[0-9]{7}$");
+
+// \d 를 쓰고 싶다면 문자열에서는 \\d 로 작성해야 합니다.
+let reg2 = new RegExp("^\\d+$"); // 숫자 1개 이상</code></pre>
+
+<div class="warn">
+  <b>핵심 요약</b><br>
+  - 리터럴: <code>/\d+/</code> (OK)<br>
+  - 생성자: <code>new RegExp("\\d+")</code> (OK)<br>
+  - 생성자에 <code>"\d+"</code>라고 쓰면 <code>\d</code>가 제대로 전달되지 않습니다.
+</div>
+
+<h2>3. 정규식 주요 기호(메타 문자)</h2>
+
+<table>
+<tr>
+  <th style="width:140px;">기호</th>
+  <th>의미</th>
+  <th style="width:280px;">예시</th>
+</tr>
+
+<tr>
+  <td><code>^</code></td>
+  <td>문자열의 <b>시작</b>을 의미합니다.</td>
+  <td><code>/^1/</code> : 1로 시작</td>
+</tr>
+
+<tr>
+  <td><code>$</code></td>
+  <td>문자열의 <b>끝</b>을 의미합니다.</td>
+  <td><code>/1$/</code> : 1로 끝</td>
+</tr>
+
+<tr>
+  <td><code>[ ]</code></td>
+  <td>대괄호 안의 문자 중 <b>하나</b>를 선택합니다.</td>
+  <td><code>/[a-z]/</code>, <code>/[0-9]/</code></td>
+</tr>
+
+<tr>
+  <td><code>[0-9]</code>, <code>\d</code></td>
+  <td>숫자 1개를 의미합니다. (<code>\d</code>는 숫자 축약 표현)</td>
+  <td><code>/\d\d/</code> : 숫자 2개 연속</td>
+</tr>
+
+<tr>
+  <td><code>{n}</code></td>
+  <td>바로 앞 패턴을 <b>정확히 n번</b> 반복합니다.</td>
+  <td><code>/^\d{3}$/</code> : 숫자 3자리만</td>
+</tr>
+
+<tr>
+  <td><code>{n,m}</code></td>
+  <td>바로 앞 패턴을 <b>n~m번</b> 반복합니다.</td>
+  <td><code>/^\d{2,4}$/</code> : 2~4자리</td>
+</tr>
+
+<tr>
+  <td><code>{n,}</code></td>
+  <td>바로 앞 패턴을 <b>n번 이상</b> 반복합니다.</td>
+  <td><code>/^\d{2,}$/</code> : 2자리 이상</td>
+</tr>
+
+<tr>
+  <td><code>+</code></td>
+  <td>바로 앞 패턴이 <b>1개 이상</b> 반복합니다.</td>
+  <td><code>/\d+/</code> : 숫자가 1개 이상 포함</td>
+</tr>
+
+<tr>
+  <td><code>*</code></td>
+  <td>바로 앞 패턴이 <b>0개 이상</b> 반복합니다.</td>
+  <td><code>/a*/</code> : a가 없어도 OK</td>
+</tr>
+
+<tr>
+  <td><code>?</code></td>
+  <td>바로 앞 패턴이 <b>0 또는 1개</b> 존재합니다.</td>
+  <td><code>/colou?r/</code> : color/colour</td>
+</tr>
+
+<tr>
+  <td><code>(A|B)</code></td>
+  <td>
+    <b>그룹</b>으로 묶어 A 또는 B를 의미합니다.<br>
+    (묶음 단위로 OR 조건을 적용합니다.)
+  </td>
+  <td><code>/^(1|2)$/</code> : 전체가 1 또는 2</td>
+</tr>
+</table>
+
+<h2>4. <code>test()</code> 메서드</h2>
+<p>
+<code>정규식.test(문자열)</code> 형태로 사용하며,
+패턴에 맞으면 <b>true</b>, 아니면 <b>false</b>를 반환합니다.
+</p>
+
+<pre><code>let reg = /^[0-9]+$/;
+reg.test("123"); // true
+reg.test("12a"); // false</code></pre>
+
+<div class="warn">
+  <b>주의 1) test()는 값이 문자열이 아니어도 “문자열로 변환” 후 검사합니다.</b><br>
+  예) <code>/^\d+$/.test(100)</code> 은 내부적으로 <code>"100"</code>으로 바꾼 뒤 검사하므로 <b>true</b>입니다.
+</div>
+
+
+</script>
+
+</body>
+</html>

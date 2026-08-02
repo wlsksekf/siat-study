@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>string 객체</title>
+</head>
+<body>
+    <h3>string 객체의 메소드 활용</h3>
+    <hr/>
+
+    <script>
+        const jumin = prompt("주민번호를 입력하세요?", "810908-1234567");
+
+        function checkJumin() {
+            if (jumin === null) {
+                document.body.innerHTML += "<h1>입력이 취소되었습니다.</h1>";
+                document.body.style.color = "red";
+                return true; 
+            }
+
+            if (jumin.length !== 14) {
+                alert("주민번호의 길이는 14개 입니다.");
+                return false;
+            }
+
+            if (Number.isNaN(Number(jumin.substring(0, 6)))) {
+                alert("앞자리 형식을 확인하세요");
+                return false;
+            }
+
+            if (jumin.charAt(6) !== "-") {
+                alert("앞자리 입력 후 -을 입력하세요");
+                return false;
+            }
+
+            if (Number.isNaN(Number(jumin.substring(7)))) {
+                alert("뒷자리 형식을 확인하세요");
+                return false;
+            }
+
+            const genderNum = jumin.charAt(7);
+            if (genderNum === "1" || genderNum === "3") {
+                document.body.innerHTML += "<div>남자</div>";
+                document.body.style.backgroundColor = "blue";
+            } else if (genderNum === "2" || genderNum === "4") {
+                document.body.innerHTML += "<div>여자</div>";
+                document.body.style.backgroundColor = "pink";
+            } else {
+                return false;
+            }
+            return true;
+        }
+
+        if (jumin === null) {
+            checkJumin();
+        } else if (!checkJumin()) {
+            document.body.innerHTML += "형식에 맞지 않습니다.";
+        }
+    </script>
+</body>
+</html>

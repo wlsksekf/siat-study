@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>object_리터럴 예제</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 400px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        thead {
+            background-color: skyblue;
+        }
+        h2 {
+            text-align: center;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const saram = {
+            name: "김진환",
+            age: 25,
+            ki: 167,
+            blood_type: "B",
+            address: "경기도 성남시",
+            job: {
+                company: "AI회사",
+                loc: "부산",
+                position: "개발자"
+            },
+            print: function() {
+                let output = "<h2>신상 정보</h2><table>";
+                output += "<thead><tr><th>항목 (속성: property)</th><th>내용 (값: value)</th></tr></thead>";
+                output += "<tbody>";
+
+                for (const p in this) {
+                    if (p === "print") continue;
+
+                    if (typeof this[p] === 'object') {
+                        for (const sub in this[p]) {
+                            output += `<tr>
+                                <td>saram.${p}.${sub}</td>
+                                <td>${this[p][sub]}</td>
+                                </tr>`;
+                        }
+                    } else {
+                        let Value = this[p];
+                        
+                        switch (p) {
+                            case "age":
+                                Value += "세";
+                                break;
+                            case "blood_type":
+                                Value += "형";
+                                break;
+                            case "ki":
+                                Value += "cm";
+                                break;
+                        }
+
+                        output += `<tr>
+                                <td>saram.${p}</td>
+                                <td>${Value}</td>
+                                </tr>`;
+                    }
+                }
+
+                output += "</tbody></table>";
+                document.body.innerHTML = output;
+            }
+        };
+
+        saram.print();
+    </script>
+</body>
+</html>

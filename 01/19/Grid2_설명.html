@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Grid 교안 - grid-template-columns & fr</title>
+  <style>
+    body{
+      font-family:"Segoe UI", Arial, sans-serif;
+      background:#f7f8fb;
+      padding:30px;
+      line-height:1.8;
+      color:#222;
+    }
+    .container{
+      max-width:1000px;
+      margin:auto;
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1,h2,h3{ color:#0d6efd; }
+    pre{
+      background:#272822;
+      color:#f8f8f2;
+      padding:15px;
+      border-radius:6px;
+      overflow-x:auto;
+    }
+    table{
+      border-collapse:collapse;
+      width:100%;
+      margin-top:10px;
+    }
+    th,td{
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+    th{ background:#e9f0ff; }
+    .note{
+      background:#f3f4f6;
+      border-left:5px solid #0d6efd;
+      padding:12px 14px;
+      border-radius:8px;
+      margin:12px 0;
+    }
+
+    /* ===== Grid 예제 스타일 ===== */
+    .grid-box{
+      display:grid;
+      background-color:#2196F3;
+      padding:10px;
+      gap:10px;
+      margin-top:12px;
+    }
+    .grid-item{
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      padding: 18px;
+      font-size: 22px;
+      font-weight:bold;
+      text-align:center;
+    }
+    .label{ font-weight:bold; margin-top:22px; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h1>CSS Grid Elements</шин
+<hr>
+
+<h2>1. CSS Grid란?</h2>
+<p>
+CSS Grid는 <b>행(Row)과 열(Column)</b>이 있는 그리드 기반 레이아웃 시스템입니다.  
+웹 페이지 전체 구조를 <b>2차원(행+열)</b>으로 설계할 수 있습니다.
+</p>
+
+<div class="note">
+<b>기본 조건</b><br>
+• 그리드 레이아웃을 사용하려면 부모 요소가 <b>display: grid</b> 또는 <b>inline-grid</b> 이어야 합니다.<br>
+• 그리드 컨테이너의 <b>직접 자식 요소</b>는 자동으로 <b>Grid 아이템</b>이 됩니다.
+</div>
+
+<h2>2. grid-template-columns란?</h2>
+<p>
+grid-template-columns는  
+<strong>열(Column)의 개수와 각 열의 너비(비율/크기)</strong>를 지정하는 속성입니다.
+</p>
+
+<pre>
+grid-template-columns: 값 값 값;
+</pre>
+
+<ul>
+  <li><b>값의 개수 = 열의 개수</b>입니다.</li>
+  <li>각 값은 해당 열의 너비를 의미합니다.</li>
+</ul>
+
+<h2>3. fr 단위란?</h2>
+<p>
+<b>fr</b>(fraction)은 그리드에서 남은 공간을 나누는 비율 단위입니다.<br>
+예를 들어 <b>1fr 1fr 1fr</b> 은 남은 공간을 <b>1 : 1 : 1</b> 비율로 나눕니다.
+</p>
+
+<div class="note">
+<b>한 줄 요약</b><br>
+grid-template-columns: 1fr 1fr 1fr; → 남은 공간을 1 : 1 : 1 비율로 나눠 3열을 만듭니다.
+</div>
+
+<hr>
+
+<h2>4. 기본 예제</h2>
+
+<pre>
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+</pre>
+
+<div class="grid-box" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="grid-item">1</div>
+  <div class="grid-item">2</div>
+  <div class="grid-item">3</div>
+  <div class="grid-item">4</div>
+  <div class="grid-item">5</div>
+  <div class="grid-item">6</div>
+  <div class="grid-item">7</div>
+  <div class="grid-item">8</div>
+  <div class="grid-item">9</div>
+</div>
+
+<p>
+→ 3열이 만들어지고, 남은 공간이 <b>동일 비율(1:1:1)</b>로 나뉩니다.
+</p>
+
+<hr>
+
+<h2>5. 값 변경 실습 + 결과</h2>
+<p>아래 예제들은 grid-template-columns 값을 바꿨을 때의 결과입니다.</p>
+
+<div class="label">1) grid-template-columns: 1fr 1fr 1fr (3열, 동일 비율)</div>
+<div class="grid-box" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+  <div class="grid-item">4</div><div class="grid-item">5</div><div class="grid-item">6</div>
+  <div class="grid-item">7</div><div class="grid-item">8</div><div class="grid-item">9</div>
+</div>
+
+<div class="label">2) grid-template-columns: 2fr 1fr 1fr (첫 번째 열이 2배)</div>
+<div class="grid-box" style="grid-template-columns: 2fr 1fr 1fr;">
+  <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+  <div class="grid-item">4</div><div class="grid-item">5</div><div class="grid-item">6</div>
+  <div class="grid-item">7</div><div class="grid-item">8</div><div class="grid-item">9</div>
+</div>
+
+<div class="label">3) grid-template-columns: 200px 1fr 1fr (첫 열 고정 200px)</div>
+<div class="grid-box" style="grid-template-columns: 200px 1fr 1fr;">
+  <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+  <div class="grid-item">4</div><div class="grid-item">5</div><div class="grid-item">6</div>
+  <div class="grid-item">7</div><div class="grid-item">8</div><div class="grid-item">9</div>
+</div>
+
+<div class="label">4) grid-template-columns: 1fr 2fr (2열, 두 번째 열이 더 큼)</div>
+<div class="grid-box" style="grid-template-columns: 1fr 2fr;">
+  <div class="grid-item">1</div><div class="grid-item">2</div>
+  <div class="grid-item">3</div><div class="grid-item">4</div>
+  <div class="grid-item">5</div><div class="grid-item">6</div>
+  <div class="grid-item">7</div><div class="grid-item">8</div>
+  <div class="grid-item">9</div>
+</div>
+
+<hr>
+
+<h2>6. 핵심 정리</h2>
+<ul>
+  <li>display:grid → Grid 컨테이너 생성</li>
+  <li>grid-template-columns → <b>열 개수</b>와 <b>열 너비</b>를 지정합니다.</li>
+  <li>값 개수 = 열 개수입니다.</li>
+  <li>fr은 남은 공간을 나누는 비율 단위입니다.</li>
+  <li>1fr 1fr 1fr → 남은 공간을 1:1:1로 나눕니다.</li>
+</ul>
+
+</div>
+</body>
+</html>

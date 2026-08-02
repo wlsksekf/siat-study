@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Array</title>
+</head>
+<body>
+    <script>
+        const fruits = ["사과", "바나나", "포도", "딸기"];
+        fruits.push("키위");
+        let output = "";
+
+        for(let i = 0; i < fruits.length; i++){
+            output += `${fruits[i]}<hr>`;
+        }
+
+        document.body.innerHTML = output;
+    </script>
+</body>
+</html>

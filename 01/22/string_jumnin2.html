@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>string 객체</title>
+    <style>
+        @keyframes start {
+            0% { color: white; }
+            20% { color: red; }
+            40% { color: orange; }
+            60% { color: yellow; }
+            80% { color: green; }
+        }
+
+        div{
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            animation: start 6s infinite;
+        }
+    </style>
+</head>
+<body>
+    <h3>string 객체의 메소드 활용</h3>
+    <hr/>
+
+    <script>
+        const jumin = prompt("주민번호를 입력하세요?", "810908-1234567");
+
+        function checkJumin() {
+            if (jumin === null) {
+                document.body.innerHTML += "<h1>입력이 취소되었습니다.</h1>";
+                document.body.style.color = "red";
+                return true; 
+            }
+
+            const reg = /^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])-[1-4][0-9]{6}$/;
+
+            if (!reg.test(jumin)) {
+                return false;
+            }
+
+            const genderNum = jumin.charAt(7); // charAt은 문자열의 몇 번째를 알아내는 함수
+            if (genderNum === "1" || genderNum === "3") {
+                document.body.innerHTML += `<div>${jumin}은 남자입니다</div>`;
+                document.body.style.backgroundColor = "skyblue";
+            } else {
+                document.body.innerHTML += `<div>${jumin}은 여자입니다</div>`;
+                document.body.style.backgroundColor = "pink";
+            }
+            return true;
+        }
+
+        if (jumin === null) {
+            checkJumin();
+        } else if (!checkJumin()) {
+            document.body.innerHTML += "형식에 맞지 않습니다.";
+        }
+    </script>
+</body>
+</html>

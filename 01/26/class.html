@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>함수를 리턴하는 함수</title>
+</head>
+<body>
+    <script>
+        class Person{
+            constructor(name, age){
+                this.name = name;
+                this.age = age;
+            }
+
+            introduce(){
+                return  "이름: " + this.name +
+                        ", 나이: " + this.age +
+                        ", 반: " + this.ban;
+            }
+        }
+
+        Person.prototype.ban = "최고반";
+
+        let p1 = new Person("홍길동", 25);
+        let p2 = new Person("이순신", 30);
+
+        console.log(p1.introduce());
+        console.log(p2.introduce());
+    </script>
+</body>
+</html>

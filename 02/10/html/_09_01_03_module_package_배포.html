@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 모듈(Module)·패키지(Package)</title>
+
+<style>
+  :root{
+    --bg: #f3f6ff;
+    --panel: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+
+    --border: #e2e8f0;
+    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
+
+    --primary: #2563eb;
+    --primary-2: #1d4ed8;
+    --accent: #7c3aed;
+
+    --note-bg: #eff6ff;
+    --note-border: #2563eb;
+
+    --code-bg: #0b1220;
+    --code-text: #e5e7eb;
+    --code-border: #1f2a44;
+
+    --tab-bg: #ffffff;
+    --tab-hover: #eff6ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 28px;
+    font-family: "맑은 고딕", Arial, sans-serif;
+    line-height: 1.8;
+    color: var(--text);
+    background:
+      radial-gradient(1200px 600px at 20% 0%, #e9efff 0%, transparent 60%),
+      radial-gradient(1200px 600px at 90% 20%, #efe9ff 0%, transparent 55%),
+      var(--bg);
+  }
+
+  .container{
+    max-width: 1080px;
+    margin: 0 auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  h1 { margin: 0 0 10px 0; font-size: 26px; letter-spacing: -.2px; }
+  h2 { margin-top: 22px; font-size: 20px; letter-spacing: -.2px; }
+  h3 { margin-top: 16px; font-size: 16px; letter-spacing: -.1px; }
+
+  .lead { margin: 8px 0 0 0; color: var(--muted); }
+
+  /* ✅ 탭 영역(리스트 마커 영향 방지용 안전장치 포함) */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 14px 0;
+  }
+  .tabs, .tabs * { list-style: none; } /* 혹시 상위에서 list-style이 전파되는 경우 방지 */
+
+  .tab-btn {
+    border: 1px solid var(--border);
+    background: var(--tab-bg);
+    padding: 10px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    transition: transform .08s ease, background .15s ease, border-color .15s ease, color .15s ease;
+  }
+
+  .tab-btn:hover{
+    background: var(--tab-hover);
+    border-color: #c7d2fe;
+    transform: translateY(-1px);
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
+    border-color: transparent;
+  }
+
+  .panel {
+    display: none;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 16px;
+  }
+  .panel.active { display: block; }
+
+  .card {
+    border: 1px solid var(--border);
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, .04);
+  }
+
+  .note {
+    border-left: 4px solid var(--note-border);
+    background: var(--note-bg);
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin: 12px 0;
+    color: #1e293b;
+  }
+
+  code, pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  code{
+    background: #eef2ff;
+    border: 1px solid #e0e7ff;
+    padding: 1px 6px;
+    border-radius: 8px;
+    color: #1e293b;
+  }
+
+  pre {
+    margin: 10px 0;
+    padding: 12px 14px;
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 14px;
+    overflow: auto;
+    border: 1px solid var(--code-border);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid #e9d5ff;
+    background: #f5f3ff;
+    border-radius: 999px;
+    font-size: 12px;
+    color: #5b21b6;
+    margin-right: 6px;
+  }
+
+  table{
+    width:100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  th, td{
+    border-bottom: 1px solid var(--border);
+    padding: 10px;
+    vertical-align: top;
+    font-size: 14px;
+  }
+
+  th{
+    background: #f1f5ff;
+    color: #0f172a;
+    text-align: left;
+  }
+
+  tbody tr:hover{ background: #f8fafc; }
+
+  ul { padding-left: 18px; margin: 8px 0; }
+
+  /* ✅ “빈 동그라미(빈 li)”가 생기는 경우 제거 */
+  ul li:empty { display: none; }
+
+  a { color: var(--primary); }
+  a:hover { color: var(--primary-2); }
+
+  .tab-btn:focus{
+    outline: 3px solid rgba(37, 99, 235, .25);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Python 모듈(Module)·패키지(Package)</h1>
+
+   
+
+    <div class="tabs" role="tablist" aria-label="학습 탭">
+      <button class="tab-btn active" data-tab="t1" role="tab" aria-selected="true">1. 모듈 개념</button>
+      <button class="tab-btn" data-tab="t2" role="tab" aria-selected="false">2. 모듈 종류</button>
+      <button class="tab-btn" data-tab="t3" role="tab" aria-selected="false">3. import 사용법</button>
+      <button class="tab-btn" data-tab="t4" role="tab" aria-selected="false">4. pip</button>
+      <button class="tab-btn" data-tab="t5" role="tab" aria-selected="false">5. 패키지 구조</button>
+    </div>
+
+    <!-- 1. 모듈 개념 -->
+    <section class="panel active" id="t1" role="tabpanel">
+      <h2>1) 모듈(Module) 정의</h2>
+
+      <div class="card">
+        <span class="badge">정의</span>
+        <p>
+          <b>모듈(Module)</b>은 파이썬 코드가 들어 있는 <b>하나의 파일(.py)</b>입니다.<br>
+          함수, 클래스, 변수 등을 한 파일에 모아두고, 다른 파일에서 <b>import</b>로 불러 사용합니다.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="badge">왜 쓰나요?</span>
+        <ul>
+          <li><b>재사용</b>이 쉬워집니다.</li>
+          <li><b>코드 분리</b>로 관리가 쉬워집니다.</li>
+          <li><b>협업</b>에서 파일 단위로 역할을 나누기 좋습니다.</li>
+        </ul>
+      </div>
+
+      <h3>모듈의 기본 예</h3>
+      <pre>
+# calc.py (모듈 파일)
+def add(a, b):
+    return a + b
+
+PI = 3.141592
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+</pre>
+
+      <pre>
+# main.py (사용 파일)
+import calc
+
+print(calc.add(2, 3))
+print(calc.PI)
+
+p = calc.Person("Kim")
+print(p.name)
+</pre>
+
+      <h3>__name__ 과 모듈 실행</h3>
+      <div class="card">
+        <p>
+          파이썬은 파일을 실행하거나 import 할 때 <code>__name__</code> 변수에 값을 넣습니다.<br>
+          <b>직접 실행</b>하면 <code>__name__ == "__main__"</code> 입니다.<br>
+          <b>import</b>되면 <code>__name__</code>은 모듈 이름이 됩니다.
+        </p>
+      </div>
+
+      <pre>
+# tool.py
+def run():
+    print("run() 실행됩니다.")
+
+if __name__ == "__main__":
+    print("이 파일을 직접 실행했습니다.")
+    run()
+</pre>
+
+      <pre>
+# main.py
+import tool
+tool.run()
+</pre>
+    </section>
+
+    <!-- 2. 모듈 종류 (✅ 표 + 설명 블록 수정 완료) -->
+    <section class="panel" id="t2" role="tabpanel">
+      <h2>2) 모듈의 종류</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>종류</th>
+            <th>설명</th>
+            <th>예시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>표준 라이브러리(Standard Library)</b></td>
+            <td>
+              파이썬 설치 시 기본 포함된 모듈이며, <b>import 해서 사용</b>합니다.
+            </td>
+            <td>
+              <code>math</code>, <code>random</code>, <code>datetime</code>, <code>pathlib</code>,
+              <code>json</code>, <code>sys</code>, <code>os</code>, <code>time</code>
+            </td>
+          </tr>
+          <tr>
+            <td><b>서드파티(Third-party)</b></td>
+            <td>pip로 설치해서 쓰는 외부 모듈(외부 라이브러리)입니다.</td>
+            <td><code>requests</code>, <code>pandas</code>, <code>numpy</code>, <code>flask</code></td>
+          </tr>
+          <tr>
+            <td><b>사용자 정의(User-defined)</b></td>
+            <td>직접 만든 .py 파일 모듈입니다.</td>
+            <td><code>calc.py</code>, <code>utils.py</code></td>
+          </tr>
+          
+        </tbody>
+      </table>
+
+      <div class="note">
+        <b> 참고: 내장 객체(Builtins)</b><br>
+        - <b>내장 객체</b>는 <code>print()</code>, <code>len()</code>, <code>list</code>, <code>int</code>, <code>Exception</code> 처럼 <b>import 없이 바로 사용하는</b> 파이썬의 기본 구성 요소입니다.<br>
+        - 엄밀히 말하면 '모듈'이라기보다 파이썬이 실행될 때 자동으로 로드되는 <b>내장(builtins) 네임스페이스(변수명, 함수명이 저장되어 있는 공간)</b>에 속한 객체들입니다.<br>
+        - 반면, <b>표준 라이브러리</b>(<code>sys</code>, <code>math</code> 등)는 파이썬이 제공하지만 반드시 <code>import</code>를 해야만 사용할 수 있다는 차이점이 있습니다.
+      </div>
+
+      <div class="note">
+        <b>정리</b>: 외부 라이브러리(서드파티)는 “기본 설치에 없음 → 필요할 때 pip로 설치”하는 패키지입니다.
+        pip의 개념/설치 흐름은 <b>4번 탭(pip)</b>에서 다룹니다.
+      </div>
+    </section>
+
+    <!-- 3. import 사용법 -->
+    <section class="panel" id="t3" role="tabpanel">
+      <h2>3) import 사용법(가져오기)</h2>
+
+      <h3>1) 모듈 전체 import</h3>
+      <pre>
+import math
+print(math.sqrt(16))
+</pre>
+
+      <h3>2) 별칭(alias) 사용</h3>
+      <pre>
+import math as m
+print(m.sqrt(16))
+</pre>
+
+      <h3>3) 특정 요소만 import</h3>
+      <pre>
+from math import sqrt, pi
+print(sqrt(16))
+print(pi)
+</pre>
+
+      <h3>4) 전체 import(*)는 주의해서 사용</h3>
+      <div class="note">
+        <code>from module import *</code>는 이름 충돌이 발생할 수 있어 학습용이 아니라면 권장하지 않습니다.
+      </div>
+      <pre>
+from math import *
+print(sqrt(16))
+</pre>
+
+      <h3>3) 모듈 검색 경로 (sys.path)</h3>
+<div class="card">
+  <p>파이썬은 <code>import</code> 문을 실행하면 아래와 같은 <b>우선순위</b>에 따라 모듈을 검색합니다.</p>
+  
+  <ol>
+    <li>
+      <b>sys.modules (캐시 확인):</b> 
+      이미 로드된 모듈인지 먼저 확인합니다. (메모리에 있으면 즉시 반환)
+    </li>
+    <li>
+      <b>Built-in Modules (내장 모듈):</b> 
+      <code>sys</code>, <code>time</code>과 같이 파이썬 인터프리터에 컴파일되어 포함된 핵심 모듈을 찾습니다.
+    </li>
+    <li>
+      <b>sys.path (경로 리스트):</b> 리스트에 등록된 경로들을 순서대로 탐색합니다.
+      <ul>
+        <li><b>현재 실행 위치:</b> 스크립트 파일이 있는 폴더 (가장 높은 우선순위)</li>
+        <li><b>표준 라이브러리 경로:</b> 파이썬 설치 시 기본 제공되는 모듈 폴더</li>
+        <li><b>site-packages:</b> <code>pip</code>로 설치한 외부(Third-party) 라이브러리 경로</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div class="note">
+  <b> 파일명 중복 주의 (Shadowing)</b><br>
+  현재 실행 위치가 표준 라이브러리보다 우선순위가 높습니다. 만약 내 폴더에 <code>math.py</code>나 <code>random.py</code>라는 파일을 만들면, 파이썬 기본 모듈 대신 <b>내가 만든 파일이 로드되어 오류가 발생</b>할 수 있습니다.
+</div>
+
+      <pre>
+import sys
+for p in sys.path:
+    print(p)
+</pre>
+    </section>
+
+    <!-- 4. pip (개념 + 명령어 + 설치 흐름 통합) -->
+    <section class="panel" id="t4" role="tabpanel">
+      <h2>4) pip (외부 라이브러리 설치/관리)</h2>
+
+      <div class="card">
+        <span class="badge">정의</span>
+        <p>
+          <b>pip(Pip Installs Packages)</b>는 파이썬 패키지(라이브러리)를 <b>설치/업데이트/삭제</b>하는 패키지 관리 도구입니다.<br>
+          외부 라이브러리(서드파티)는 기본 설치에 없기 때문에, 보통 pip로 설치합니다.
+        </p>
+      </div>
+
+      <h3>1) pip 기본 확인</h3>
+      <pre>
+pip --version             # 시스템 환경 변수(PATH)에 등록된 pip 파일을 찾아 실행합니다.
+python -m pip --version   # 특정 파이썬 인터프리터를 먼저 실행한 뒤, 그 파이썬에 포함된 pip 모듈을 실행합니다.
+</pre>
+
+    
+
+      <h3>2) 자주 쓰는 pip 명령어</h3>
+      <pre>
+# 설치
+pip install requests
+
+# 특정 버전 설치
+pip install requests==2.32.3
+
+# 업그레이드
+pip install --upgrade requests
+
+# 삭제
+pip uninstall requests
+
+# 설치 목록
+pip list
+
+# 패키지 정보
+pip show requests
+</pre>
+
+      <h3>3) requirements.txt로 한 번에 설치하기</h3>
+      <pre>
+# requirements.txt 예
+requests==2.32.3
+pandas==2.2.2
+numpy==2.1.0
+</pre>
+      <pre>
+pip install -r requirements.txt
+</pre>
+
+      <h3>4) pip install requests 동작 과정(설치 흐름)</h3>
+      <div class="card">
+        <span class="badge">목표</span>
+        <p>
+          <code>pip install requests</code>를 실행하면 pip가 내부적으로 어떤 순서로 동작하는지 이해합니다.<br>
+          <b>검색 → 의존성 해결 → 다운로드 → site-packages 설치</b> 흐름입니다.
+        </p>
+      </div>
+
+      <pre>
+pip install requests
+# 또는(권장)
+python -m pip install requests
+</pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>단계</th>
+            <th>pip 내부에서 일어나는 일</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td>pip 실행(환경 결정)</td>
+            <td>현재 파이썬(전역/가상환경) 기준으로 설치 위치가 결정됩니다.</td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td>PyPI(Python Package Index) 접속</td>
+            <td>pip는 기본 저장소인 PyPI에서 패키지를 찾습니다(보통 인터넷 필요) <br>
+              Python Package Index는 전 세계 개발자들이 만든 패키지들이 저장되어 있는 '온라인 저장소(웹사이트)'입니다. <br>
+              주소는 pypi.org입니다.
+            </td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td>메타데이터 조회</td>
+            <td>버전, 호환성, 배포 파일(.whl/.tar.gz), 의존성 정보를 가져옵니다.</td>
+          </tr>
+          <tr>
+            <td><b>4</b></td>
+            <td>의존성 분석</td>
+            <td>requests가 필요로 하는 패키지들을 함께 설치 대상으로 잡습니다.</td>
+          </tr>
+          <tr>
+            <td><b>5</b></td>
+            <td>파일 다운로드</td>
+            <td>보통 wheel(.whl)을 우선 선택해 다운로드합니다.</td>
+          </tr>
+          <tr>
+            <td><b>6</b></td>
+            <td>site-packages 설치</td>
+            <td>현재 환경의 site-packages에 설치되고 .dist-info도 생성됩니다.</td>
+          </tr>
+          <tr>
+            <td><b>7</b></td>
+            <td>의존성 반복 설치</td>
+            <td>필요한 의존성 패키지들도 같은 흐름으로 함께 설치합니다.</td>
+          </tr>
+          <tr>
+            <td><b>8</b></td>
+            <td>완료</td>
+            <td>설치가 성공하면 Successfully installed 메시지가 출력됩니다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>5) 설치 후 import가 되는 이유</h3>
+      <div class="note">
+        설치가 끝나면 패키지가 <code>site-packages</code>에 들어가고,
+        파이썬은 <code>sys.path</code>를 검색해서 모듈을 찾기 때문에 import가 가능합니다.
+      </div>
+      <pre>
+python -c "import requests; print(requests.__version__)"
+</pre>
+    </section>
+
+    <!-- 5. 패키지 구조 -->
+<section class="panel" id="t5" role="tabpanel">
+  <h2>5) 패키지(Package) 개념</h2>
+
+  <div class="card">
+    <span class="badge">정의</span>
+    <p>
+      <b>패키지(Package)</b>는 여러 모듈(.py 파일)을 <b>폴더(디렉터리)</b>로 묶어 관리하는 구조입니다.<br>
+      쉽게 말해 <b>모듈들의 묶음 폴더</b>이며, “폴더 안에 모듈이 있고 import로 가져다 쓰는 단위”입니다.
+    </p>
+  </div>
+
+  <h3>패키지 구조 예</h3>
+  <pre>
+project/
+  main.py
+  mypkg/
+    __init__.py
+    calc.py
+    io/
+      __init__.py
+      reader.py
+</pre>
+
+  <div class="note">
+    <b>포인트</b><br>
+    - <code>mypkg</code> 폴더 자체가 import 대상(패키지)이 됩니다.<br>
+    - 그 안의 <code>calc.py</code>, <code>io/reader.py</code>는 모듈입니다.<br>
+    - 패키지/모듈을 잘 나누면 “기능별로 파일을 정리”하기 쉬워집니다.
+  </div>
+
+  <h2>__init__.py 를 왜 쓰나요?</h2>
+
+  <div class="card">
+    <span class="badge">핵심 역할</span>
+    <ul>
+      <li><b>패키지 초기화 코드</b>를 실행하는 곳입니다. (패키지가 처음 import될 때 1번 실행됩니다.)</li>
+      <li>패키지의 <b>공개 API(외부에 보여줄 함수/클래스)</b>를 정리할 수 있습니다.</li>
+      <li><code>from 패키지 import ...</code> 형태에서 <b>어떤 이름을 내보낼지</b> 제어할 수 있습니다.</li>
+      <li>(선택) 서브모듈을 미리 import 하여 <b>사용 편의성</b>을 높일 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <b>참고(파이썬 버전 차이)</b><br>
+    - 예전에는 “패키지로 인식”되려면 <code>__init__.py</code>가 필수였습니다.<br>
+    - 요즘 파이썬은 <b>네임스페이스 패키지</b> 개념으로 <code>__init__.py</code>가 없어도 패키지가 될 수 있지만,<br>
+       <b>명확성과 관리</b> 때문에 보통 <code>__init__.py</code>를 둡니다.
+  </div>
+
+  <h3>1) “패키지가 import될 때” __init__.py 는 자동 실행됩니다</h3>
+  <pre>
+# mypkg/__init__.py
+print("mypkg 패키지가 import 되었습니다.")
+</pre>
+
+  <pre>
+# main.py
+import mypkg
+# 실행하면: "mypkg 패키지가 import 되었습니다." 출력
+</pre>
+
+  <div class="note">
+    즉, <code>import mypkg</code>를 하면 파이썬은 내부적으로<br>
+    “mypkg 폴더를 패키지로 로드 → <code>mypkg/__init__.py</code>를 실행” 흐름으로 처리합니다.
+  </div>
+
+  <h3>2) 공개 API(외부에 제공할 함수/클래스) 묶기</h3>
+  <div class="card">
+    <p>
+      패키지를 사용하는 사람이 <code>mypkg.calc.add</code>처럼 깊게 들어가지 않고,<br>
+      <code>from mypkg import add</code>처럼 <b>바로 쓰게</b> 만들 수 있습니다.
+    </p>
+  </div>
+
+  <pre>
+# mypkg/calc.py
+def add(a, b):
+    return a + b
+
+def sub(a, b):
+    return a - b
+</pre>
+
+  <pre>
+# mypkg/__init__.py
+from .calc import add   # 외부에 add만 "대표 기능"으로 공개
+
+# (선택) * import 제어용
+__all__ = ["add"]
+</pre>
+
+  <pre>
+# main.py
+from mypkg import add
+print(add(10, 20))  # 30
+</pre>
+
+  <h3>3) __all__ 은 언제 의미가 있나요?</h3>
+  <div class="card">
+    <p>
+      <code>__all__</code>은 주로 <code>from mypkg import *</code>에서 “어떤 이름을 내보낼지”를 정합니다.<br>
+      즉, <b>* import를 제어하는 목록</b>입니다.
+    </p>
+  </div>
+
+  <pre>
+# mypkg/__init__.py
+from .calc import add, sub
+__all__ = ["add"]   # * import 시 add만 공개
+</pre>
+
+  <pre>
+# main.py
+from mypkg import *
+print(add(1, 2))   # 가능
+print(sub(1, 2))   # NameError 가능 (sub를 내보내지 않았기 때문)
+</pre>
+
+  <div class="note">
+    수업/실무에서는 <code>from 패키지 import *</code>를 권장하지 않지만,<br>
+    라이브러리 형태로 배포할 때 “공개 범위 정리”에 <code>__all__</code>이 도움이 됩니다.
+  </div>
+
+  <h3>4) (선택) 서브모듈을 미리 연결해 사용 편의성 높이기</h3>
+  <div class="card">
+    <p>
+      사용자가 <code>mypkg.io.reader</code>를 매번 직접 import하지 않고도 쓸 수 있게<br>
+      <code>__init__.py</code>에서 연결해 줄 수 있습니다.
+    </p>
+  </div>
+
+  <pre>
+# mypkg/io/reader.py
+def read_text():
+    return "data"
+</pre>
+
+  <pre>
+# mypkg/__init__.py
+from .io.reader import read_text
+__all__ = ["read_text"]
+</pre>
+
+  <pre>
+# main.py
+from mypkg import read_text
+print(read_text())
+</pre>
+
+  <h2>상대 import(패키지 내부)</h2>
+  <pre>
+# mypkg/io/reader.py
+from ..calc import add  # ..은 상위 폴더(mypkg)를 의미합니다.
+
+def read_and_add(a, b):
+    return add(a, b)
+</pre>
+<pre>
+# main.py  
+from mypkg.io.reader import read_and_add
+print(read_and_add(10, 20))
+</pre>
+
+  <div class="note">
+    <b>주의</b><br>
+    패키지 내부 파일(예: <code>mypkg/io/reader.py</code>)을 “직접 실행”하면 상대 import가 실패할 수 있습니다.<br>
+    패키지는 보통 <b>루트 엔트리(main.py)</b>에서 실행하고, 내부는 import로 연결합니다.
+  </div>
+
+  <h2>자주 하는 실수(짧게)</h2>
+  <div class="card">
+    <ul>
+      <li><b>__init__.py 에 너무 무거운 작업</b>을 넣으면 import가 느려집니다. (파일 읽기/네트워크 호출 등은 지양)</li>
+      <li>패키지 이름과 같은 파일명 충돌: 예) <code>mypkg.py</code> 파일을 만들면 <code>import mypkg</code>가 꼬일 수 있습니다.</li>
+      <li><code>__all__</code>은 “* import 제어용”이라는 점을 혼동하기 쉽습니다.</li>
+    </ul>
+  </div>
+</section>
+
+   </div>
+
+<script>
+  const btns = document.querySelectorAll(".tab-btn");
+  const panels = document.querySelectorAll(".panel");
+
+  function activate(tabId){
+    btns.forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
+    panels.forEach(p => p.classList.toggle("active", p.id === tabId));
+    btns.forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tabId ? "true" : "false"));
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => activate(btn.dataset.tab));
+  });
+</script>
+</body>
+</html>

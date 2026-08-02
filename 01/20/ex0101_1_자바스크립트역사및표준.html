@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자바스크립트 역사 및 표준 교안</title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#2563eb;
+      --accent2:#0ea5e9;
+      --codebg:#0b1020;
+      --code:#e5e7eb;
+      --head:#0f172a;
+      --good:#10b981;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Segoe UI", Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.75;
+      padding:28px;
+    }
+    .wrap{max-width:1100px;margin:0 auto;}
+    header{
+      background:linear-gradient(135deg,#1d4ed8,var(--accent),var(--accent2));
+      color:#fff;
+      padding:22px 20px;
+      border-radius:16px;
+      box-shadow:0 12px 26px rgba(0,0,0,.10);
+    }
+    header h1{margin:0;font-size:22px}
+    header p{margin:6px 0 0;opacity:.9}
+    section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:18px;
+      margin-top:16px;
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
+    }
+    h2{margin:0 0 10px;color:var(--head)}
+    h3{margin:12px 0 6px;color:var(--head)}
+    .mini{color:var(--muted);font-size:13px}
+    ul{margin:6px 0 0 18px}
+    li{margin:6px 0}
+    .note{
+      border-left:4px solid var(--accent);
+      background:#eff6ff;
+      padding:10px;
+      border-radius:8px;
+      margin-top:10px;
+    }
+    .timeline{
+      border-left:3px solid var(--accent);
+      margin-top:10px;
+      padding-left:14px;
+    }
+    .event{
+      margin-bottom:10px;
+    }
+    .year{
+      font-weight:bold;
+      color:var(--accent);
+    }
+    table{
+      border-collapse:collapse;
+      width:100%;
+      margin-top:10px;
+    }
+    th,td{
+      border:1px solid var(--line);
+      padding:8px;
+      text-align:center;
+    }
+    th{background:#f3f4f6}
+    .good{color:var(--good);font-weight:bold}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>자바스크립트(JavaScript) 역사 및 표준</h1>
+  <p>언어의 탄생 → 표준화 → 현대 웹 개발까지의 흐름 </p>
+</header>
+
+<section>
+  <h2>1. 자바스크립트란?</h2>
+  <p>
+    자바스크립트는 웹 브라우저에서 동작하는 프로그래밍 언어입니다. <br>
+    HTML이 구조를 담당하고, CSS가 디자인을 담당한다면,  
+    자바스크립트는 동적인 동작과 로직을 담당합니다.
+  </p>
+
+  <div class="note">
+    현재 자바스크립트는 웹 브라우저, 서버(Node.js), 모바일 앱, 데스크탑 앱에서 모두 사용됩니다.
+  </div>
+</section>
+
+<section>
+  <h2>2. 자바스크립트 탄생 배경</h2>
+
+  <div class="timeline">
+    <div class="event">
+      <span class="year">1995년</span>  
+      넷스케이프(Netscape)에서 브렌든 아이크(Brendan Eich)가  
+      단 10일 만에 자바스크립트를 개발합니다.
+    </div>
+
+    <div class="event">
+      <span class="year">초기 이름</span>  
+      Mocha → LiveScript → JavaScript  
+      (당시 Java 인기에 편승한 마케팅 목적)
+    </div>
+  </div>
+
+  <p class="mini">
+    ※ 자바(Java)와 자바스크립트는 이름만 비슷하고 완전히 다른 언어입니다.
+  </p>
+</section>
+
+<section>
+  <h2>3. 브라우저 전쟁과 표준의 필요성</h2>
+
+  <ul>
+    <li>1990년대 후반 → 넷스케이프 vs 마이크로소프트(IE) 경쟁</li>
+    <li>브라우저마다 자바스크립트 구현이 달라 혼란 발생</li>
+    <li>표준화 필요성이 대두됩니다.</li>
+  </ul>
+
+  <div class="note">
+    💡 이 문제를 해결하기 위해  
+    ECMAScript 표준이 만들어집니다.
+  </div>
+</section>
+
+<section>
+  <h2>4. ECMAScript 표준이란?</h2>
+
+  <p>
+    1. ECMAScript는 <b>European Computer Manufacturers Association Script</b>의 약자입니다.<br>
+    즉, <b>유럽 컴퓨터 제조협회(ECMA)가 정한 스크립트 언어 표준</b>이라는 의미입니다.<br><br>
+
+    2. ECMAScript는 자바스크립트의 <b>공식 표준 규격</b>입니다.<br>
+    이 표준은 <b>ECMA 국제 표준 기구</b>에서 관리합니다.
+  </p>
+
+  <div class="note">
+    ✔ JavaScript는 ECMAScript 표준을 구현한 언어입니다.<br>
+    ✔ 표준이 정해지면 모든 웹 브라우저가 이를 따라 구현합니다.
+  </div>
+</section>
+
+<section>
+  <h2>5. ECMAScript 주요 버전 연대표</h2>
+
+  <table>
+    <tr>
+      <th>버전</th>
+      <th>연도</th>
+      <th>주요 특징</th>
+    </tr>
+    <tr>
+      <td>ES1</td>
+      <td>1997</td>
+      <td>최초 표준 제정</td>
+    </tr>
+    <tr>
+      <td>ES3</td>
+      <td>1999</td>
+      <td>정규식, try-catch 추가</td>
+    </tr>
+    <tr>
+      <td>ES5</td>
+      <td>2009</td>
+      <td>JSON, strict mode 도입</td>
+    </tr>
+    <tr>
+      <td class="good">ES6 (ES2015)</td>
+      <td>2015</td>
+      <td>let/const, 화살표함수, class, module 등 대혁신</td>
+    </tr>
+    <tr>
+      <td>ES2016~</td>
+      <td>매년</td>
+      <td>async/await, spread, optional chaining 등 지속 추가</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h2>6. ES6(2015)가 중요한 이유</h2>
+
+  <ul>
+    <li>현대 자바스크립트 문법의 기준점이 됩니다.</li>
+    <li>React, Vue, Node.js 등 최신 프레임워크 기반 문법입니다.</li>
+    <li>현재 실무 개발의 사실상 표준입니다.</li>
+  </ul>
+
+  <div class="note">
+    💡 따라서 "ES6 문법"을 배우는 것은  
+    현대 자바스크립트를 배우는 것과 같습니다.
+  </div>
+</section>
+
+<section>
+  <h2>7. 자바스크립트 실행 환경의 확장</h2>
+
+  <div class="timeline">
+    <div class="event">
+      <span class="year">1995</span> 브라우저에서만 실행
+    </div>
+    <div class="event">
+      <span class="year">2009</span> Node.js 등장 → 서버에서도 실행
+    </div>
+    <div class="event">
+      <span class="year">현재</span> 웹, 서버, 앱(React), IoT까지 확장
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>8. 정리</h2>
+
+  <ul>
+    <li>자바스크립트는 1995년에 탄생합니다.</li>
+    <li>브라우저마다 구현 차이로 표준이 필요했습니다.</li>
+    <li>ECMAScript가 자바스크립트의 공식 표준입니다.</li>
+    <li>ES6(2015) 이후 현대 개발 문법이 완성됩니다.</li>
+    <li>현재 자바스크립트는 모든 플랫폼에서 사용됩니다.</li>
+  </ul>
+
+  <div class="note">
+    🎯 한 줄 요약  
+    <b>JavaScript = ECMAScript 표준을 따르는 현대 웹 개발의 핵심 언어입니다.</b>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+ <meta charset="UTF-8">
+ <title>let과 const</title>
+</head>
+<body>
+
+ <script>
+    // 스코프는 변수를 사용할 수 있는 범위
+
+
+    // 1. let은 { } 안에서 유효한 변수
+
+    let a = 10;
+    if(true){
+        let a = 200;
+        console.log(a);
+    }
+        console.log(a);
+
+
+    // 2. const는 선언과 동시에 값을 저장해야 합니다.
+    //      'const' declarations must be initialized.
+    //      const는 변하지 않는 값을 저장할 때 사용
+
+
+    const PI = 3.14159;
+
+
+
+
+    
+
+    const user = { name: "kim"};
+
+    // 1. 재할당은 불가능
+    // user = {name:"Lee"};
+
+    // 2. 내부 속성 변경은 가능
+    user.name = "Lee";
+
+    console.log(user.name);
+
+
+ </script>
+
+</body>
+</html>

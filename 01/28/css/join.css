@@ -1,0 +1,201 @@
+/* 기본 초기화 */
+* {
+  box-sizing: border-box;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+/* 폼 컨테이너 */
+.container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 500px; /* 전체 폼 너비 */
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font-size: 24px;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+/* 라벨 스타일 */
+label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+}
+
+/* 공통 입력 요소 */
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  height: 42px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* 핵심: 가로 정렬 그룹 (오른쪽 끝 맞추기) */
+.input-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+/* 입력 그룹 안의 input들만 유연하게 늘어남 */
+.input-group input[type="text"],
+.jumin-group input {
+  flex: 1; /* 남은 공간을 모두 채워 오른쪽 끝을 맞춤 */
+}
+
+/* 버튼 스타일 (ID중복검사, 우편검색) */
+input[type="button"] {
+  width: auto;
+  height: 42px;
+  padding: 0 15px;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+input[type="button"]:hover {
+  background-color: #2d3748;
+}
+
+/* 주민번호 및 이메일 특수 처리 */
+.dash, .input-group span {
+  font-weight: bold;
+  color: #888;
+}
+
+#sel {
+  height: 42px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* 성별 & 취미 박스 */
+.container2 {
+  background: #f8f9fb;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #edf2f7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 14px;
+}
+
+/* 자기소개 (가로세로 고정) */
+textarea#intro {
+  height: 120px; /* 높이 고정 */
+  resize: none;   /* 크기 조절 비활성화 */
+  line-height: 1.6;
+}
+
+/* 하단 가입/취소 버튼 */
+.clearfix {
+  display: flex;
+  gap: 12px;
+  margin-top: 35px;
+}
+
+button {
+  flex: 1;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.signupbtn {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.cancelbtn {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/*  이메일 그룹 전체 설정 */
+.email-group {
+  display: flex;
+  gap: 5px;       /* 요소가 많으므로 간격을 살짝 좁힘 */
+  align-items: center;
+}
+
+/* 아이디와 도메인 입력창 (비율을 높여서 크게 만듦) */
+#email, 
+#domain {
+  flex: 3;        
+  min-width: 0;   /* flex 레이아웃 깨짐 방지 */
+}
+
+/* 선택창(select) (비율을 낮춰서 적당한 크기 유지) */
+#sel {
+  flex: 3;       
+  height: 42px;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 0 5px; /* 내부 여백 조절 */
+}
+
+/* @ 기호 스타일 (공간을 차지하지 않도록 고정) */
+.email-group span {
+  flex: none;     /* 크기가 변하지 않음 */
+  padding: 0 2px;
+  font-weight: bold;
+  color: #888;
+}

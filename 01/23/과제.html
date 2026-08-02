@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <script>
+    // 다음 조건을 만족하는 자바스크립트 프로그램을 작성하세요.
+
+// 1. 입력 함수 만들기
+//    (1) 함수 이름은 inputSaram() 입니다. -->
+   function inputSaram(){
+    let saram1;
+
+    prompt(input())
+   }
+//    <!-- (2) 함수 내부에서 빈 객체를 생성합니다. -->
+//    <!-- (3) prompt()를 이용하여 다음 정보를 입력받아 객체의 속성으로 저장합니다. -->
+//    <!-- (4)  속성명	  입력  내용	  데이터 타입 
+//           name	  이름	        문자열
+//           age	    나이	        숫자(Number 변환)
+//           ki	    키	          숫자(Number 변환)
+//         blood	    혈액형	      문자열
+//       address	    주소	        문자열 -->
+    const saram = {
+            name: "김진환",
+            age: 25,
+            ki: 167,
+            blood_type: "B",
+            address: "경기도 성남시",
+            job: {
+                company: "AI회사",
+                loc: "부산",
+                position: "개발자"
+            },
+        }
+//     <!-- (5) 모든 입력이 끝나면 객체를 반환(return) 합니다. -->
+
+// 2.  출력 함수 만들기
+//     (1) 함수 이름은 outputSaram(obj) 입니다.
+//     (2) 매개변수 obj로 전달받은 객체의 속성 값을 화면에 출력합니다.
+//     (3) 출력 형식은 다음 예시와 같이 <br> 태그를 이용합니다.
+//         이름: 홍길동  
+//         나이: 25  
+//         키: 175  
+//         혈액형: O  
+//         주소: 서울시  
+//     (4) 최종 출력은 document.body.innerHTML을 이용합니다.
+
+// 3. 함수 실행
+//     (1) inputSaram() 함수를 호출하여 반환된 객체를 saram1 변수에 저장합니다.
+//     (2) outputSaram(saram1) 형태로 출력 함수를 호출합니다. -->
+    </script>
+</body>
+</html>

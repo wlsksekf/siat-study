@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python 매직 메서드(Magic Method)</title>
+  <style>
+    :root{
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --border:#e2e8f0;
+      --shadow:0 12px 28px rgba(15,23,42,.08);
+      --primary:#2563eb;
+      --primary2:#1d4ed8;
+      --accent:#7c3aed;
+      --codebg:#0b1220;
+      --codetext:#e5e7eb;
+      --note:#eff6ff;
+      --noteBorder:#2563eb;
+      --warn:#fff7ed;
+      --warnBorder:#f97316;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", Arial, "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg),#ffffff 60%);
+    }
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:28px 18px 70px;
+    }
+    header{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:22px 18px;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0 0 8px 0;
+      font-size:28px;
+      letter-spacing:-.3px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    @media (min-width: 900px){
+      .grid{grid-template-columns: 1.2fr .8fr;}
+    }
+    section, aside{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    h2{
+      margin:0 0 10px 0;
+      font-size:20px;
+      letter-spacing:-.2px;
+    }
+    h3{
+      margin:14px 0 8px 0;
+      font-size:16px;
+    }
+    p, li{
+      line-height:1.75;
+      color:#111827;
+    }
+    .muted{color:var(--muted)}
+    .badge{
+      display:inline-block;
+      font-size:12px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(37,99,235,.08);
+      border:1px solid rgba(37,99,235,.2);
+      color:var(--primary2);
+      margin-right:6px;
+    }
+    .note{
+      background:var(--note);
+      border:1px solid var(--noteBorder);
+      border-radius:14px;
+      padding:12px 12px;
+      margin:10px 0;
+    }
+    .warn{
+      background:var(--warn);
+      border:1px solid var(--warnBorder);
+      border-radius:14px;
+      padding:12px 12px;
+      margin:10px 0;
+    }
+    pre{
+      margin:10px 0;
+      padding:14px;
+      overflow:auto;
+      background:var(--codebg);
+      color:var(--codetext);
+      border:1px solid #1f2a44;
+      border-radius:14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .k{
+      font-weight:700;
+      color:var(--primary2);
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--border);
+      margin:10px 0;
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+      text-align:left;
+      font-size:14px;
+    }
+    th{
+      background:#f8fafc;
+      color:#0f172a;
+    }
+    tr:last-child td{border-bottom:none}
+    .toc a{
+      text-decoration:none;
+      color:var(--primary2);
+    }
+    .toc a:hover{ text-decoration:underline; }
+    .small{font-size:13px}
+    footer{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Python 매직 메서드(Magic Method) 교안</h1>
+      <p class="sub">
+        매직 메서드는 <span class="k">__이름__</span> 형태로 정의되는 특수 메서드이며, 파이썬이 특정 동작(연산, 출력, 반복 등)을 수행할 때 자동으로 호출됩니다.<br>
+        dunder(double underscore) 메서드라고도 부릅니다.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section>
+        <h2 id="intro">1. 매직 메서드란?</h2>
+        <p>
+          매직 메서드는 클래스에 정의하면 <span class="k">파이썬의 내장 동작</span>과 연결됩니다.<br>
+          예를 들어 객체를 출력할 때는 <code>__str__</code> 또는 <code>__repr__</code>이 자동으로 호출됩니다.
+        </p>
+
+        <div class="note">
+          <strong>핵심 요약</strong><br>
+          - 매직 메서드는 직접 호출하기보다, <span class="k">연산자/내장 함수/문법</span>이 호출합니다.<br>
+          - 클래스의 “행동(연산, 비교, 출력, 컨테이너 동작)”을 파이썬스럽게 확장할 수 있습니다.
+        </div>
+
+        <h3 id="when">2. 언제 호출되나요?</h3>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:34%">파이썬 코드</th>
+              <th style="width:33%">자동 호출</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>obj = C()</code></td>
+              <td><code>C.__init__(...)</code></td>
+              <td>객체 생성 후 초기화가 진행됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>print(obj)</code></td>
+              <td><code>obj.__str__()</code></td>
+              <td>사람이 읽기 좋은 문자열이 출력됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>repr(obj)</code></td>
+              <td><code>obj.__repr__()</code></td>
+              <td>디버깅/개발자용 표현 문자열이 반환됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>obj1 + obj2</code></td>
+              <td><code>obj1.__add__(obj2)</code></td>
+              <td>덧셈 연산이 정의됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>obj in container</code></td>
+              <td><code>container.__contains__(obj)</code></td>
+              <td>포함 여부 검사가 진행됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>len(obj)</code></td>
+              <td><code>obj.__len__()</code></td>
+              <td>길이(크기)가 반환됩니다.</td>
+            </tr>
+            <tr>
+              <td><code>for x in obj</code></td>
+              <td><code>obj.__iter__()</code></td>
+              <td>반복 가능한 객체로 동작합니다.</td>
+            </tr>
+            <tr>
+              <td><code>with obj as v:</code></td>
+              <td><code>__enter__ / __exit__</code></td>
+              <td>컨텍스트 매니저로 동작합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 id="core">3. 자주 쓰는 매직 메서드</h2>
+
+        <h3 id="init">3-1) 생성/초기화: __new__, __init__</h3>
+        <p class="muted small">
+          일반적으로는 <code>__init__</code>만 자주 사용합니다. <code>__new__</code>는 불변 객체 생성 제어 등 고급 주제에서 사용됩니다.
+        </p>
+        <pre><code>class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+s = Student("Kim", 95)
+print(s.name, s.score)</code></pre>
+
+        <h3 id="strrepr">3-2) 출력/표현: __str__, __repr__</h3>
+        <p>
+          <code>__str__</code>은 사용자 친화적 문자열을 반환하며, <code>__repr__</code>은 개발자/디버깅 친화적 문자열을 반환합니다.<br>
+          보통 둘 다 정의하면 출력 품질이 좋아집니다.
+        </p>
+        <pre><code>class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+    def __repr__(self):
+        return f"Point(x={self.x}, y={self.y})"
+
+p = Point(2, 3)
+print(p)        # (2, 3)  -> __str__
+print(repr(p))  # Point(x=2, y=3) -> __repr__</code></pre>
+
+        <h3 id="compare">3-3) 비교: __eq__, __lt__ ...</h3>
+        <p>
+          객체 비교(==, &lt;, &gt;= 등)를 정의할 수 있습니다.<br>
+          최소한 <code>__eq__</code>(같다)를 정의하는 경우가 많습니다.
+        </p>
+        <pre><code>class Ticket:
+    def __init__(self, price):
+        self.price = price
+
+    def __eq__(self, other):
+        if not isinstance(other, Ticket):
+            return NotImplemented
+        return self.price == other.price
+
+    def __lt__(self, other):
+        if not isinstance(other, Ticket):
+            return NotImplemented
+        return self.price &lt; other.price
+
+a = Ticket(12000)
+b = Ticket(15000)
+
+print(a == b)  # False
+print(a &lt; b)   # True</code></pre>
+
+        <div class="warn">
+          <strong>주의</strong><br>
+          비교 메서드에서 타입이 다를 때는 <code>NotImplemented</code>를 반환하는 방식이 안전합니다.<br>
+          그러면 파이썬이 다른 비교 시도(또는 False 처리)를 진행합니다.
+        </div>
+
+        <h3 id="arith">3-4) 산술 연산: __add__, __sub__, __mul__ ...</h3>
+        <p>
+          +, -, * 같은 연산자 동작을 사용자 정의할 수 있습니다.<br>
+          또한 “뒤집힌 연산”을 위해 <code>__radd__</code> 같은 메서드도 존재합니다.
+        </p>
+        <pre><code>class Money:
+    def __init__(self, amount):
+        self.amount = amount
+
+    def __add__(self, other):
+        if isinstance(other, Money):
+            return Money(self.amount + other.amount)
+        return NotImplemented
+
+    def __str__(self):
+        return f"{self.amount}원"
+
+m1 = Money(5000)
+m2 = Money(7000)
+print(m1 + m2)  # 12000원</code></pre>
+
+        <h3 id="container">3-5) 컨테이너 동작: __len__, __getitem__, __setitem__, __contains__</h3>
+        <p>
+          리스트/딕셔너리처럼 “컨테이너”로 동작하게 만들 수 있습니다.<br>
+          인덱싱, 길이, 포함 여부 같은 문법이 자연스럽게 연결됩니다.
+        </p>
+        <pre><code>class SimpleBag:
+    def __init__(self):
+        self.data = []
+
+    def add(self, x):
+        self.data.append(x)
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        return self.data[idx]
+
+    def __contains__(self, x):
+        return x in self.data
+
+bag = SimpleBag()
+bag.add("apple")
+bag.add("banana")
+
+print(len(bag))        # 2
+print(bag[0])          # apple
+print("apple" in bag)  # True</code></pre>
+
+        <h3 id="iter">3-6) 반복: __iter__, __next__</h3>
+        <p>
+          <code>for</code>문에서 순회할 수 있게 만들려면 보통 <code>__iter__</code>를 정의합니다.<br>
+          직접 이터레이터를 만들 경우 <code>__next__</code>도 함께 다룹니다.
+        </p>
+        <pre><code>class Countdown:
+    def __init__(self, start):
+        self.current = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current &lt; 0:
+            raise StopIteration
+        value = self.current
+        self.current -= 1
+        return value
+
+for n in Countdown(3):
+    print(n)
+# 3
+# 2
+# 1
+# 0</code></pre>
+
+        <h3 id="context">3-7) with 문: __enter__, __exit__</h3>
+        <p>
+          자원(파일, 락 등)을 안전하게 열고 닫는 패턴을 구현할 때 사용합니다.<br>
+          예외가 발생해도 <code>__exit__</code>가 호출되어 정리가 진행됩니다.
+        </p>
+        <pre><code>class Managed:
+    def __enter__(self):
+        print("자원 획득")
+        return "VALUE"
+
+    def __exit__(self, exc_type, exc, tb):
+        print("자원 해제")
+        # False를 반환하면 예외를 그대로 전파합니다.
+        return False
+
+with Managed() as v:
+    print("사용:", v)</code></pre>
+
+        <h3 id="attr">3-8) 속성 접근: __getattr__, __getattribute__, __setattr__</h3>
+        <p>
+          없는 속성에 접근했을 때의 동작을 정의하거나, 속성 접근을 가로채 제어할 수 있습니다.<br>
+          다만 <code>__getattribute__</code>는 모든 속성 접근에 관여하므로 매우 조심해서 사용합니다.
+        </p>
+        <pre><code>class Profile:
+    def __init__(self, name):
+        self.name = name
+
+    def __getattr__(self, item):
+        # 존재하지 않는 속성에 접근했을 때만 호출됩니다.
+        return f"[{item}] 값이 없습니다."
+
+p = Profile("Kim")
+print(p.name)     # Kim
+print(p.age)      # [age] 값이 없습니다.</code></pre>
+
+        <h3 id="call">3-9) 호출 가능 객체: __call__</h3>
+        <p>
+          인스턴스를 함수처럼 호출할 수 있게 만듭니다.
+        </p>
+        <pre><code>class Adder:
+    def __init__(self, base):
+        self.base = base
+
+    def __call__(self, x):
+        return self.base + x
+
+add10 = Adder(10)
+print(add10(5))  # 15</code></pre>
+
+        <h2 id="cheatsheet">4. 매직 메서드 치트시트</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>분류</th>
+              <th>대표 메서드</th>
+              <th>연결되는 문법/함수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>생성/초기화</td>
+              <td><code>__new__</code>, <code>__init__</code></td>
+              <td><code>C()</code></td>
+            </tr>
+            <tr>
+              <td>문자열 표현</td>
+              <td><code>__str__</code>, <code>__repr__</code></td>
+              <td><code>print(obj)</code>, <code>repr(obj)</code></td>
+            </tr>
+            <tr>
+              <td>비교</td>
+              <td><code>__eq__</code>, <code>__lt__</code>, <code>__le__</code>, <code>__gt__</code>, <code>__ge__</code></td>
+              <td><code>==</code>, <code>&lt;</code>, <code>&gt;=</code> 등</td>
+            </tr>
+            <tr>
+              <td>산술</td>
+              <td><code>__add__</code>, <code>__sub__</code>, <code>__mul__</code>, <code>__truediv__</code></td>
+              <td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></td>
+            </tr>
+            <tr>
+              <td>컨테이너</td>
+              <td><code>__len__</code>, <code>__getitem__</code>, <code>__setitem__</code>, <code>__contains__</code></td>
+              <td><code>len()</code>, <code>[]</code>, <code>in</code></td>
+            </tr>
+            <tr>
+              <td>반복</td>
+              <td><code>__iter__</code>, <code>__next__</code></td>
+              <td><code>for</code>, <code>iter()</code>, <code>next()</code></td>
+            </tr>
+            <tr>
+              <td>컨텍스트</td>
+              <td><code>__enter__</code>, <code>__exit__</code></td>
+              <td><code>with</code></td>
+            </tr>
+            <tr>
+              <td>속성 제어</td>
+              <td><code>__getattr__</code>, <code>__setattr__</code></td>
+              <td><code>obj.attr</code>, 동적 속성</td>
+            </tr>
+            <tr>
+              <td>호출</td>
+              <td><code>__call__</code></td>
+              <td><code>obj()</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 id="practice">5. 실습 예제: “학생 점수” 객체를 파이썬스럽게 만들기</h2>
+        <p>
+          아래 클래스는 출력, 비교, 길이/인덱싱까지 지원합니다.<br>
+          즉, 사용자 정의 객체가 리스트/컨테이너처럼 자연스럽게 동작합니다.
+        </p>
+        <pre><code>class ScoreCard:
+    def __init__(self, name, scores):
+        self.name = name
+        self.scores = list(scores)
+
+    def __str__(self):
+        return f"{self.name}: {self.scores}"
+
+    def __repr__(self):
+        return f"ScoreCard(name={self.name!r}, scores={self.scores!r})"
+
+    def __len__(self):
+        return len(self.scores)
+
+    def __getitem__(self, idx):
+        return self.scores[idx]
+
+    def __eq__(self, other):
+        if not isinstance(other, ScoreCard):
+            return NotImplemented
+        return sum(self.scores) == sum(other.scores)
+
+a = ScoreCard("Kim", [90, 80, 100])
+b = ScoreCard("Lee", [95, 85, 70])
+
+print(a)          # Kim: [90, 80, 100]
+print(repr(a))    # ScoreCard(name='Kim', scores=[90, 80, 100])
+print(len(a))     # 3
+print(a[0])       # 90
+print(a == b)     # 총점 비교</code></pre>
+
+        <div class="note">
+          <strong>정리</strong><br>
+          매직 메서드를 적절히 정의하면, 객체가 <span class="k">파이썬의 내장 문법과 자연스럽게 연결됩니다</span>.<br>
+          그래서 코드 가독성과 사용성이 좋아집니다.
+        </div>
+      </section>
+
+      <aside>
+        <h2>목차</h2>
+        <ol class="toc">
+          <li><a href="#intro">매직 메서드란?</a></li>
+          <li><a href="#when">언제 호출되나요?</a></li>
+          <li><a href="#core">자주 쓰는 매직 메서드</a></li>
+          <li><a href="#init">__new__ / __init__</a></li>
+          <li><a href="#strrepr">__str__ / __repr__</a></li>
+          <li><a href="#compare">비교 연산</a></li>
+          <li><a href="#arith">산술 연산</a></li>
+          <li><a href="#container">컨테이너 동작</a></li>
+          <li><a href="#iter">반복</a></li>
+          <li><a href="#context">with 문</a></li>
+          <li><a href="#attr">속성 접근 제어</a></li>
+          <li><a href="#call">__call__</a></li>
+          <li><a href="#cheatsheet">치트시트</a></li>
+          <li><a href="#practice">실습 예제</a></li>
+        </ol>
+
+        <h3>자주 나오는 용어</h3>
+        <ul class="small muted">
+          <li><strong>dunder</strong>: double underscore의 줄임말입니다.</li>
+          <li><strong>NotImplemented</strong>: “이 연산은 여기서 처리하지 않습니다”를 의미합니다.</li>
+          <li><strong>StopIteration</strong>: 반복이 끝났음을 알리는 예외입니다.</li>
+        </ul>
+
+        <div class="warn small">
+          <strong>실무 팁</strong><br>
+          - 처음에는 <code>__init__</code>, <code>__str__</code>, <code>__repr__</code>, <code>__eq__</code>부터 연습하는 것이 좋습니다.<br>
+          - 속성 접근을 건드리는 <code>__getattribute__</code>는 디버깅이 어려울 수 있으니 신중히 사용합니다.
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      © Python Magic Methods Handout<br>
+      이 문서는 학습용 예제로 구성되어 있습니다.
+    </footer>
+  </div>
+</body>
+</html>

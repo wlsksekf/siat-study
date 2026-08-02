@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>파이썬 인스턴스 변수와 클래스 변수 교안</title>
+<style>
+  :root{
+    --bg:#f3f6ff;
+    --panel:#ffffff;
+    --text:#0f172a;
+    --muted:#475569;
+    --border:#e2e8f0;
+    --shadow:0 10px 28px rgba(15,23,42,.08);
+
+    --primary:#2563eb;
+    --primary-2:#1d4ed8;
+    --accent:#7c3aed;
+
+    --note-bg:#eff6ff;
+    --note-border:#2563eb;
+
+    --code-bg:#0b1220;
+    --code-text:#e5e7eb;
+    --code-border:#1f2a44;
+
+    --tab-bg:#ffffff;
+    --tab-hover:#eff6ff;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    padding:28px;
+    font-family:"맑은 고딕", Arial, sans-serif;
+    line-height:1.8;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 600px at 20% 0%, #e9efff 0%, transparent 60%),
+      radial-gradient(1200px 600px at 90% 20%, #efe9ff 0%, transparent 55%),
+      var(--bg);
+  }
+
+  .container{
+    max-width:1080px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+
+  h1{margin:0 0 10px 0; font-size:26px; letter-spacing:-.2px;}
+  h2{margin-top:22px; font-size:20px; letter-spacing:-.2px;}
+  h3{margin-top:16px; font-size:16px; letter-spacing:-.1px;}
+  .lead{margin:8px 0 0 0; color:var(--muted);}
+
+  /* 탭 */
+  .tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:18px 0 14px 0;
+  }
+  .tabs, .tabs *{list-style:none;}
+  .tab-btn{
+    border:1px solid var(--border);
+    background:var(--tab-bg);
+    padding:10px 12px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:14px;
+    color:var(--text);
+    transition:transform .08s ease, background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .tab-btn:hover{
+    background:var(--tab-hover);
+    border-color:#c7d2fe;
+    transform:translateY(-1px);
+  }
+  .tab-btn.active{
+    background:linear-gradient(135deg, var(--primary), var(--accent));
+    color:#fff;
+    border-color:transparent;
+  }
+  .tab-btn:focus{
+    outline:3px solid rgba(37,99,235,.25);
+    outline-offset:2px;
+  }
+
+  .panel{
+    display:none;
+    border-top:1px dashed #cbd5e1;
+    padding-top:16px;
+  }
+  .panel.active{display:block;}
+
+  .card{
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:14px;
+    padding:14px 16px;
+    margin:12px 0;
+    box-shadow:0 6px 16px rgba(15,23,42,.04);
+  }
+  .note{
+    border-left:4px solid var(--note-border);
+    background:var(--note-bg);
+    padding:12px 14px;
+    border-radius:12px;
+    margin:12px 0;
+    color:#1e293b;
+  }
+
+  code, pre{
+    font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  code{
+    background:#eef2ff;
+    border:1px solid #e0e7ff;
+    padding:1px 6px;
+    border-radius:8px;
+    color:#1e293b;
+  }
+  pre{
+    margin:10px 0;
+    padding:12px 14px;
+    background:var(--code-bg);
+    color:var(--code-text);
+    border-radius:14px;
+    overflow:auto;
+    border:1px solid var(--code-border);
+  }
+
+  .badge{
+    display:inline-block;
+    padding:2px 10px;
+    border:1px solid #e9d5ff;
+    background:#f5f3ff;
+    border-radius:999px;
+    font-size:12px;
+    color:#5b21b6;
+    margin-right:6px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0;
+    overflow:hidden;
+    border-radius:12px;
+    border:1px solid var(--border);
+  }
+  th, td{
+    border-bottom:1px solid var(--border);
+    padding:10px;
+    vertical-align:top;
+    font-size:14px;
+  }
+  th{
+    background:#f1f5ff;
+    color:#0f172a;
+    text-align:left;
+  }
+  tbody tr:hover{background:#f8fafc;}
+  ul{padding-left:18px; margin:8px 0;}
+  ul li:empty{display:none;}
+  .muted{color:var(--muted);}
+
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  @media (min-width: 900px){
+    .two-col{grid-template-columns:1fr 1fr;}
+  }
+
+  .kbd{
+    display:inline-block;
+    padding:2px 8px;
+    border:1px solid #cbd5e1;
+    background:#f8fafc;
+    border-radius:8px;
+    font-size:12px;
+    color:#0f172a;
+    vertical-align:middle;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>인스턴스 변수와 클래스 변수</h1>
+    <p class="lead">
+      이 교안은 <b>인스턴스 변수</b>와 <b>클래스 변수</b>의 차이, 문법, 예제, 퀴즈/과제를 한 번에 정리합니다.
+    </p>
+
+    <div class="tabs" role="tablist" aria-label="학습 탭">
+      <button class="tab-btn active" data-tab="t1" role="tab" aria-selected="true">1. 개념</button>
+      <button class="tab-btn" data-tab="t2" role="tab" aria-selected="false">2. 문법</button>
+      <button class="tab-btn" data-tab="t3" role="tab" aria-selected="false">3. 예시</button>
+    </div>
+
+    <!-- 1. 개념 -->
+    <section class="panel active" id="t1" role="tabpanel">
+      <h2>1) 개념</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <span class="badge">인스턴스 변수</span>
+          <ul>
+            <li>객체(인스턴스)마다 <b>독립적으로</b> 존재하는 변수입니다.</li>
+            <li><code>self.변수명</code> 형태로 정의됩니다.</li>
+            <li>같은 클래스로 만든 인스턴스라도 <b>값이 달라질 수 있습니다.</b></li>
+          </ul>
+          <div class="note">
+            예: 학생 1의 <code>name</code>과 학생 2의 <code>name</code>은 서로 다를 수 있습니다.
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="badge">클래스 변수</span>
+          <ul>
+            <li>클래스 전체가 <b>공유</b>하는 변수입니다.</li>
+            <li><code>클래스명.변수명</code> 또는 클래스 내부에 정의합니다.</li>
+            <li>모든 인스턴스가 <b>같은 값</b>을 봅니다.</li>
+          </ul>
+          <div class="note">
+            예: 같은 학교 소속이라면 <code>school_name</code>은 모두 동일하게 공유됩니다.
+          </div>
+        </div>
+      </div>
+
+      <h3>한 줄 요약</h3>
+      <div class="card">
+        <p>
+          <b>인스턴스 변수</b>는 “각자(개별 데이터)”, <b>클래스 변수</b>는 “공통(공유 데이터)”입니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. 문법 -->
+    <section class="panel" id="t2" role="tabpanel">
+      <h2>2) 문법</h2>
+
+      <div class="card">
+        <span class="badge">기본 형태</span>
+        <p class="muted">
+          클래스 변수는 클래스 블록에 작성하고, 인스턴스 변수는 보통 <code>__init__</code>에서 <code>self</code>로 작성합니다.
+        </p>
+      </div>
+
+      <pre>
+class 클래스명:
+    클래스변수 = 값  # 클래스 변수
+
+    def __init__(self, 값):
+        self.인스턴스변수 = 값  # 인스턴스 변수
+</pre>
+
+      <div class="note">
+        <b>기억</b><br>
+        - <code>self.</code>가 붙으면 보통 “인스턴스 변수”입니다.<br>
+        - 클래스 변수는 <code>클래스명.변수명</code>으로 접근/변경합니다.
+      </div>
+    </section>
+
+    <!-- 3. 예시 -->
+    <section class="panel" id="t3" role="tabpanel">
+      <h2>3) 예시</h2>
+
+      <div class="card">
+        <span class="badge">Student 예제</span>
+        <p class="muted">
+          <code>school_name</code>은 모두가 공유(클래스 변수), <code>name</code>/<code>age</code>는 각자 보유(인스턴스 변수)입니다.
+        </p>
+      </div>
+
+      <pre>
+class Student:
+    school_name = "파이썬고등학교"   # 클래스 변수
+
+    def __init__(self, name, age):
+        self.name = name           # 인스턴스 변수
+        self.age = age             # 인스턴스 변수
+
+# 인스턴스 생성
+s1 = Student("홍길동", 18)
+s2 = Student("김철수", 17)
+
+# 인스턴스 변수 출력 (개별적)
+print(s1.name, s1.age)   # 홍길동 18
+print(s2.name, s2.age)   # 김철수 17
+
+# 클래스 변수 출력 (공유됨)
+print(s1.school_name)    # 파이썬고등학교
+print(s2.school_name)    # 파이썬고등학교
+
+# 클래스 변수 변경
+Student.school_name = "AI고등학교"
+
+print(s1.school_name)    # AI고등학교
+print(s2.school_name)    # AI고등학교
+</pre>
+
+      <div class="note">
+        <b>포인트</b><br>
+        클래스 변수를 바꾸면(<code>Student.school_name = ...</code>) 만들어진 인스턴스들도 같은 값을 봅니다.
+      </div>
+    </section>
+
+   
+  </div>
+
+<script>
+  const btns = document.querySelectorAll(".tab-btn");
+  const panels = document.querySelectorAll(".panel");
+
+  function activate(tabId){
+    btns.forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
+    panels.forEach(p => p.classList.toggle("active", p.id === tabId));
+    btns.forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tabId ? "true" : "false"));
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => activate(btn.dataset.tab));
+  });
+</script>
+</body>
+</html>

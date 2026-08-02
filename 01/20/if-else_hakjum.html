@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>if-else문</title>
+</head>
+<body>
+    <h2>학점 판정 프로그램</h2>
+<script>
+let score = Number(prompt("점수 입력하세요"));
+
+if (score >= 90) {
+    output = "A";
+} else if (score >= 80) {
+    output = "B";
+}
+else if (score >= 70) {
+    output = "C";
+}
+else if (score >= 60) {
+    output = "D";
+}
+else {
+    output = "F";
+}
+document.body.innerHTML = "<p>당신의 학점은 " + output + " 입니다.</p>";
+</script>
+</body>
+</html>

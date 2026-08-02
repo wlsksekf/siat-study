@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>자바스크립트 String 객체 교안</title>
+  <style>
+    body{
+      font-family:"Segoe UI", Arial, sans-serif;
+      background:#f7f8fb;
+      padding:28px;
+      line-height:1.7;
+      color:#111827;
+    }
+    .wrap{max-width:1050px;margin:auto;}
+    header{
+      background:#2563eb;
+      color:white;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 6px 16px rgba(0,0,0,.1);
+    }
+    section{
+      background:white;
+      margin-top:15px;
+      padding:20px;
+      border-radius:10px;
+      border:1px solid #e5e7eb;
+    }
+    h2{margin-top:0;}
+    pre{
+      background:#0b1020;
+      color:#e5e7eb;
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+    }
+    table{
+      border-collapse:collapse;
+      width:100%;
+      margin-top:10px;
+    }
+    th,td{
+      border:1px solid #d1d5db;
+      padding:10px;
+      text-align:left;
+    }
+    th{background:#f3f4f6;}
+    .note{
+      background:#ecfdf5;
+      border-left:4px solid #10b981;
+      padding:10px;
+      margin-top:10px;
+      border-radius:6px;
+      color:#065f46;
+    }
+    .warn{
+      background:#fef2f2;
+      border-left:4px solid #ef4444;
+      padding:10px;
+      margin-top:10px;
+      border-radius:6px;
+      color:#991b1b;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>자바스크립트 String 객체</h1>
+  <p>문자열을 다루는 String 객체와 주요 메서드를 학습합니다.</p>
+</header>
+
+<section>
+
+<h2>1) String 객체란?</h2>
+
+<p>
+String 객체는 문자(텍스트) 데이터를 다루기 위한 자바스크립트 내장 객체입니다.  
+문자열은 작은따옴표(' '), 큰따옴표(" "), 백틱(` `)으로 생성됩니다.
+</p>
+
+<div class="note">
+<strong>정리:</strong>  
+String 객체는 문자열 처리에 필요한 다양한 메서드를 제공합니다.
+</div>
+
+
+
+<h2>2) 문자열 생성 방법</h2>
+
+<pre><code>let str1 = "Hello";
+let str2 = 'JavaScript';
+let str3 = `문자열 템플릿`;</code></pre>
+
+
+
+<h2>3) 문자열 길이 (length)</h2>
+
+<pre><code>let msg = "Hello World";
+console.log(msg.length); // 11 출력됩니다</code></pre>
+
+
+
+<h2>4) 문자열 인덱스 접근</h2>
+
+<p>
+문자열도 배열처럼 인덱스로 각 문자에 접근할 수 있습니다.
+</p>
+
+<pre><code>let word = "ABC";
+console.log(word[0]); // A 출력됩니다
+console.log(word[1]); // B 출력됩니다</code></pre>
+
+
+
+<h2>5) 문자열 대소문자 변환</h2>
+
+<pre><code>let text = "JavaScript";
+
+console.log(text.toUpperCase()); // "JAVASCRIPT"
+console.log(text.toLowerCase()); // "javascript"</code></pre>
+
+
+
+<h2>6) 문자열 검색 메서드</h2>
+
+<table>
+<tr>
+  <th>메서드</th>
+  <th>설명</th>
+</tr>
+<tr>
+  <td>indexOf()</td>
+  <td>문자의 위치를 찾습니다. 없으면 -1 반환됩니다</td>
+</tr>
+<tr>
+  <td>includes()</td>
+  <td>문자 포함 여부를 true/false로 반환합니다</td>
+</tr>
+</table>
+
+<pre><code>let msg = "Hello JavaScript";
+
+console.log(msg.indexOf("Java")); // 6 출력됩니다
+console.log(msg.includes("Script")); // true 출력됩니다</code></pre>
+
+
+
+<h2>7) 문자열 자르기</h2>
+
+<table>
+<tr>
+  <th>메서드</th>
+  <th>설명</th>
+</tr>
+<tr>
+  <td>slice(start, end)</td>
+  <td>문자열 일부를 잘라 반환합니다</td>
+</tr>
+<tr>
+  <td>substring(start, end)</td>
+  <td>slice와 비슷하지만 음수 인덱스를 허용하지 않습니다</td>
+</tr>
+</table>
+
+<pre><code>let text = "Hello JavaScript";
+
+console.log(text.slice(0,5)); // Hello 출력됩니다
+console.log(text.substring(6,16)); // JavaScript 출력됩니다</code></pre>
+
+
+
+<h2>8) 문자열 치환 (replace)</h2>
+
+<pre><code>let msg = "I like JavaScript";
+console.log(msg.replace("JavaScript","HTML")); 
+// "I like HTML" 출력됩니다</code></pre>
+
+
+
+<h2>9) 공백 제거 (trim)</h2>
+
+<pre><code>let input = "   hello   ";
+console.log(input.trim()); // "hello" 출력됩니다</code></pre>
+
+
+
+<h2>10) 문자열 분리와 결합</h2>
+
+<pre><code>let fruits = "사과,바나나,포도";
+let arr = fruits.split(",");
+console.log(arr); // ["사과","바나나","포도"]
+
+let result = arr.join(" / ");
+console.log(result); // "사과 / 바나나 / 포도"</code></pre>
+
+
+
+<h2>11) 실전 예제</h2>
+
+<pre><code>let email = prompt("이메일 입력");
+
+if(email.includes("@")) {
+  document.body.innerHTML = "올바른 이메일입니다.";
+} else {
+  document.body.innerHTML = "이메일 형식이 아닙니다.";
+}</code></pre>
+
+
+
+
+
+</section>
+</div>
+</body>
+</html>

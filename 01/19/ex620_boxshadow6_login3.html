@@ -1,0 +1,100 @@
+<!-- https://www.w3schools.com/howto/howto_css_login_form.asp
+     참고해서 아래와 같이 만들어 봅시다.
+     
+    <p>태그를 이용한   username과 password 간격 조절
+     
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	outline:1px solid #bed7ce;
+}
+
+button {
+	background-color: #04AA6D;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+button:hover{
+  opacity:0.7;
+}
+
+form {
+	width: 500px;
+    margin: 30px auto;   
+    box-shadow: 20px 20px 10px #ccc;
+    background-color: whitesmoke;
+}
+
+legend {
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 1.5em;   
+	padding-top: 0.5em
+}
+
+input[type=checkbox] {
+	margin-bottom: 10px
+}
+
+fieldset{
+  border: none;   
+}
+
+.animate {
+  animation: animatezoom 1s
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+</style>
+</head>
+<body>
+   
+
+	<form action="result.html" method="post" class="animate">
+		<fieldset>
+			<legend >로그인 폼</legend>
+			<div class="container">
+			<p>
+				<label for="uname"><b>Username</b></label> 
+				<input type="text" placeholder="Enter Username" name="uname"  id="uname" required>
+			</p>	
+			<p>	
+				 <label for="psw"><b>Password</b></label> 
+				 <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+            </p>
+				<button type="submit">Login</button>
+				<label> <input type="checkbox" checked="checked" name="remember"> Remember me </label>
+			</div>
+		</fieldset>
+	</form>
+
+
+
+
+
+

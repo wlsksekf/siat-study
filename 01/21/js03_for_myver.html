@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>for 반복문 2</title>
+    <style>
+        table {
+            table-layout: auto;
+            text-align: center;
+            width: 500px;
+            margin: 0 auto;
+            /* 0은 위, 아래 여백, auto는 왼, 오 여백을 자동 계산 */
+            border-collapse: collapse;
+            /* 이중선을 단일선으로 바꾸는 */
+
+        }
+
+        table caption {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0.5em;
+            text-align: left;
+        }
+
+        th,
+        tr,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        thead {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let count = Number(prompt("입력할 사람 수를 입력하세요"));
+        let name = [];
+        let age = [];
+        let abo = [];
+
+        let table = `
+            <table>
+        <caption>입력된 개인정보</caption>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>나이</th>
+                <th>혈액형</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+        for (i = 0; i < count; i++) {
+            name[i] = prompt(`${i+1}번째 이름 입력`);
+            age[i] = prompt(`${i+1}번째나이 입력`);
+            abo[i] = prompt(`${i+1}번째혈액형 입력`);
+        }
+
+
+        for (i=0; i < count; i++) {
+            table += `
+            <tr>
+                <td>${name[i]}</td>
+                <td>${age[i]}</td>
+                <td>${abo[i]}</td>
+            </tr>`;          
+        };
+        table += `
+            </tbody>
+        </table>
+        `;
+
+        document.body.innerHTML = table;
+    </script>
+
+</body>
+
+</html>

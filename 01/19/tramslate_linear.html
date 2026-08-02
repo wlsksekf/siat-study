@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>글자색 반복</title>
+<style>
+    div{
+        display: inline-block;
+        padding: 5px;
+        color: white;
+        background-color: olive;
+        transition: transform 5s ease-in-out;
+    }
+
+    #translate:hover{
+        transform: translateX(500px);
+    }
+</style>
+</head>
+<body>
+    <h3>다양한 transform</h3>
+    아래는 이동이 적용됩니다.
+    또한 마우스를 올리면 추가 변환이 일어납니다.
+    <hr>
+    <div id="translate">translate(500px)</div>
+</body>
+</html>

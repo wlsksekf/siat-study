@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>위치/크기 지정 속성</title>
+<style>
+    div{
+        width: 100px;
+        height: 100px;
+    }
+
+    #box1{
+        background-color: red;
+    }
+
+    #box1:active{
+        position:absolute;
+        right: 30px;
+        bottom: 50px;
+    }
+
+    #box2{
+        background-color: blue;
+    }
+
+    #box2{
+        position: absolute;
+        right: 170px;
+        bottom: 50px;
+    }
+</style>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+</html>

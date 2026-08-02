@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Flexbox justify-content 통합 교안</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:#f7f8fb;
+      padding:30px;
+      line-height:1.8;
+      color:#222;
+    }
+    .container {
+      max-width:1000px;
+      margin:auto;
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1,h2,h3 {
+      color:#0d6efd;
+    }
+    pre {
+      background:#272822;
+      color:#f8f8f2;
+      padding:15px;
+      border-radius:6px;
+      overflow-x:auto;
+    }
+    table {
+      border-collapse:collapse;
+      width:100%;
+      margin-top:10px;
+    }
+    th,td {
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+    th {
+      background:#e9f0ff;
+    }
+
+    /* Flexbox 예제 스타일 */
+    .flex-box {
+      display:flex;
+      border:2px solid #0d6efd;
+      background:#eef5ff;
+      padding:10px;
+      margin:10px 0 25px 0;
+    }
+    .flex-box img {
+      width:70px;
+      height:70px;
+    }
+    .label {
+      font-weight:bold;
+      margin-top:20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h1>Flexbox 정렬 : justify-content</h1>
+<hr>
+
+<h2>1. Flexbox란?</h2>
+<p>
+Flexbox(Flexible Box)는  
+<strong>요소들을 한 줄 또는 여러 줄로 배치하고 정렬하기 위한 CSS 레이아웃 방식</strong>입니다.  
+특히 가로 정렬과 세로 정렬을 매우 쉽게 처리할 수 있습니다.
+</p>
+
+<h2>2. Flex 컨테이너 만들기</h2>
+
+<pre>
+.flex-container {
+  display: flex;
+}
+</pre>
+
+<p>
+display:flex; 를 적용한 요소를  
+<strong>Flex 컨테이너</strong>라고 부르며,  
+그 안의 자식 요소들은 <strong>Flex 아이템</strong>이 됩니다.
+</p>
+
+<h2>3. justify-content란?</h2>
+
+<p>
+justify-content 속성은  
+<strong>Flex 컨테이너 안에서 아이템을 가로 방향(주축)으로 정렬하는 방법</strong>을 지정합니다.<br>
+(단, flex-direction: row; 가 기본값일 때)
+</p>
+
+<h2>4. justify-content 속성값</h2>
+
+<table>
+<tr><th>값</th><th>설명</th></tr>
+<tr><td>flex-start</td><td>아이템들을 왼쪽부터 정렬합니다.</td></tr>
+<tr><td>flex-end</td><td>아이템들을 오른쪽부터 정렬합니다.</td></tr>
+<tr><td>center</td><td>아이템들을 가운데 정렬합니다.</td></tr>
+<tr><td>space-between</td><td>첫 번째는 왼쪽 끝, 마지막은 오른쪽 끝에 배치하고 사이 간격을 동일하게 합니다.</td></tr>
+<tr><td>space-around</td><td>각 아이템 주변에 동일한 여백을 둡니다. (양 끝 여백은 절반)</td></tr>
+<tr><td>space-evenly</td><td>모든 간격을 완전히 동일하게 배치합니다.</td></tr>
+</table>
+
+<h2>5. 기본 예제</h2>
+
+<pre>
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+</pre>
+
+<div class="flex-box" style="justify-content:center;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+
+<p>
+위 예제는 justify-content: center; 로 설정되어  
+이미지들이 가로 방향으로 가운데 정렬됩니다.
+</p>
+
+<hr>
+
+<h2>6. justify-content 값 변경 실습 + 결과</h2>
+<p>아래는 justify-content 값을 변경했을 때의 실제 실행 결과입니다.</p>
+
+<div class="label">1) justify-content: flex-start</div>
+<div class="flex-box" style="justify-content:flex-start;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+<p>→ 아이템들이 왼쪽부터 정렬됩니다.</p>
+
+<div class="label">2) justify-content: flex-end</div>
+<div class="flex-box" style="justify-content:flex-end;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+<p>→ 아이템들이 오른쪽부터 정렬됩니다.</p>
+
+<div class="label">3) justify-content: center</div>
+<div class="flex-box" style="justify-content:center;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+<p>→ 아이템들이 가운데 정렬됩니다.</p>
+
+<div class="label">4) justify-content: space-between</div>
+<div class="flex-box" style="justify-content:space-between;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+<p>→ 첫 번째는 왼쪽 끝, 마지막은 오른쪽 끝에 배치되고 사이 간격이 동일합니다.</p>
+
+<div class="label">5) justify-content: space-around</div>
+<div class="flex-box" style="justify-content:space-around;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+<p>→ 각 요소 주변에 동일한 여백이 생기며, 양 끝 여백은 절반입니다.</p>
+
+<div class="label">6) justify-content: space-evenly</div>
+<div class="flex-box" style="justify-content:space-evenly;">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+  <img src="Strawberry.png">
+</div>
+<p>→ 모든 간격이 완전히 동일하게 배치됩니다.</p>
+
+<hr>
+
+<h2>7. 정리</h2>
+<ul>
+  <li>display:flex → Flex 컨테이너 생성</li>
+  <li>justify-content → 가로(주축) 방향 정렬</li>
+  <li>flex-direction 기본값은 row</li>
+  <li>값에 따라 아이템 배치가 달라집니다.</li>
+</ul>
+
+</div>
+</body>
+</html>
