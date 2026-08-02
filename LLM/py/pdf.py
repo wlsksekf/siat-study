@@ -7,9 +7,11 @@ from typing import Any
 import pandas as pd
 
 try:
+    # pyrefly: ignore [missing-import]
     import fitz
 except ModuleNotFoundError:
     try:
+        # pyrefly: ignore [missing-import]
         import pymupdf as fitz
     except ModuleNotFoundError as exc:
         raise ModuleNotFoundError(
@@ -17,16 +19,19 @@ except ModuleNotFoundError:
         ) from exc
 
 try:
+    # pyrefly: ignore [missing-import]
     from img2table.document import PDF as Img2TablePDF
 except ModuleNotFoundError:
     Img2TablePDF = None
 
 try:
+    # pyrefly: ignore [missing-import]
     from img2table.ocr import EasyOCR as Img2TableEasyOCR
 except ModuleNotFoundError:
     Img2TableEasyOCR = None
 
 try:
+    # pyrefly: ignore [missing-import]
     import easyocr
 except ModuleNotFoundError:
     easyocr = None
