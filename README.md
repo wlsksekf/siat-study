@@ -23,5 +23,3 @@
 - **Languages**: Python, Java, JavaScript, HTML, CSS
 - **AI / Data**: Pandas, NumPy, Scikit-learn, OpenAI API (LLM)
 
----
-*💡 본 저장소는 SIAT 교육 수료 시점까지 지속적으로 업데이트됩니다.*
